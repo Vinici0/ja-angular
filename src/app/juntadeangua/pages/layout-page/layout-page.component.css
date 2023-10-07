@@ -1,0 +1,29 @@
+.toolbar-item-spacer {
+  flex: 1 1 auto;
+}
+
+.app-container {
+  height: 90%;
+  margin: 0;
+}
+.app-sidenav {
+  width: 240px;
+}
+.app-sidenav-content {
+  display: flex;
+  /* height: 100%; */
+  align-items: center;
+  justify-content: center;
+}
+
+.vertical-align {
+  display: flex; /* Aplicar flexbox */
+  align-items: center; /* Alinear verticalmente en el centro */
+}
+
+.text-title {
+  font-size: 1.1rem;
+
+  letter-spacing: 0.0075em;
+  color: rgba(0, 0, 0, 0.579);
+}
