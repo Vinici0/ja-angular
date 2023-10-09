@@ -7,6 +7,7 @@ import { ServiceReportComponent } from './pages/service-report/service-report.co
 import { AddExtentComponent } from './pages/add-extent/add-extent.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MeterPageComponent } from './pages/meter-page/meter-page.component';
+import { CutomersPageComponent } from './pages/cutomers-page/cutomers-page.component';
 
 const routes: Routes = [
   {
@@ -37,9 +38,10 @@ const routes: Routes = [
       {
         path: 'pages/meter',
         component: MeterPageComponent
-
+      },{
+        path: 'pages/cutomers',
+        component: CutomersPageComponent
       }
-
     ],
   },
 

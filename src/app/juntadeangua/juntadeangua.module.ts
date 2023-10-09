@@ -16,6 +16,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewComponent } from './modals/pdf-view/pdf-view.component';
 import { MeterPageComponent } from './pages/meter-page/meter-page.component';
+import { CutomersPageComponent } from './pages/cutomers-page/cutomers-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MeterPageComponent } from './pages/meter-page/meter-page.component';
     DashboardComponent,
     PdfViewComponent,
     MeterPageComponent,
+    CutomersPageComponent,
   ],
   imports: [
     CommonModule,

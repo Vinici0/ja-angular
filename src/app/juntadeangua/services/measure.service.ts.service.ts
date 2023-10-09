@@ -51,4 +51,24 @@ export class MeasureServiceTsService {
         catchError((err) => of(err.error))
       );
   }
+
+  execCorte() {
+    const url = `${base_url}/measures/court`;
+    return this.http.get<any>(url);
+  }
+
+  imprimirCorte(data: any): Observable<any> {
+    const url = `${base_url}/reports/pdf-court`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<any>(url, data, { headers, responseType: 'blob' as 'json' })
+      .pipe(
+        map((resp) => {
+          // console.log(resp.data);
+          return resp;
+        }),
+        catchError((err) => of(err.error))
+      );
+  }
 }

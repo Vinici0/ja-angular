@@ -19,3 +19,25 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.with-icon {
+  font-size: 2.5rem;
+}
+
+.color-cutomer{
+  background-color: #ef4f4c;
+}
+
+.color-meter{
+  background-color: #2196f3;
+}
+
+.color-meter-repair{
+  background-color: #009688;
+}
+
+.color-user{
+  background-color: #3f51b5;
+}
+
+/* #ef4f4c, #2196f3, #009688, #3f51b5, #ffeb3b,#4caf50 */

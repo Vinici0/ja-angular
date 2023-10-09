@@ -5,6 +5,7 @@ import { Measure } from '../../interfaces/measure';
 import { MeasureServiceTsService } from '../../services/measure.service.ts.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 
 @Component({
   selector: 'app-service-expense',
@@ -34,11 +35,15 @@ export class ServiceExpenseComponent implements OnInit {
   startDate = new Date();
   endDate = new Date();
   formGroup: FormGroup;
-  filterAnio:any ;
+  filterAnio: any;
+  columnFilters: { [key: string]: string } = {};
+  pdfurl: string = '';
+
   constructor(
     private measureServiceTsService: MeasureServiceTsService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public dialogView: MatDialog
   ) {
     this.formGroup = this.fb.group({
       fechaInicio: ['', Validators.required],
@@ -47,29 +52,22 @@ export class ServiceExpenseComponent implements OnInit {
   }
 
   displayedColumns: string[] = [
-    'Anio',
-    'Mes',
     'Nombre',
-    'Codigo',
     'Manzana',
     'Lote',
-    'LecturaAnterior',
-    'LecturaActual',
-    'Basico',
-    'Pago',
+    'Codigo',
+    'Meses',
     'Saldo',
-    'Excedente',
-    'Total',
-    'Acumulado',
   ];
 
   ngOnInit(): void {
-    this.getMeasures();
+    this.execCorte();
   }
 
-  getMeasures() {
-    this.measureServiceTsService.getMeasures().subscribe((resp) => {
-      console.log(resp.data.measure); // Esto imprimirá la respuesta en la consola
+
+  execCorte() {
+    this.measureServiceTsService.execCorte().subscribe((resp) => {
+      console.log(resp);
       this.dataSource = new MatTableDataSource(resp.data.measure);
       this.dataSource.paginator = this.paginatior;
     });
@@ -93,6 +91,46 @@ export class ServiceExpenseComponent implements OnInit {
     console.log(this.formGroup.value);
   }
 
-  applyFilter() {
+  applyFilter(event: Event, columnName: string) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.columnFilters[columnName] = filterValue;
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      const transformedData = (data[columnName] || '').trim().toLowerCase();
+      return transformedData.includes(filter);
+    };
+
+    this.dataSource.filter = this.columnFilters[columnName];
   }
+
+  openDialog() {
+    this.measureServiceTsService
+      .imprimirCorte(this.dataSource.filteredData)
+      .subscribe((resp) => {
+        const blobUrl = window.URL.createObjectURL(resp);
+        this.pdfurl = blobUrl;
+
+        this.dialogView.open(PdfViewComponent, {
+          width: '750px',
+          height: '700px',
+          data: {
+            pdfurl: this.pdfurl,
+          },
+        });
+      });
+  }
+
+  // imprimirCorte() {
+  //   this.measureServiceTsService.imprimirCorte(this.dataSource.filteredData).subscribe((resp) => {
+  //     const blobUrl = window.URL.createObjectURL(resp);
+  //     this.pdfurl = blobUrl;
+
+  //     this.dialogView.open(PdfViewComponent, {
+  //       width: '750px',
+  //       height: '700px',
+  //       data: {
+  //         pdfurl: this.pdfurl,
+  //       },
+  //     });
+  //   });
+  // }
 }

@@ -1,0 +1,115 @@
+
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl ml-7">Clientes</div>
+</div>
+<div class="app-sidenav-content">
+  <mat-card>
+    <mat-card-title>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="agregarCliente()"
+        class="mx-7 my-5"
+      >
+        <mat-icon mat-list-icon>add</mat-icon> Nuevo Cliente
+      </button>
+    </mat-card-title>
+    <hr class="mx-7" />
+
+    <mat-card-content class="dashboard-card-content m-4">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Filter</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ex. Mia"
+          #input
+        />
+      </mat-form-field>
+
+      <div class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource">
+          <!-- Nombre y Apellidos Column -->
+          <ng-container matColumnDef="Nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{ element.Nombre }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Ruc">
+            <th mat-header-cell *matHeaderCellDef>Ruc</th>
+            <td mat-cell *matCellDef="let element">{{ element.Ruc }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Telefono">
+            <th mat-header-cell *matHeaderCellDef>Telefono</th>
+            <td mat-cell *matCellDef="let element">{{ element.Telefono }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.Email }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Direccion">
+            <th mat-header-cell *matHeaderCellDef>Direccion</th>
+            <td mat-cell *matCellDef="let element">{{ element.Direccion }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="FechaNacimiento">
+            <th mat-header-cell *matHeaderCellDef>Fecha Nacimiento</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.FechaNacimiento }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="FechaIngreso">
+            <th mat-header-cell *matHeaderCellDef>Fecha Ingreso</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.FechaIngreso | date: "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <!-- Acciones Column -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="width: 200px">
+              Acciones
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="editarCliente(element)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="eliminarCliente(element)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Define los campos a mostrar en la tabla -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <!-- Fila que se muestra cuando no hay datos coincidentes. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No hay datos que coincidan con el filtro "{{ input.value }}"
+            </td>
+          </tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Seleccionar página de elementos periódicos"
+        >
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

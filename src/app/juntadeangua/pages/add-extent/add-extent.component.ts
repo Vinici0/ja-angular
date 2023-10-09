@@ -178,9 +178,8 @@ export class AddExtentComponent {
   }
 
   applyFilter(event: Event, columnName: string) {
-    const filterValue = (event.target as HTMLInputElement).value.trim();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.columnFilters[columnName] = filterValue;
-
     this.dataSource.filterPredicate = (data: any, filter: string) => {
       const transformedData = (data[columnName] || '').trim().toLowerCase();
       return transformedData.includes(filter);

@@ -1,24 +1,77 @@
-<div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl">Dashboard</div>
+</div>
+<div class="app-sidenav-content">
+  <mat-card class="h-4/5">
+    <mat-card-title> </mat-card-title>
+    <hr class="mx-7" />
+
+    <mat-card-content class="dashboard-card-content m-4">
+      <div class="grid grid-cols-4 gap-4 text-white">
+        <div
+          class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] color-cutomer"
+        >
+          <div class="m-4">
+            <img
+            src="assets/group.png"
+              alt="medidor"
+              class="w-20 h-20"
+            />
+          </div>
+          <div class="m-4">
+            <div class="text-2xl font-bold">Clientes</div>
+            <div class="text-4xl font-bold">100</div>
+          </div>
+        </div>
+        <div
+          class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] color-meter"
+        >
+          <div class="m-4">
+            <img
+            src="assets/meter.png"
+              alt="medidor"
+              class="w-20 h-20"
+            />
+          </div>
+          <div class="m-4">
+            <div class="text-2xl font-bold">Medidores</div>
+            <div class="text-4xl font-bold">100</div>
+          </div>
+        </div>
+        <div
+          class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] color-meter-repair"
+        >
+          <div class="m-4">
+            <img
+              src="assets/repair.png"
+              alt="medidor"
+              class="w-20 h-20"
+            />
+          </div>
+          <div class="m-4">
+            <div class="text-2xl font-bold">Medidores en Reparación</div>
+            <div class="text-4xl font-bold">100</div>
+          </div>
+        </div>
+
+        <div
+        class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]  color-user"
+      >
+        <div class="m-4">
+          <img
+            src="assets/customer.png"
+            alt="medidor"
+            class="w-20"
+          />
+        </div>
+        <div class="m-4">
+          <div class="text-2xl font-bold">Usuarios</div>
+          <div class="text-4xl font-bold">100</div>
+        </div>
+      </div>
+
+
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

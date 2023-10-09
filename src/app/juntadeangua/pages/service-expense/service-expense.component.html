@@ -3,65 +3,44 @@
     <!-- <mat-card-title>Reporte de Consumo</mat-card-title> -->
   </mat-card-header>
   <mat-card-content class="">
-    <form
-      class="example-form"
-      [formGroup]="formGroup"
-      (ngSubmit)="onSubmitForm()"
-    >
+
+    <div class="flex justify-center items-center sm:flex-row flex-col sm:justify-between">
       <div class="flex gap-4">
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Fecha Inicio</mat-label>
-            <input
-              matInput
-              [matDatepicker]="picker1"
-              formControlName="fechaInicio"
-              autocomplete="off"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker1"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
-        </div>
-
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Fecha Fin</mat-label>
-            <input
-              matInput
-              [matDatepicker]="picker2"
-              formControlName="fechaFin"
-              autocomplete="off"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker2"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-        </div>
-
-        <div class="flex items-center justify-center">
-          <button
-            mat-raised-button
-            color="primary"
-            class="w-80"
-            [disabled]="formGroup.invalid"
-          >
-            <mat-icon>search</mat-icon> Buscar
-          </button>
-        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar por Nombre</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event, 'Nombre')"
+            placeholder="Filtrar por Nombre"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar por Codigo</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event, 'codigo')"
+            placeholder="Filtrar por Codigo"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar por Manzana</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event, 'Manzana')"
+            placeholder="Filtrar por Manzana"
+          />
+        </mat-form-field>
       </div>
-    </form>
 
-    <button mat-raised-button color="warn" class="my-2">
-      <mat-icon>feed</mat-icon>
-      Exportar Excel
-    </button>
+      <div class="flex gap-4">
+        <button mat-raised-button color="primary" class="mb-4 w-48" (click)="openDialog()">
+          <mat-icon>print</mat-icon> Imprimir Consumo
+        </button>
+      </div>
+    </div>
+
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="Anio">
+      <!-- <ng-container matColumnDef="Anio">
         <th mat-header-cell *matHeaderCellDef>Año</th>
         <td mat-footer-cell>
           <input
@@ -72,10 +51,10 @@
           />
         </td>
         <td mat-cell *matCellDef="let element">{{ element.Anio }}</td>
-      </ng-container>
-      <ng-container matColumnDef="Mes">
-        <th mat-header-cell *matHeaderCellDef>Mes</th>
-        <td mat-cell *matCellDef="let element">{{ element.Mes }}</td>
+      </ng-container> -->
+      <ng-container matColumnDef="Meses">
+        <th mat-header-cell *matHeaderCellDef>Meses</th>
+        <td mat-cell *matCellDef="let element">{{ element.meses }}</td>
       </ng-container>
       <ng-container matColumnDef="Nombre">
         <th mat-header-cell *matHeaderCellDef>Nombre</th>
@@ -83,7 +62,7 @@
       </ng-container>
       <ng-container matColumnDef="Codigo">
         <th mat-header-cell *matHeaderCellDef>Código</th>
-        <td mat-cell *matCellDef="let element">{{ element.Codigo }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
       </ng-container>
       <ng-container matColumnDef="Manzana">
         <th mat-header-cell *matHeaderCellDef>Manzana</th>
@@ -93,42 +72,12 @@
         <th mat-header-cell *matHeaderCellDef>Lote</th>
         <td mat-cell *matCellDef="let element">{{ element.Lote }}</td>
       </ng-container>
-      <ng-container matColumnDef="LecturaAnterior">
-        <th mat-header-cell *matHeaderCellDef>Lectura Anterior</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.LecturaAnterior }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="LecturaActual">
-        <th mat-header-cell *matHeaderCellDef>Lectura Actual</th>
-        <td mat-cell *matCellDef="let element">{{ element.LecturaActual }}</td>
-      </ng-container>
-      <ng-container matColumnDef="Basico">
-        <th mat-header-cell *matHeaderCellDef>Básico</th>
-        <td mat-cell *matCellDef="let element">{{ element.Basico }}</td>
-      </ng-container>
-      <ng-container matColumnDef="Pago">
-        <th mat-header-cell *matHeaderCellDef>Pago</th>
-        <td mat-cell *matCellDef="let element">{{ element.Pago }}</td>
-      </ng-container>
+
       <ng-container matColumnDef="Saldo">
         <th mat-header-cell *matHeaderCellDef>Saldo</th>
-        <td mat-cell *matCellDef="let element">{{ element.Saldo }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.saldo | currency }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="Excedente">
-        <th mat-header-cell *matHeaderCellDef>Excedente</th>
-        <td mat-cell *matCellDef="let element">{{ element.Excedente }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="Total">
-        <th mat-header-cell *matHeaderCellDef>Total</th>
-        <td mat-cell *matCellDef="let element">{{ element.Total }}</td>
-      </ng-container>
-      <ng-container matColumnDef="Acumulado">
-        <th mat-header-cell *matHeaderCellDef>Acumulado</th>
-        <td mat-cell *matCellDef="let element">{{ element.Acumulado }}</td>
-      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
