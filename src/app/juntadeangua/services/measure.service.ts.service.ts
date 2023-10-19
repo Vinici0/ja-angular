@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/app/environments/environmen';
 import { Router } from '@angular/router';
-import { MeasureReponse } from '../interfaces/measure';
+import { AnioAndMes, MeasureReponse } from '../interfaces/measure';
 
 const base_url = environment.base_url;
 @Injectable({
@@ -70,5 +70,15 @@ export class MeasureServiceTsService {
         }),
         catchError((err) => of(err.error))
       );
+  }
+
+  actualizarMedida(data: any): Observable<any> {
+    const url = `${base_url}/measures/updateMeasurement`;
+    return this.http.post<any>(url, data);
+  }
+
+  actualizarMedidaAll(data: AnioAndMes): Observable<any> {
+    const url = `${base_url}/measures/updateMeasurementForAll`;
+    return this.http.put<any>(url, data);
   }
 }

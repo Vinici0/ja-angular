@@ -28,3 +28,8 @@ export interface Measure {
   Acumulado:       number;
   Planilla:        number | null;
 }
+
+export interface AnioAndMes {
+  Anio:            number;
+  Mes:             number;
+}

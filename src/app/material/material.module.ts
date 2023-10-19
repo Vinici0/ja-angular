@@ -19,6 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   exports: [
@@ -41,7 +42,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatMenuModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    // MatTableModule
+    MatSortModule,
   ],
 })
 export class MaterialModule {}

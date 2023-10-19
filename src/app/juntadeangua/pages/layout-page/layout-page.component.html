@@ -13,17 +13,14 @@
   </button>
   <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
     <button mat-menu-item routerLink="#">
-      <mat-icon>person</mat-icon><span>My Account</span>
+      <mat-icon>person</mat-icon><span>Mi Perfil</span>
     </button>
     <button mat-menu-item routerLink="#">
-      <mat-icon>settings</mat-icon><span>Settings</span>
-    </button>
-    <button mat-menu-item routerLink="#">
-      <mat-icon>help</mat-icon><span>Help</span>
+      <mat-icon>settings</mat-icon><span>Configuración</span>
     </button>
     <mat-divider></mat-divider>
     <button mat-menu-item routerLink="#">
-      <mat-icon>exit_to_app</mat-icon>Logout
+      <mat-icon>exit_to_app</mat-icon><span>Salir</span>
     </button>
   </mat-menu>
 </mat-toolbar>
@@ -58,6 +55,14 @@
       <mat-list-item routerLink="pages/add-extent">
         <div class="flex items-center gap-4">
           <mat-icon>bar_chart</mat-icon><span>Medidas</span>
+        </div>
+      </mat-list-item>
+
+        <mat-list-item routerLink="pages/multas">
+        <div class="flex items-center gap-4">
+          <mat-icon>monetization_on
+
+          </mat-icon><span>Multas</span>
         </div>
       </mat-list-item>
 

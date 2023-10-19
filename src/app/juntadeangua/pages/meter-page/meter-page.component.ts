@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 
@@ -93,6 +93,16 @@ export class MeterPageComponent implements OnInit {
   updateMeterStatus(id: string, status: any) {
     this.meterService.updateMeterStatus(id, status).subscribe((resp) => {
       console.log(resp);
+      Swal.fire({
+        text: 'Actualización exitosa',
+        position: 'bottom-end', // Posición en la parte inferior derecha
+        showConfirmButton: false, // No muestra el botón de confirmación
+        timer: 900, // Duración en milisegundos (1 segundo en este caso)
+        width: '300px', // Ancho del modal en píxeles
+        icon: 'success',
+        //que el icono aparece a la izquierda
+        toast: true, // El modal se muestra como toast
+      });
     });
   }
 

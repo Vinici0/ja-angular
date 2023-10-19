@@ -23,6 +23,7 @@
     "electron": "^26.3.0",
     "ngx-extended-pdf-viewer": "^18.0.2",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.7.32",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.5",
     "zone.js": "~0.12.0"

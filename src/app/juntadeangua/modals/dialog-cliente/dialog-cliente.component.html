@@ -1,0 +1,70 @@
+<div mat-dialog-title>
+  <h1>Cliente</h1>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content>
+    <div class="flex gap-4 w-full">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Nombre y apellidos</mat-label>
+        <input
+          matInput
+          placeholder="Nombre y apellidos"
+          formControlName="nombre"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Cedula</mat-label>
+        <input matInput formControlName="ruc" />
+      </mat-form-field>
+    </div>
+
+    <div class="flex gap-2 my-2">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          placeholder="Ex. test@gmail.com"
+          formControlName="email"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="fechaNacimiento"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="flex gap-2 my-2">
+      <mat-form-field appearance="outline"  class="w-full">
+        <mat-label>Telefono</mat-label>
+        <input
+          matInput
+          placeholder="Ex. 0987654321"
+          formControlName="telefono"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline"  class="w-full">
+        <mat-label>Direccion</mat-label>
+        <input matInput formControlName="direccion" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button type="button" [mat-dialog-close]="false" class="w-full">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" type="submit" class="w-full">
+      {{ "Save" }}
+    </button>
+  </div>
+</form>

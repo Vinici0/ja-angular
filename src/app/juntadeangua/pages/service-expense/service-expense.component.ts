@@ -6,6 +6,7 @@ import { MeasureServiceTsService } from '../../services/measure.service.ts.servi
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-service-expense',
@@ -13,24 +14,9 @@ import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
   styles: [],
 })
 export class ServiceExpenseComponent implements OnInit {
-  months: string[] = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
-  ];
-  // measurelist!: Measure[];
-
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   startDate = new Date();
   endDate = new Date();
@@ -64,12 +50,12 @@ export class ServiceExpenseComponent implements OnInit {
     this.execCorte();
   }
 
-
   execCorte() {
     this.measureServiceTsService.execCorte().subscribe((resp) => {
       console.log(resp);
       this.dataSource = new MatTableDataSource(resp.data.measure);
       this.dataSource.paginator = this.paginatior;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -91,46 +77,37 @@ export class ServiceExpenseComponent implements OnInit {
     console.log(this.formGroup.value);
   }
 
-  applyFilter(event: Event, columnName: string) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.columnFilters[columnName] = filterValue;
-    this.dataSource.filterPredicate = (data: any, filter: string) => {
-      const transformedData = (data[columnName] || '').trim().toLowerCase();
-      return transformedData.includes(filter);
-    };
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+    this.dataSource.filter = filterValue;
 
-    this.dataSource.filter = this.columnFilters[columnName];
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   openDialog() {
-    this.measureServiceTsService
-      .imprimirCorte(this.dataSource.filteredData)
-      .subscribe((resp) => {
-        const blobUrl = window.URL.createObjectURL(resp);
-        this.pdfurl = blobUrl;
+    if (this.dataSource.sort) {
+      const sortedData = this.dataSource.sortData(
+        this.dataSource.filteredData.slice(),
+        this.dataSource.sort
+      );
+      this.measureServiceTsService
+        .imprimirCorte(sortedData)
+        .subscribe((resp) => {
+          const blobUrl = window.URL.createObjectURL(resp);
+          this.pdfurl = blobUrl;
 
-        this.dialogView.open(PdfViewComponent, {
-          width: '750px',
-          height: '700px',
-          data: {
-            pdfurl: this.pdfurl,
-          },
+          this.dialogView.open(PdfViewComponent, {
+            width: '750px',
+            height: '700px',
+            data: {
+              pdfurl: this.pdfurl,
+            },
+          });
         });
-      });
+    }
   }
-
-  // imprimirCorte() {
-  //   this.measureServiceTsService.imprimirCorte(this.dataSource.filteredData).subscribe((resp) => {
-  //     const blobUrl = window.URL.createObjectURL(resp);
-  //     this.pdfurl = blobUrl;
-
-  //     this.dialogView.open(PdfViewComponent, {
-  //       width: '750px',
-  //       height: '700px',
-  //       data: {
-  //         pdfurl: this.pdfurl,
-  //       },
-  //     });
-  //   });
-  // }
 }

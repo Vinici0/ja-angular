@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+
 import { CustomerService } from '../../services/customer.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FormBuilder } from '@angular/forms';
+
 import { MatPaginator } from '@angular/material/paginator';
+import { DialogClienteComponent } from '../../modals/dialog-cliente/dialog-cliente.component';
 
 @Component({
   selector: 'app-cutomers-page',
@@ -27,7 +29,6 @@ export class CutomersPageComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog,
-    private fb: FormBuilder,
     public dialogView: MatDialog
   ) {}
 
@@ -51,5 +52,18 @@ export class CutomersPageComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
 
-  agregarCliente() {}
+  agregarCliente() {
+    this.dialog
+      .open(DialogClienteComponent, {
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        // if (result === "agregado") {
+        //   this.mostrarUsuarios();
+        // }
+      });
+  }
+
+  onFormSubmit() {}
 }

@@ -1,35 +1,23 @@
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl">Reporte de Cortes</div>
+</div>
 <mat-card>
   <mat-card-header>
-    <!-- <mat-card-title>Reporte de Consumo</mat-card-title> -->
+
   </mat-card-header>
   <mat-card-content class="">
 
     <div class="flex justify-center items-center sm:flex-row flex-col sm:justify-between">
-      <div class="flex gap-4">
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar por Nombre</mat-label>
+      <div class="w-full mr-10">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Buscar</mat-label>
           <input
             matInput
-            (keyup)="applyFilter($event, 'Nombre')"
-            placeholder="Filtrar por Nombre"
+            (keyup)="applyFilter($event)"
+            placeholder="Filtrar por Nombre, Código, Manzana, Lote"
           />
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar por Codigo</mat-label>
-          <input
-            matInput
-            (keyup)="applyFilter($event, 'codigo')"
-            placeholder="Filtrar por Codigo"
-          />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar por Manzana</mat-label>
-          <input
-            matInput
-            (keyup)="applyFilter($event, 'Manzana')"
-            placeholder="Filtrar por Manzana"
-          />
-        </mat-form-field>
+
       </div>
 
       <div class="flex gap-4">
@@ -39,7 +27,7 @@
       </div>
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- <ng-container matColumnDef="Anio">
         <th mat-header-cell *matHeaderCellDef>Año</th>
         <td mat-footer-cell>
@@ -53,28 +41,28 @@
         <td mat-cell *matCellDef="let element">{{ element.Anio }}</td>
       </ng-container> -->
       <ng-container matColumnDef="Meses">
-        <th mat-header-cell *matHeaderCellDef>Meses</th>
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Meses</th>
         <td mat-cell *matCellDef="let element">{{ element.meses }}</td>
       </ng-container>
       <ng-container matColumnDef="Nombre">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Nombre</th>
         <td mat-cell *matCellDef="let element">{{ element.Nombre }}</td>
       </ng-container>
       <ng-container matColumnDef="Codigo">
-        <th mat-header-cell *matHeaderCellDef>Código</th>
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Código</th>
         <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
       </ng-container>
       <ng-container matColumnDef="Manzana">
-        <th mat-header-cell *matHeaderCellDef>Manzana</th>
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Manzana</th>
         <td mat-cell *matCellDef="let element">{{ element.Manzana }}</td>
       </ng-container>
       <ng-container matColumnDef="Lote">
-        <th mat-header-cell *matHeaderCellDef>Lote</th>
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Lote</th>
         <td mat-cell *matCellDef="let element">{{ element.Lote }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Saldo">
-        <th mat-header-cell *matHeaderCellDef>Saldo</th>
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Saldo</th>
         <td mat-cell *matCellDef="let element">{{ element.saldo | currency }}</td>
       </ng-container>
 

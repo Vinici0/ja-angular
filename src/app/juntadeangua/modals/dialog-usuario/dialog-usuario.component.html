@@ -18,7 +18,7 @@
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile>
+      <!-- <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Rol</mat-label>
           <mat-select formControlName="idRol">
@@ -27,7 +27,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-grid-tile>
+      </mat-grid-tile> -->
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
@@ -48,8 +48,16 @@
   <button mat-raised-button mat-dialog-close color="warn">Volver</button>
   <button mat-raised-button
           color="primary"
-          [disabled]="formUsuario.invalid"
           (click)="agregarEditarUsuario()">
     {{accionBoton}}
   </button>
+
+
 </mat-dialog-actions>
+
+<!-- <button mat-raised-button
+color="primary"
+[disabled]="formUsuario.invalid"
+(click)="agregarEditarUsuario()">
+{{accionBoton}}
+</button> -->

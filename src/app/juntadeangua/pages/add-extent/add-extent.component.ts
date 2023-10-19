@@ -10,17 +10,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
+import Swal from 'sweetalert2';
 import { Measure, Data } from '../../interfaces/measure';
 import { MeasureServiceTsService } from '../../services/measure.service.ts.service';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-add-extent',
   templateUrl: './add-extent.component.html',
   styleUrls: ['./add-extent.component.css'],
 })
-export class AddExtentComponent {
+export class AddExtentComponent implements OnInit {
   public pdfurl = '';
   months: string[] = [
     'Enero',
@@ -50,7 +51,7 @@ export class AddExtentComponent {
     // 'Pago',
     'Excedente',
     'Total',
-    // 'Saldo',
+    'Saldo',
     // 'Acumulado',
     'acciones',
   ];
@@ -59,12 +60,17 @@ export class AddExtentComponent {
 
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   @ViewChildren('inputElement') inputElements: QueryList<ElementRef>;
 
   startDate = new Date();
   endDate = new Date();
   formGroup: FormGroup;
+  // Obtener la fecha actual
+  currentDate: Date = new Date();
+  currentMonth: number = this.currentDate.getMonth() + 1; // Se agrega 1 porque los meses en JavaScript van de 0 a 11
+  currentYear: number = this.currentDate.getFullYear();
 
   constructor(
     private measureServiceTsService: MeasureServiceTsService,
@@ -72,21 +78,28 @@ export class AddExtentComponent {
     public dialogView: MatDialog
   ) {
     this.formGroup = this.fb.group({
-      fechaInicio: ['', Validators.required],
+      year: ['2023', Validators.required],
       fechaFin: ['', Validators.required],
     });
   }
 
+  selectedMonth: number = new Date().getMonth() + 1;
+  selectedYear: number = new Date().getFullYear();
   ngOnInit(): void {
+    this.formGroup.controls['year'].setValue(this.selectedYear);
+    this.formGroup.controls['fechaFin'].setValue(
+      this.months[this.selectedMonth - 1]
+    );
     this.getMeasures();
   }
 
   getMeasures() {
     this.measureServiceTsService
-      .getMeasurementsByMonthAndYear(8, 2023)
+      .getMeasurementsByMonthAndYear(this.selectedMonth, this.selectedYear)
       .subscribe((resp) => {
         this.dataSource = new MatTableDataSource(resp.data.measure);
         this.dataSource.paginator = this.paginatior;
+        this.dataSource.sort = this.sort;
       });
   }
 
@@ -127,37 +140,42 @@ export class AddExtentComponent {
     Acumulado: any,
     element: any
   ) {
-    let Excedente = LecturaActual - LecturaAnterior;
-    console.log(Excedente);
-
-    // const Basico = 5.5;
-    let ExcedenteV = 0;
-
-    if (Excedente >= 0 && Excedente <= 15) {
-      Excedente = 0;
-      ExcedenteV = 0;
-    } else if (Excedente >= 16 && Excedente <= 39) {
-      Excedente = Excedente - 15;
-      ExcedenteV = 0.25 * Excedente;
-    } else if (Excedente >= 40 && Excedente <= 49) {
-      Excedente = Excedente - 15;
-      ExcedenteV = 0.5 * Excedente;
-    } else if (Excedente >= 50) {
-      Excedente = Excedente - 15;
-      ExcedenteV = 1 * Excedente;
-    }
-
-    const Total = Basico + ExcedenteV;
-    const Pago = 0; // TODO: Implementar en la base de datos
-
-    // Actualiza las propiedades del objeto element
-    element.Excedente = Excedente;
-    element.Basico = Basico;
-    element.ExcedenteV = ExcedenteV;
-    element.Total = Total;
-    element.Pago = Pago;
-    element.Saldo = Total;
-    // element.Acumulado  = Acumulado + Total;
+    this.measureServiceTsService.actualizarMedida(element).subscribe(
+      (resp) => {
+        debugger;
+        console.log(resp);
+        element.Acumulado = resp.data.measure.Acumulado;
+        element.Saldo = resp.data.measure.Saldo;
+        element.Pago = resp.data.measure.Pago;
+        element.Total = resp.data.measure.Total;
+        element.Excedente = resp.data.measure.Excedente;
+        element.Basico = resp.data.measure.Basico;
+        element.ExcedenteV = resp.data.measure.ExcedenteV;
+        Swal.fire({
+          text: 'Actualización exitosa',
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 900,
+          width: '300px',
+          icon: 'success',
+          toast: true,
+        });
+      },
+      (error) => {
+        console.log('Ingresando al error');
+        debugger;
+        console.log(error);
+        Swal.fire({
+          text: 'Error al actualizar',
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 900,
+          width: '300px',
+          icon: 'error',
+          toast: true,
+        });
+      }
+    );
   }
 
   filtrarSoloPorNumeroDeManzana(event: any) {
@@ -177,40 +195,56 @@ export class AddExtentComponent {
     }
   }
 
-  applyFilter(event: Event, columnName: string) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.columnFilters[columnName] = filterValue;
-    this.dataSource.filterPredicate = (data: any, filter: string) => {
-      const transformedData = (data[columnName] || '').trim().toLowerCase();
-      return transformedData.includes(filter);
-    };
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+    this.dataSource.filter = filterValue;
 
-    this.dataSource.filter = this.columnFilters[columnName];
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-  // imprimirConsumo() {
-  //   this.measureServiceTsService.imprimirConsumo().subscribe((resp) => {
-  //     const blobUrl = window.URL.createObjectURL(resp);
-  //     console.log(blobUrl);
-
-  //     this.pdfurl = blobUrl;
-  //     // window.open( blobUrl, '_blank' );
-  //   });
-  // }
-
   openDialog() {
-    this.measureServiceTsService
-      .imprimirConsumo(this.dataSource.filteredData)
-      .subscribe((resp) => {
-        const blobUrl = window.URL.createObjectURL(resp);
-        this.pdfurl = blobUrl;
+    if (this.dataSource.sort) {
+      const sortedData = this.dataSource.sortData(
+        this.dataSource.filteredData.slice(),
+        this.dataSource.sort
+      );
 
-        this.dialogView.open(PdfViewComponent, {
-          width: '750px',
-          height: '700px',
-          data: {
-            pdfurl: this.pdfurl,
-          },
+      this.measureServiceTsService
+        .imprimirConsumo(sortedData)
+        .subscribe((resp) => {
+          const blobUrl = window.URL.createObjectURL(resp);
+          this.pdfurl = blobUrl;
+
+          this.dialogView.open(PdfViewComponent, {
+            width: '750px',
+            height: '700px',
+            data: {
+              pdfurl: this.pdfurl,
+            },
+          });
+        });
+    }
+  }
+
+  actualizarMedidaAll() {
+    console.log(this.selectedYear, this.selectedMonth);
+    this.measureServiceTsService
+      .actualizarMedidaAll({ Anio: this.selectedYear, Mes: this.selectedMonth })
+      .subscribe((resp) => {
+        this.getMeasures();
+        Swal.fire({
+          text: 'Actualización exitosa',
+          position: 'bottom-end', // Posición en la parte inferior derecha
+          showConfirmButton: false, // No muestra el botón de confirmación
+          timer: 900, // Duración en milisegundos (1 segundo en este caso)
+          width: '300px', // Ancho del modal en píxeles
+          icon: 'success',
+          //que el icono aparece a la izquierda
+          toast: true, // El modal se muestra como toast
         });
       });
   }
