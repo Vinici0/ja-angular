@@ -22,7 +22,6 @@ export class DialogUsuarioComponent {
   listaRoles: any[] = [];
 
   constructor(
-    private dialogoReferencia: MatDialogRef<DialogUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public usuarioEditar: any,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar

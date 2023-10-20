@@ -40,9 +40,9 @@ export class AuthService {
   }
 
   validarToken(): Observable<boolean> {
-    return this.http.get(`${base_url}/login/renew`, this.headers).pipe(
+    return this.http.get(`${base_url}/auth/renew`, this.headers).pipe(
       map((resp: any) => {
-        const { email, nombre, role, img = '', idJaUsuario } = resp.usuario;
+        const { email, nombre, role, img = '', idJaUsuario } = resp.data;
         this.usuario = new Usuario(nombre, email, '', role, img, idJaUsuario);
         localStorage.setItem('token', resp.token);
         return true;
@@ -64,19 +64,8 @@ export class AuthService {
       );
   }
 
-  checkAuthentication(): Observable<boolean> {
-    if (!localStorage.getItem('token')) return of(false);
-    const token = localStorage.getItem('token');
-    return this.http.get<User>(`${this.baseUrl}/users/1`).pipe(
-      tap((user) => (this.user = user)),
-      map((user) => !!user),
-      catchError((err) => of(false))
-    );
-  }
-
   crearUsuario(formData: RegisterForm) {
-    //El post trae la informacion que se envia al backend
-    return this.http.post(`${base_url}/usuarios`, formData).pipe(
+    return this.http.post(`${base_url}/users`, formData).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
       })
@@ -89,8 +78,6 @@ export class AuthService {
       role: this.usuario.role,
     };
 
-    console.log('Informacion del usuario: ');
-    console.log(data);
     return this.http.put(
       `${base_url}/usuarios/${this.uid}`,
       data,
@@ -99,12 +86,10 @@ export class AuthService {
   }
 
   cargarUsuarios(desde: number = 0) {
-    const url = `${base_url}/usuarios?desde=${desde}`;
+    const url = `${base_url}/users?desde=${desde}`;
     return this.http.get<CargarUsuarios>(url, this.headers).pipe(
       map((resp) => {
-        //Obtenemos la informacion de los usuarios
         const usuarios = resp.usuarios.map(
-          //Mapeamos la informacion de los usuarios
           (user) =>
             new Usuario(
               user.nombre,
@@ -124,12 +109,12 @@ export class AuthService {
   }
 
   eliminarUsuario(usuario: Usuario) {
-    const url = `${base_url}/usuarios/${usuario.idJaUsuario}`;
+    const url = `${base_url}/users/${usuario.idJaUsuario}`;
     return this.http.delete(url, this.headers);
   }
 
   logout = () => {
     localStorage.removeItem('token');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth');
   };
 }

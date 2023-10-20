@@ -18,10 +18,11 @@ import { JuntadeanguaModule } from './juntadeangua/juntadeangua.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatNativeDateModule, // Add MatNativeDateModule to your imports
+    MatNativeDateModule,
     NgxExtendedPdfViewerModule,
     AuthModule,
-    JuntadeanguaModule
+    JuntadeanguaModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

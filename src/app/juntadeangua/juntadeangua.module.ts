@@ -12,12 +12,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsuarioPageComponent } from './pages/usuario-page/usuario-page.component';
 import { AddExtentComponent } from './pages/add-extent/add-extent.component';
 import { DialogUsuarioComponent } from './modals/dialog-usuario/dialog-usuario.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard-page/dashboard.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewComponent } from './modals/pdf-view/pdf-view.component';
 import { MeterPageComponent } from './pages/meter-page/meter-page.component';
 import { CutomersPageComponent } from './pages/cutomers-page/cutomers-page.component';
 import { DialogClienteComponent } from './modals/dialog-cliente/dialog-cliente.component';
+import { FinePageComponent } from './pages/fine-page/fine-page.component';
+import { FineaddPageComponent } from './pages/fineadd-page/fineadd-page.component';
+import { SearchClientComponent } from './modals/search-client/search-client.component';
+import { RegisterFinePageComponent } from './pages/register-fine-page/register-fine.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,11 @@ import { DialogClienteComponent } from './modals/dialog-cliente/dialog-cliente.c
     MeterPageComponent,
     CutomersPageComponent,
     DialogClienteComponent,
+    FinePageComponent,
+    FineaddPageComponent,
+    SearchClientComponent,
+    RegisterFinePageComponent,
+
   ],
   imports: [
     CommonModule,

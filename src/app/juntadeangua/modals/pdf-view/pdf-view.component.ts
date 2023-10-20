@@ -15,7 +15,8 @@ export class PdfViewComponent {
 
   constructor(
     public dialogRef: MatDialogRef<PdfViewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+
   ) {}
 
   ngOnInit(): void {

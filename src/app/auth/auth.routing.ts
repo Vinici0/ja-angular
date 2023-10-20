@@ -7,15 +7,15 @@ const routes: Routes = [
     path: '',
     component: LayouPageComponent,
     children: [
+      { path: '', component: LoginPageComponent },
       { path: 'login', component: LoginPageComponent },
-      { path: '**', redirectTo: 'login' },
-    ]
-  }
+      // { path: '**', redirectTo: 'login' },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-
 export class AuthRoutingModule {}
