@@ -11,6 +11,9 @@ import { CutomersPageComponent } from './pages/cutomers-page/cutomers-page.compo
 import { FinePageComponent } from './pages/fine-page/fine-page.component';
 import { FineaddPageComponent } from './pages/fineadd-page/fineadd-page.component';
 import { RegisterFinePageComponent } from './pages/register-fine-page/register-fine.component';
+import { FineeditPageComponent } from './pages/fineedit-page/fineedit-page.component';
+import {AddCustomerComponent} from './components/add-customer/add-customer.component';
+import {AddMeasureComponent} from './components/add-measure/add-measure.component';
 
 const routes: Routes = [
   {
@@ -60,6 +63,18 @@ const routes: Routes = [
       {
         path: 'pages/register-fine',
         component: RegisterFinePageComponent,
+      },
+      {
+        path: 'pages/fineedit/:id',
+        component: FineeditPageComponent,
+      },
+      {
+        path: 'pages/add-customer',
+        component: AddCustomerComponent,
+      },
+      {
+        path: 'pages/add-measure',
+        component: AddMeasureComponent,
       },
     ],
   },

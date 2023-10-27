@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Measure } from '../../interfaces/measure';
+import { Measure } from '../../interfaces/measure.interface';
 import { MeasureServiceTsService } from '../../services/measure.service.ts.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

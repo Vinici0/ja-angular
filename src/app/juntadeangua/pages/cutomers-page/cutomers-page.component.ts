@@ -12,6 +12,7 @@ import { DialogClienteComponent } from '../../modals/dialog-cliente/dialog-clien
   templateUrl: './cutomers-page.component.html',
   styleUrls: ['./cutomers-page.component.css'],
 })
+
 export class CutomersPageComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
@@ -38,7 +39,7 @@ export class CutomersPageComponent implements OnInit {
 
   getAllClients() {
     this.customerService.getAllClients().subscribe((resp: any) => {
-      this.dataSource = new MatTableDataSource(resp.data.clients);
+      this.dataSource = new MatTableDataSource(resp);
       this.dataSource.paginator = this.paginatior;
     });
   }
@@ -56,6 +57,7 @@ export class CutomersPageComponent implements OnInit {
     this.dialog
       .open(DialogClienteComponent, {
         disableClose: true,
+        width: '750px',
       })
       .afterClosed()
       .subscribe((result) => {

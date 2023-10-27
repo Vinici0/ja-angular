@@ -1,0 +1,24 @@
+/* Agrega estos estilos a tu hoja de estilos CSS o al archivo de estilos de tu aplicación Angular */
+
+.border-button {
+  border: 2px solid;
+}
+
+table input:focus {
+  border: 2px solid #007bff; /* Cambia el color y grosor del borde según tus preferencias */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Cambia el color y la intensidad de la sombra según tus preferencias */
+  outline: none; /* Elimina el resaltado predeterminado del navegador */
+}
+
+
+
+table input:focus {
+  border: 2px solid #007bff; /* Cambia el color y grosor del borde según tus preferencias */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Cambia el color y la intensidad de la sombra según tus preferencias */
+  outline: none; /* Elimina el resaltado predeterminado del navegador */
+}
+
+input{
+  border: 1px solid #ced4da; /* Cambia el color y grosor del borde según tus preferencias */
+  width: 100%; /* Cambia el ancho del input según tus preferencias */
+}

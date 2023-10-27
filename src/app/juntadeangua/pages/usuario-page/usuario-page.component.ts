@@ -1,29 +1,36 @@
-import { Component,ViewChild,OnInit, AfterViewInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import {
+  MatTableDataSource,
+  MatTableDataSourcePaginator,
+} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUsuarioComponent } from '../../modals/dialog-usuario/dialog-usuario.component';
+import { UserService } from '../../services/users.service';
 
-const ELEMENT_DATA: any[] = [
-  { idUsuario: 1, nombreApellidos: "jose mendez", correo: "jose@gmail.com", idRol: 1,rolDescripcion:"Administrador",clave:"1233"},
-  { idUsuario: 2, nombreApellidos: "leo muñoz", correo: "leo@gmail.com", idRol: 2, rolDescripcion: "Empleado",clave:"4566"},
-  { idUsuario: 3, nombreApellidos: "yamile pinto", correo: "yamile@gmail.com", idRol: 2, rolDescripcion: "Empleado",clave:"6788"},
-
-];
+import { AuthService } from '../../../auth/services/auth.service';
+import { Usuario } from 'src/app/auth/models/usuario.model';
 
 @Component({
   selector: 'app-usuario-page',
   templateUrl: './usuario-page.component.html',
-  styleUrls: ['./usuario-page.component.css']
+  styleUrls: ['./usuario-page.component.css'],
 })
+export class UsuarioPageComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['nombre', 'email', 'role', 'acciones'];
+  public usuario: Usuario;
+  public usuarios: any[];
 
-export class UsuarioPageComponent  implements OnInit, AfterViewInit{
-
-  displayedColumns: string[] = ['nombreApellidos', 'correo', 'rolDescripcion','acciones'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<any, MatTableDataSourcePaginator>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private userService: UserService,
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) {
+    this.usuario = authService.usuario;
+  }
 
   ngOnInit(): void {
     this.mostrarUsuarios();
@@ -33,29 +40,66 @@ export class UsuarioPageComponent  implements OnInit, AfterViewInit{
     this.dataSource.paginator = this.paginator;
   }
 
-  applyFilter(event: Event) {
-  }
-
+  applyFilter(event: Event) {}
 
   mostrarUsuarios() {
-
+    this.userService.getUsers().subscribe((resp) => {
+      this.usuarios = resp;
+      this.dataSource = new MatTableDataSource(this.usuarios);
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
-  editarUsuario(id:any) {
+  editarUsuario(id: any) {
+    //Si no es ADMIN_ROLE no puede editar usuarios
+    if (this.usuario.role !== 'ADMIN_ROLE') {
+      return;
+    }
+    this.userService.getUsuarioPorId(id).subscribe((usuario) => {
+      this.dialog
+        .open(DialogUsuarioComponent, {
+          disableClose: true,
+          data: usuario,
+        })
+        .afterClosed()
+        .subscribe((result) => {
+          console.log(result);
+
+          if (result === 'actualizado') {
+            this.mostrarUsuarios();
+          }
+        });
+    });
   }
 
-  eliminarUsuario(id:any) {
+  eliminarUsuario(id: any) {
+    //Si no es ADMIN_ROLE no puede eliminar usuarios
+    if (this.usuario.role !== 'ADMIN_ROLE') {
+      return;
+    }
+    this.userService.eliminarUsuario(id).subscribe((resp) => {
+      if (resp) {
+        this.mostrarUsuarios();
+      }
+    });
   }
 
   agregarUsuario() {
-    this.dialog.open(DialogUsuarioComponent, {
-        disableClose: true
-      }).afterClosed().subscribe(result => {
+    //SI NO ADMIN_ROLE NO PUEDE AGREGAR USUARIOS
+    if (this.usuario.role !== 'ADMIN_ROLE') {
+      return;
+    }
 
-        if (result === "agregado") {
+
+    this.dialog
+      .open(DialogUsuarioComponent, {
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result === 'agregado') {
           this.mostrarUsuarios();
         }
       });
   }
-
 }

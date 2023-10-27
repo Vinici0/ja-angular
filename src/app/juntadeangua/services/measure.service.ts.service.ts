@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/app/environments/environmen';
 import { Router } from '@angular/router';
-import { AnioAndMes, MeasureReponse } from '../interfaces/measure';
+import { AnioAndMes, MeasureReponse } from '../interfaces/measure.interface';
 
 const base_url = environment.base_url;
 @Injectable({

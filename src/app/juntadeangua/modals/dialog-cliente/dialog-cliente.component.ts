@@ -19,10 +19,20 @@ export class DialogClienteComponent {
     nombre: ['', [Validators.required]],
     ruc: ['', [Validators.required]],
     telefono: ['', [Validators.required]],
-    email: ['', [Validators.required]],
-    direccion: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    ciudad: ['', [Validators.required]],
     fechaNacimiento: ['', [Validators.required]],
     fechaIngreso: ['', [Validators.required]],
+    numeroLote: ['', [Validators.required]],
+    numeroManzana: ['', [Validators.required]],
+    discapacidad: [false, [Validators.required]],
+    terceraEdad: [false, [Validators.required]],
+    JA_EstadoCivil: ['', [Validators.required]],
+    JA_Sexo: ['', [Validators.required]],
+    tipoRuc: ['', [Validators.required]],
+    //
+    EstadoCivil: ['', [Validators.required]],
+
   });
 
   constructor(

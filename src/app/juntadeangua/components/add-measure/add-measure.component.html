@@ -1,0 +1,79 @@
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl ml-7">Registro de Cliente</div>
+  <div class="flex justify-start items-center">
+    <button
+      mat-button
+      class="mx-7"
+      [routerLink]="['/junta-de-angua/pages/cutomers']"
+    >
+      <mat-icon mat-list-icon>arrow_back</mat-icon> Regresar
+    </button>
+  </div>
+  <!-- Icono de regresasr -->
+</div>
+<div class="app-sidenav-content">
+  <mat-card>
+    <mat-card-content class="dashboard-card-content m-4">
+      <div class="mat-elevation-z2">
+        <form [formGroup]="myForm">
+          <div class="bg-card h-8 rounded-t-lg text-6xl">
+            <h3 class="text-center text-6xl m-20">Datos del Medidor</h3>
+          </div>
+          <div class="rounded">
+            <div
+              class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-2"
+            >
+              <div class="flex gap-2 w-full justify-center">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Código del medidor</mat-label>
+                  <input matInput placeholder="Nombre y apellidos" />
+                </mat-form-field>
+              </div>
+
+              <!-- Manzana  -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Manzana</mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+
+              <!-- Lote -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Lote</mat-label>
+                  <input matInput placeholder="Ex. 0987654321" />
+                </mat-form-field>
+              </div>
+
+              <!-- Lote Vacio select si o no -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Lote Vacio</mat-label>
+                  <mat-select>
+                    <mat-option value="si">Si</mat-option>
+                    <mat-option value="no">No</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+
+            </div>
+          </div>
+          <!-- Inputs para registrar una multa -->
+          <div class="flex justify-center mt-5">
+            <button
+              mat-raised-button
+              style="background-color: #009688; color: #fff"
+              class="w-full"
+            >
+              Registrar
+            </button>
+          </div>
+        </form>
+        <!-- Datos de la multa-->
+      </div>
+    </mat-card-content>
+    <br />
+  </mat-card>
+</div>

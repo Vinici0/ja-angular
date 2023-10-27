@@ -19,6 +19,15 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canMatch: [AuthGuard],
   },
+  {
+    path: 'maintenance',
+    loadChildren: () =>
+      import('./maintenance/maintenance.module').then(
+        (m) => m.MaintenanceModule
+      ),
+    canActivate: [AuthGuard],
+    canMatch: [AuthGuard],
+  },
 ];
 
 @NgModule({

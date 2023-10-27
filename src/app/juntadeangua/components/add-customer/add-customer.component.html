@@ -1,0 +1,199 @@
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl ml-7">Registro de Cliente</div>
+  <div class="flex justify-start items-center">
+    <button
+      mat-button
+      class="mx-7"
+      [routerLink]="['/junta-de-angua/pages/cutomers']"
+    >
+      <mat-icon mat-list-icon>arrow_back</mat-icon> Regresar
+    </button>
+  </div>
+  <!-- Icono de regresasr -->
+</div>
+<div class="app-sidenav-content">
+  <mat-card>
+    <mat-card-content class="dashboard-card-content m-4">
+      <div class="mat-elevation-z2">
+        <form [formGroup]="myForm" >
+          <div class="bg-card h-8 rounded-t-lg text-6xl">
+            <h3 class="text-center text-6xl m-20">Datos del Cliente</h3>
+          </div>
+          <div class="rounded">
+            <div
+              class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+            >
+              <div class="flex gap-2 w-full justify-center">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Nombre y apellidos</mat-label>
+                  <input matInput placeholder="Nombre y apellidos" />
+                </mat-form-field>
+              </div>
+
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>RUC/C.I</mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+              <!-- Telefono -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Telefono</mat-label>
+                  <input matInput placeholder="Ex. 0987654321" />
+                </mat-form-field>
+              </div>
+
+              <!-- Correo -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Correo</mat-label>
+                  <input
+                    matInput
+                    type="email"
+                    placeholder="Ex. ejemplo@gmail.com"
+                  />
+                </mat-form-field>
+              </div>
+
+              <!-- Select Pais -->
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Pais</mat-label>
+                <mat-select>
+                  <mat-option value="Ecuador">Ecuador</mat-option>
+                  <mat-option value="Colombia">Colombia</mat-option>
+                  <mat-option value="Peru">Peru</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <!-- Select Pais -->
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Ciudad</mat-label>
+                <mat-select formControlName="ciudad">
+                  <mat-option value="Quito">Quito</mat-option>
+                  <mat-option value="Guayaquil">Guayaquil</mat-option>
+                  <mat-option value="Quevedo">Quevedo</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <!-- Direccion -->
+              <div class="col-span-1 sm:col-span-3">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Direccion</mat-label>
+                  <input matInput placeholder="Ex. Av. 9 de Octubre" />
+                </mat-form-field>
+              </div>
+
+              <!-- Tipo Ruc, Select, Exportación, Tarjeta de identidad,  Cédula de extranjería -->
+
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Fecha de nacimiento</mat-label>
+                  <input matInput [matDatepicker]="picker1" />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Fecha de ingreso</mat-label>
+                  <input matInput [matDatepicker]="picker2" />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker2"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Vencimiento</mat-label>
+                  <input matInput [matDatepicker]="picker3" />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker3"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div
+                class="grid grid-cols-1 sm:grid-cols-5 w-full col-span-1 sm:col-span-3 gap-4"
+              >
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Tipo de ruc</mat-label>
+                  <mat-select>
+                    <mat-option value="Exportación">Exportación</mat-option>
+                    <mat-option value="Tarjeta de identidad"
+                      >Tarjeta de identidad</mat-option
+                    >
+                    <mat-option value="Cédula de extranjería"
+                      >Cédula de extranjería</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+
+
+                <!-- Hombre o mujer -->
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Genero</mat-label>
+                  <mat-select>
+                    <mat-option value="Hombre">Hombre</mat-option>
+                    <mat-option value="Mujer">Mujer</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Estado Civil -->
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Estado Civil</mat-label>
+                  <mat-select>
+                    <mat-option value="Soltero">Soltero</mat-option>
+                    <mat-option value="Casado">Casado</mat-option>
+                    <mat-option value="Divorciado">Divorciado</mat-option>
+                    <mat-option value="Viudo">Viudo</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Discapasitado  -->
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Discapasitado</mat-label>
+                  <mat-select>
+                    <mat-option value="Si">Si</mat-option>
+                    <mat-option value="No">No</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Tercera edad</mat-label>
+                  <mat-select>
+                    <mat-option value="Si">Si</mat-option>
+                    <mat-option value="No">No</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+          <!-- Inputs para registrar una multa -->
+          <div class="flex justify-center mt-5">
+            <button
+              mat-raised-button
+              style="background-color: #009688; color: #fff"
+              class="w-full"
+              (click)="onFormSubmit()"
+            >
+              Registrar
+            </button>
+          </div>
+        </form>
+        <!-- Datos de la multa-->
+      </div>
+    </mat-card-content>
+    <br />
+  </mat-card>
+</div>

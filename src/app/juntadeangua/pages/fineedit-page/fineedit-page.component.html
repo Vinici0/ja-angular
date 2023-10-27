@@ -1,0 +1,181 @@
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl ml-7">Registro de Multas</div>
+  <div class="flex justify-start items-center ">
+    <button
+      mat-button
+      class="mx-7 "
+      [routerLink]="['/junta-de-angua/pages/fine']"
+    >
+      <mat-icon mat-list-icon>arrow_back</mat-icon> Regresar
+    </button>
+  </div>
+</div>
+<div class="app-sidenav-content">
+  <mat-card>
+    <mat-card-content class="dashboard-card-content m-4">
+      <div class="mat-elevation-z2">
+        <form [formGroup]="myForm">
+          <div class="bg-card h-8 rounded-t-lg text-6xl">
+            <h3 class="text-center text-6xl m-20">Datos del Cliente</h3>
+          </div>
+          <div class="rounded">
+            <div
+              class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+            >
+              <div class="">
+                <div class="flex gap-2 w-full justify-center">
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Nombre y apellidos</mat-label>
+                    <input
+                      formControlName="lastNameAndName"
+                      matInput
+                      placeholder="Nombre y apellidos"
+                    />
+
+                    <!-- Agrega el icono aquí -->
+                  </mat-form-field>
+                  <div
+                    class="rounded h-14 t-lg text-6xl flex justify-center items-center"
+                    style="background-color: #009688; color: #fff;"
+                  >
+                    <button
+                      mat-icon-button
+                      class="text-white bg-white"
+                      (click)="searchClient()"
+                    >
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Cedula</mat-label>
+                  <input formControlName="ruc" matInput />
+
+                  <!-- Agrega el icono aquí -->
+                </mat-form-field>
+              </div>
+
+              <div class="">
+                <div>
+                  <!-- Telefono -->
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Telefono</mat-label>
+                    <input
+                      formControlName="phone"
+                      matInput
+                      placeholder="Ex. 0987654321"
+                    />
+
+                    <!-- Agrega el icono aquí -->
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Inputs para registrar una multa -->
+          <div>
+            <div class="bg-card h-8 rounded-t-lg text-6xl">
+              <h3 class="text-center text-6xl m-20">Datos de la Multa</h3>
+            </div>
+            <div class="rounded">
+              <div
+                class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+              >
+                <div>
+                  <div>
+                    <!-- Tipo de multa -->
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Tipo de multa</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="typeFine"
+                        (change)="onSelectionChange($event)"
+                        required
+                      >
+                        <option value="" disabled selected>
+                          Selecciona un tipo de multa
+                        </option>
+                        <ng-container *ngFor="let fine of fines">
+                          <option [value]="fine.typeFine">
+                            {{ fine.typeFine }}
+                          </option>
+                        </ng-container>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Valor a pagar</mat-label>
+                      <input
+                        class="diasbleinput"
+                        matInput
+                        autocomplete="off"
+                        class="w-full"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        formControlName="cost"
+                        placeholder="Valor a pagar"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Fecha de registro</mat-label>
+                      <input
+                        formControlName="date_fine"
+                        matInput
+                        [matDatepicker]="picker"
+                        placeholder="Fecha de la multa"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-span-1 sm:col-span-2 md:col-span-3">
+                  <div>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Descripción de la multa (opcional)</mat-label>
+                      <input
+                        formControlName="descripcion"
+                        matInput
+                        placeholder="Descripción de la multa"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-center mt-5 colorButton">
+            <button
+              mat-raised-button
+              style="background-color: #009688; color: #fff;"
+              class="w-full colorButton"
+              (click)="updateFineDetail()"
+            >
+              Actualizar Multa
+            </button>
+          </div>
+        </form>
+        <!-- Datos de la multa-->
+      </div>
+    </mat-card-content>
+    <br />
+  </mat-card>
+</div>

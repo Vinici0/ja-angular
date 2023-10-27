@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   public myForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -21,6 +25,9 @@ export class LoginPageComponent {
     this.authService.login(email, password).subscribe(
       (res) => {
         if (res.ok === true) {
+          this.authService.getCompany().subscribe((res) => {
+            console.log(res);
+          });
           this.router.navigateByUrl('/junta-de-angua');
         }
       },
@@ -30,5 +37,4 @@ export class LoginPageComponent {
       }
     );
   }
-
 }

@@ -45,7 +45,7 @@
     </div>
 
     <div class="flex gap-2 my-2">
-      <mat-form-field appearance="outline"  class="w-full">
+      <mat-form-field appearance="outline" class="w-full">
         <mat-label>Telefono</mat-label>
         <input
           matInput
@@ -53,14 +53,78 @@
           formControlName="telefono"
         />
       </mat-form-field>
-      <mat-form-field appearance="outline"  class="w-full">
-        <mat-label>Direccion</mat-label>
-        <input matInput formControlName="direccion" />
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-select formControlName="ciudad">
+          <mat-label>Ciudad</mat-label>
+          <mat-option value="Quito">Quito</mat-option>
+          <mat-option value="Guayaquil">Guayaquil</mat-option>
+          <mat-option value="Quevedo">Quevedo</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
+    <!-- Tercera edad o si es discapasitado check -->
+
+    <div class="flex gap-2 my-2 w-full">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="direccion" />
+        </mat-form-field>
+
+        <!-- Select tipo de ruc Compra Ruc, Compra Cédula, Venta Cédula-->
+        <mat-form-field appearance="outline" class="w-full  ">
+          <mat-label>Tipo de ruc</mat-label>
+          <mat-select formControlName="tipoRuc" >
+            <mat-option value="Compra Ruc">Compra Ruc</mat-option>
+            <mat-option value="Compra Cédula">Compra Cédula</mat-option>
+            <mat-option value="Venta Cédula">Venta Cédula</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- Select ciudad Quito y Guayaquil, Quevedo-->
+
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+      <div class="flex gap-2 my-2">
+        <div class="flex flex-col">
+          <mat-label>Discapacidad</mat-label>
+          <mat-radio-group formControlName="JA_Discapacidad">
+            <mat-radio-button value="si">Si</mat-radio-button>
+            <mat-radio-button value="no">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="flex gap-2 my-2">
+        <div class="flex flex-col">
+          <mat-label>Tercera edad</mat-label>
+          <mat-radio-group formControlName="JA_TerceraEdad">
+            <mat-radio-button value="si">Si</mat-radio-button>
+            <mat-radio-button value="no">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="flex gap-2 my-2">
+        <div class="flex flex-col">
+          <mat-label>Sexo</mat-label>
+          <mat-radio-group formControlName="JA_Sexo">
+            <mat-radio-button value="hombre">Hombre</mat-radio-button>
+            <mat-radio-button value="mujer">Mujer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div mat-dialog-actions class="action">
-    <button mat-raised-button type="button" [mat-dialog-close]="false" class="w-full">
+    <button
+      mat-raised-button
+      type="button"
+      [mat-dialog-close]="false"
+      class="w-full"
+    >
       Cancelar
     </button>
     <button mat-raised-button color="primary" type="submit" class="w-full">

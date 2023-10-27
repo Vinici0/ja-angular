@@ -3,8 +3,8 @@
     <mat-icon>menu</mat-icon>
   </button>
   <!-- logo imagen -->
-  <img src="assets/logo.png" alt="logo" class="logo" class="w-12 h-10" />
-  <span>Justa de Agua</span>
+  <img [src]="company.imagenUrl" alt="logo" class="logo" class="w-12 h-10" />
+  <span>{{ company.nombreEmpresa }} </span>
   <span class="toolbar-item-spacer"></span>
   <button
     mat-icon-button
@@ -14,12 +14,24 @@
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
-    <button mat-menu-item routerLink="#">
-      <mat-icon>person</mat-icon><span>Mi Perfil</span>
+    <button
+      mat-menu-item
+      *ngIf="usuario.role !== 'USER_ROLE'"
+      (click)="remplaceLink('company')"
+    >
+      <mat-icon>person</mat-icon><span>Mi Perfil.</span>
     </button>
-    <button mat-menu-item routerLink="#">
+
+    <!-- Si usuario.role es USER_ROLE no tenga la opcion de  Configuración-->
+
+    <button
+      mat-menu-item
+      *ngIf="usuario.role !== 'USER_ROLE'"
+      (click)="remplaceLink('company')"
+    >
       <mat-icon>settings</mat-icon><span>Configuración</span>
     </button>
+
     <mat-divider></mat-divider>
     <button mat-menu-item routerLink="#" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon><span>Salir</span>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  constructor() {}
+  public clients: number = 0;
+
+  constructor(private customerService: CustomerService) {
+    this.clients = this.customerService.countCustomersAll;
+  }
 }

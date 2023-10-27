@@ -1,0 +1,31 @@
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl ml-7">Interes Base por Mora</div>
+</div>
+<div class="app-sidenav-content">
+  <mat-card>
+    <mat-card-content class="dashboard-card-content m-4">
+      <div class="mat-elevation-z2">
+        <!-- Fomulario de angular material para editar el inters -->
+        <form [formGroup]="myForm">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Interes por Mora</mat-label>
+            <input formControlName="interes" matInput />
+            <mat-icon matSuffix>percent</mat-icon>
+          </mat-form-field>
+          <div class="flex justify-end">
+            <button
+            mat-stroked-button
+            min="0"
+            step="0.01"
+            color="primary"
+            class="m-4 w-full border-button"
+              (click)="updateInteres()"
+            >
+              Modificar
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

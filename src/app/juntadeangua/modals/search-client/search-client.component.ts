@@ -54,7 +54,6 @@ export class SearchClientComponent {
   onFormSubmit() {}
 
   seleccionarCliente(enect:any){
-    console.log(enect);
-
+    this.dialogRef.close(enect);
   }
 }

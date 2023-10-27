@@ -8,6 +8,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../../services/users.service';
 
 @Component({
   selector: 'app-dialog-usuario',
@@ -20,52 +21,38 @@ export class DialogUsuarioComponent {
   accion: string = 'Agregar';
   accionBoton: string = 'Guardar';
   listaRoles: any[] = [];
-
+  isPasswordVisible: boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public usuarioEditar: any,
     private fb: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private userService: UserService,
+    public dialogRef: MatDialogRef<DialogUsuarioComponent>
   ) {
     this.formUsuario = this.fb.group({
-      nombreApellido: ['', Validators.required],
-      correo: ['', Validators.required],
-      // idRol: ['fs', Validators.required],
-      clave: ['', Validators.required],
+      nombre: ['', Validators.required],
+      email: ['', Validators.required],
+      role: ['', Validators.required],
+      password: ['', Validators.required],
     });
 
     if (this.usuarioEditar) {
       this.accion = 'Editar';
       this.accionBoton = 'Actualizar';
     }
-
-    // this._rolServicio.getRoles().subscribe({
-    //   next: (data) => {
-
-    //     if (data.status) {
-
-    //       this.listaRoles = data.value;
-
-    //       if (this.usuarioEditar)
-    //         this.formUsuario.patchValue({
-    //           idRol: this.usuarioEditar.idRol
-    //         })
-
-    //     }
-    //   },
-    //   error: (e) => {
-    //   },
-    //   complete: () => {
-    //   }
-    // })
   }
 
   ngOnInit(): void {
+    console.log('console.log(this.usuarioEditar)');
+
+    console.log(this.usuarioEditar);
+
     if (this.usuarioEditar) {
       this.formUsuario.patchValue({
-        nombreApellido: this.usuarioEditar.nombreApellidos,
-        correo: this.usuarioEditar.correo,
-        /*idRol: this.usuarioEditar.idRol,*/
-        clave: this.usuarioEditar.clave,
+        nombre: this.usuarioEditar.nombre,
+        email: this.usuarioEditar.email,
+        role: this.usuarioEditar.role,
+        password: this.usuarioEditar.password,
       });
     }
   }
@@ -73,47 +60,40 @@ export class DialogUsuarioComponent {
   ngAfterViewInit() {}
 
   agregarEditarUsuario() {
-    this.mostrarAlerta("El usuario fue editado", "Exito");
-    // const _usuario: any = {
-    //   idUsuario: this.usuarioEditar == null ? 0 : this.usuarioEditar.idUsuario,
-    //   nombreApellidos: this.formUsuario.value.nombreApellido,
-    //   correo: this.formUsuario.value.correo,
-    //   idRol: this.formUsuario.value.idRol,
-    //   rolDescripcion: '',
-    //   clave: this.formUsuario.value.clave,
-    // };
-
     if (this.usuarioEditar) {
-      // this._usuarioServicio.editUsuario(_usuario).subscribe({
-      //   next: (data) => {
-      //     if (data.status) {
-      //       this.mostrarAlerta("El usuario fue editado", "Exito");
-      //       this.dialogoReferencia.close('editado')
-      //     } else {
-      //       this.mostrarAlerta("No se pudo editar el usuario", "Error");
-      //     }
-      //   },
-      //   error: (e) => {
-      //     console.log(e)
-      //   },
-      //   complete: () => {
-      //   }
-      // })
+      const usuarioEditado: any = {
+        idJaUsuario: this.usuarioEditar.idJaUsuario,
+        nombre: this.formUsuario.get('nombre')?.value,
+        email: this.formUsuario.get('email')?.value,
+        role: this.formUsuario.get('role')?.value,
+        password: this.formUsuario.get('password')?.value,
+        img: this.usuarioEditar.img,
+      };
+
+      //actualizar en el servicio
+      this.userService
+        .actualizarUsuario(this.usuarioEditar.idJaUsuario, usuarioEditado)
+        .subscribe((resp) => {
+          if (resp) {
+            this.mostrarAlerta('Usuario actualizado correctamente', 'success');
+            this.dialogRef.close('actualizado');
+          }
+        });
     } else {
-      // this._usuarioServicio.saveUsuario(_usuario).subscribe({
-      //   next: (data) => {
-      //     if (data.status) {
-      //       this.mostrarAlerta("El usuario fue registrado", "Exito");
-      //       this.dialogoReferencia.close('agregado')
-      //     } else {
-      //       this.mostrarAlerta("No se pudo registrar el usuario", "Error");
-      //     }
-      //   },
-      //   error: (e) => {
-      //   },
-      //   complete: () => {
-      //   }
-      // })
+      const nuevoUsuario: any = {
+        nombre: this.formUsuario.get('nombre')?.value,
+        email: this.formUsuario.get('email')?.value,
+        role: this.formUsuario.get('role')?.value,
+        password: this.formUsuario.get('password')?.value,
+      };
+
+      //agregar en el servicio
+      this.userService.createUser(nuevoUsuario).subscribe((resp) => {
+        if (resp) {
+          this.mostrarAlerta('Usuario creado correctamente', 'success');
+          this.dialogRef.close('agregado');
+        }
+      });
     }
   }
 

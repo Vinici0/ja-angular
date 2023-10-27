@@ -8,6 +8,11 @@ import { LoginResponse, User } from '../interfaces/user.interface';
 import { Usuario } from '../models/usuario.model';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { CargarUsuarios } from '../interfaces/cargar-usuarios.interface';
+import { Company } from '../models/company.model';
+import {
+  ComapnyReponse,
+  Empresa,
+} from 'src/app/maintenance/interfaces/company.interface';
 
 const base_url = environment.base_url;
 
@@ -16,6 +21,7 @@ export class AuthService {
   private baseUrl = base_url;
   private user?: User;
   public usuario: Usuario;
+  public company: Company;
   constructor(private router: Router, private http: HttpClient) {}
 
   get currentUser(): User | undefined {
@@ -44,6 +50,7 @@ export class AuthService {
       map((resp: any) => {
         const { email, nombre, role, img = '', idJaUsuario } = resp.data;
         this.usuario = new Usuario(nombre, email, '', role, img, idJaUsuario);
+        this.getCompany().subscribe();
         localStorage.setItem('token', resp.token);
         return true;
       }),
@@ -117,4 +124,28 @@ export class AuthService {
     localStorage.removeItem('token');
     this.router.navigateByUrl('/auth');
   };
+
+  /* Company */
+  getCompany(): Observable<Empresa[]> {
+    const url = `${base_url}/config/empresa`;
+    return this.http.get<ComapnyReponse>(url, this.headers).pipe(
+      map((resp) => {
+        const { empresa } = resp.data;
+        this.company = new Company(
+          empresa[0].nombreEmpresa,
+          empresa[0].rucEmpresa,
+          empresa[0].direccionEmpresa,
+          empresa[0].telefonoEmpresa,
+          empresa[0].emailEmpresa,
+          empresa[0].mensajeEmpresa,
+          empresa[0].img || '',
+          empresa[0].idEmpresa ? empresa[0].idEmpresa.toString() : ''
+        );
+        return empresa;
+      }),
+      catchError((error) => {
+        return of([]);
+      })
+    );
+  }
 }

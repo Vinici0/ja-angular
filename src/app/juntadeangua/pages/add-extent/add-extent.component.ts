@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
-import { Measure, Data } from '../../interfaces/measure';
+import { Measure, Data } from '../../interfaces/measure.interface';
 import { MeasureServiceTsService } from '../../services/measure.service.ts.service';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 import { MatSort } from '@angular/material/sort';
@@ -85,6 +85,7 @@ export class AddExtentComponent implements OnInit {
 
   selectedMonth: number = new Date().getMonth() + 1;
   selectedYear: number = new Date().getFullYear();
+
   ngOnInit(): void {
     this.formGroup.controls['year'].setValue(this.selectedYear);
     this.formGroup.controls['fechaFin'].setValue(

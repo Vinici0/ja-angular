@@ -1,1 +1,54 @@
-<p>dialog-add-fine works!</p>
+<h2 mat-dialog-title>{{ accion }} Multa</h2>
+<mat-dialog-content>
+  <form [formGroup]="myForm">
+    <mat-grid-list cols="1" rowHeight="100px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Tipo de Multa</mat-label>
+          <input
+            formControlName="typeFine"
+            matInput
+            autocomplete="off"
+            class="w-full"
+          />
+          <!-- <mat-icon matSuffix>account_box</mat-icon> -->
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Costo de Multa</mat-label>
+          <input
+            matInput
+            autocomplete="off"
+            class="w-full"
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="cost"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</mat-dialog-content>
+<div mat-dialog-actions class="action">
+  <button
+    mat-raised-button
+    type="button"
+    [mat-dialog-close]="false"
+    class="w-full"
+  >
+    Cancelar
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    class="w-full"
+    (click)="onSaveUpdate()"
+  >
+    {{ accionBoton }}
+  </button>
+</div>
+
