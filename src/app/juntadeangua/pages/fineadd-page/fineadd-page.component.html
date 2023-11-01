@@ -1,12 +1,21 @@
 <div class="container m-auto">
   <div class="py-4 font-medium text-2xl ml-7">Registro de Multas</div>
-  <div class="flex justify-start items-center ">
+  <div class="flex justify-between items-center">
     <button
       mat-button
-      class="mx-7 "
+      class="mx-7"
       [routerLink]="['/junta-de-angua/pages/fine']"
     >
       <mat-icon mat-list-icon>arrow_back</mat-icon> Regresar
+    </button>
+    <!--  Icono de agregar clientes-->
+    <button
+      mat-raised-button
+      color="accent"
+      class="w-48 mr-4"
+      (click)="searchClients()"
+    >
+      <mat-icon>add</mat-icon> Agregar Clientes
     </button>
   </div>
   <!-- Icono de regresasr -->
@@ -16,67 +25,6 @@
     <mat-card-content class="dashboard-card-content m-4">
       <div class="mat-elevation-z2">
         <form [formGroup]="myForm">
-          <div class="bg-card h-8 rounded-t-lg text-6xl">
-            <h3 class="text-center text-6xl m-20">Datos del Cliente</h3>
-          </div>
-          <div class="rounded">
-            <div
-              class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-            >
-              <div class="">
-                <div class="flex gap-2 w-full justify-center">
-                  <mat-form-field appearance="outline" class="w-full">
-                    <mat-label>Nombre y apellidos</mat-label>
-                    <input
-                      formControlName="lastNameAndName"
-                      matInput
-                      placeholder="Nombre y apellidos"
-                    />
-
-                    <!-- Agrega el icono aquí -->
-                  </mat-form-field>
-                  <div
-                    class="rounded h-14 t-lg text-6xl flex justify-center items-center"
-                    style="background-color: #009688; color: #fff;"
-                  >
-                    <button
-                      mat-icon-button
-                      class="text-white bg-white"
-                      (click)="searchClient()"
-                    >
-                      <mat-icon>search</mat-icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="">
-                <mat-form-field appearance="outline" class="w-full">
-                  <mat-label>Cedula</mat-label>
-                  <input formControlName="ruc" matInput />
-
-                  <!-- Agrega el icono aquí -->
-                </mat-form-field>
-              </div>
-
-              <div class="">
-                <div>
-                  <!-- Telefono -->
-                  <mat-form-field appearance="outline" class="w-full">
-                    <mat-label>Telefono</mat-label>
-                    <input
-                      formControlName="phone"
-                      matInput
-                      placeholder="Ex. 0987654321"
-                    />
-
-                    <!-- Agrega el icono aquí -->
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Inputs para registrar una multa -->
           <div>
             <div class="bg-card h-8 rounded-t-lg text-6xl">
               <h3 class="text-center text-6xl m-20">Datos de la Multa</h3>
@@ -163,16 +111,106 @@
             </div>
           </div>
 
-          <div class="flex justify-center mt-5">
-            <button
-              mat-raised-button
-              style="background-color: #009688; color: #fff;"
-              class="w-full"
-              (click)="createFineDetail()"
-            >
-              Registrar
-            </button>
+
+          <div *ngIf="clients.length > 0; else noClients">
+            <div class="bg-card h-8 rounded-t-lg text-6xl">
+              <h3 class="text-center text-6xl m-20">Lista de Clientes</h3>
+            </div>
+            <div class="w-full">
+              <mat-form-field appearance="fill" class="w-full mr-72">
+                <mat-label>Buscar</mat-label>
+                <input
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  placeholder="Filtrar"
+                />
+              </mat-form-field>
+            </div>
+            <div class="rounded" class="mat-elevation-z8">
+              <table matSort mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="Nombre">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                    Nombre
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.Nombre }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Ruc">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef>Ruc</th>
+                  <td mat-cell *matCellDef="let element">{{ element.Ruc }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="Telefono">
+                  <th mat-header-cell *matHeaderCellDef>Telefono</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.Telefono }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Email">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                    Email
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.Email }}
+                  </td>
+                </ng-container>
+
+                <!-- Acciones -->
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef style="width: 200px">
+                    Selecionar
+                  </th>
+
+                  <td mat-cell *matCellDef="let element">
+                    <!-- Eliminar Clietne -->
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="onDeleteClient(element.idCliente)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+              <mat-card-footer>
+                <mat-paginator
+                  [pageSizeOptions]="[5, 8]"
+                  showFirstLastButtons
+                ></mat-paginator>
+              </mat-card-footer>
+            </div>
+
+            <!-- Inputs para registrar una multa -->
+
+            <div class="flex justify-center mt-5">
+              <button
+                mat-raised-button
+                color="accent"
+                class="w-full"
+                (click)="createFineDetail()"
+              >
+                Registrar
+              </button>
+            </div>
           </div>
+
+          <!-- Que diga no hay clientes sleccionados -->
+          <ng-template #noClients>
+
+              <h3 class="text-center text-6xl m-20 text-gray-500">
+                No hay clientes seleccionados
+              </h3>
+
+          </ng-template>
         </form>
         <!-- Datos de la multa-->
       </div>

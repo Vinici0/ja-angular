@@ -6,14 +6,16 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { DialogClienteComponent } from '../../modals/dialog-cliente/dialog-cliente.component';
+import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 
 @Component({
   selector: 'app-cutomers-page',
   templateUrl: './cutomers-page.component.html',
   styleUrls: ['./cutomers-page.component.css'],
 })
-
 export class CutomersPageComponent implements OnInit {
+  pdfurl = '';
+
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
   displayedColumns = [
@@ -51,6 +53,23 @@ export class CutomersPageComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
+  }
+  openDialog() {
+    this.customerService.pdfCUstomerView().subscribe((resp: any) => {
+      const blobUrl = window.URL.createObjectURL(resp);
+      console.log(blobUrl);
+
+      this.pdfurl = blobUrl;
+      console.log(this.pdfurl);
+
+      this.dialogView.open(PdfViewComponent, {
+        width: '750px',
+        height: '700px',
+        data: {
+          pdfurl: this.pdfurl,
+        },
+      });
+    });
   }
 
   agregarCliente() {

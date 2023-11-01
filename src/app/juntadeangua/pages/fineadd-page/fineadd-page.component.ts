@@ -8,11 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-import { DialogUsuarioComponent } from '../../modals/dialog-usuario/dialog-usuario.component';
-import { SearchClientComponent } from '../../modals/search-client/search-client.component';
-import { FineService } from '../../services/fines.service';
 import { Fine } from '../../interfaces/fine.interface';
 import { FineServiceDetails } from '../../services/finesDetails.service';
+import { TablefineViewComponent } from '../../modals/tablefine-view/tablefine-view.component';
+import { MatSort } from '@angular/material/sort';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-fineadd-page',
@@ -21,9 +21,12 @@ import { FineServiceDetails } from '../../services/finesDetails.service';
 })
 export class FineaddPageComponent {
   fines: Fine[] = [];
+  clients: any[] = [];
 
-  dataSource = new MatTableDataSource([]);
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginatior!: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns = ['Nombre', 'Ruc', 'Telefono', 'Email', 'acciones'];
 
   constructor(
     private fineService: FineServiceDetails,
@@ -52,19 +55,53 @@ export class FineaddPageComponent {
     this.leadFines();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  onDeleteClient(id: any) {
+    const index = this.clients.findIndex((c) => c.idCliente === id);
+    this.clients.splice(index, 1);
+    this.dataSource = new MatTableDataSource(this.clients);
+    this.dataSource.paginator = this.paginatior;
+    this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) {}
 
-  searchClient() {
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
+  }
+
+  searchClients() {
     this.dialog
-      .open(SearchClientComponent, {
+      .open(TablefineViewComponent, {
         disableClose: true,
       })
       .afterClosed()
       .subscribe((result) => {
+        result.forEach((value: boolean, key: any) => {
+          const client = key;
+          console.log('client', client);
+
+          // Verifica si el cliente ya existe en el array clients
+          const existingClient = this.clients.find(
+            (c) => c.idCliente === client.idCliente
+          );
+
+          // Si el cliente no existe en el array, agrégalo
+          if (!existingClient) {
+            this.clients.push({
+              Nombre: client.Nombre,
+              Ruc: client.Ruc,
+              Telefono: client.Telefono,
+              Email: client.Email,
+              idCliente: client.idCliente,
+            });
+          }
+        });
+
+        this.dataSource = new MatTableDataSource(this.clients);
+        this.dataSource.paginator = this.paginatior;
+        this.dataSource.sort = this.sort;
+
         this.myForm.setValue({
           lastNameAndName: result.Nombre,
           ruc: result.Ruc,

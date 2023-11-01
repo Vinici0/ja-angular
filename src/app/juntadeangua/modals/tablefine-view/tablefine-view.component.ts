@@ -2,37 +2,37 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTableDataSourcePaginator,
+} from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerService } from '../../services/customer.service';
 import { Client } from '../../interfaces/customer.interface';
 
 @Component({
-  selector: 'app-search-client',
-  templateUrl: './search-client.component.html',
-  styleUrls: ['./search-client.component.css'],
+  selector: 'app-tablefine-view',
+  templateUrl: './tablefine-view.component.html',
+  styleUrls: ['./tablefine-view.component.css'],
 })
-export class SearchClientComponent {
+
+export class TablefineViewComponent {
   dataSource!: MatTableDataSource<Client, MatTableDataSourcePaginator>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  displayedColumns = ['Nombre', 'Ruc', 'Telefono', 'Email', 'acciones'];
 
-  displayedColumns = [
-    'Nombre',
-    'Ruc',
-    'Telefono',
-    'Email',
-    'acciones',
-  ];
+  clients: Client[] = [];
+  selectedClients = new Map<any, boolean>();
 
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog,
     public dialogView: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<SearchClientComponent>
+    public dialogRef: MatDialogRef<TablefineViewComponent>
   ) {}
 
   ngOnInit(): void {
@@ -47,18 +47,23 @@ export class SearchClientComponent {
     });
   }
 
-  eliminarCliente(id: any) {}
-
-  editarCliente(id: any) {}
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
 
-  onFormSubmit() {}
+  toggleSelection(clientId: any) {
+    this.selectedClients.set(clientId, !this.selectedClients.get(clientId));
+  }
 
-  seleccionarCliente(enect:any){
-    this.dialogRef.close(enect);
+  isClientSelected(clientId: any): boolean | undefined {
+    return (
+      this.selectedClients.has(clientId) && this.selectedClients.get(clientId)
+    );
+  }
+
+  onSendClients() {
+    console.log('this.selectedClients', this.selectedClients);
+    this.dialogRef.close(this.selectedClients);
   }
 }

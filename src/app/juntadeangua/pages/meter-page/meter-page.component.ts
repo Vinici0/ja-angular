@@ -108,7 +108,7 @@ export class MeterPageComponent implements OnInit {
 
   openDialog() {
     this.meterService
-      .imprimirConsumo(this.dataSource.filteredData)
+      .imprimirConsumo()
       .subscribe((resp) => {
         const blobUrl = window.URL.createObjectURL(resp);
         this.pdfurl = blobUrl;

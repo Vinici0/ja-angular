@@ -1,3 +1,26 @@
+<!--
+
+   public myForm: FormGroup = this.fb.group({
+    nombre: ['', [Validators.required]],
+    ruc: ['', [Validators.required]],
+    telefono: ['', [Validators.required]],
+
+    email: ['', [Validators.required, Validators.email]],
+    idPais: ['', [Validators.required]],
+    idCiudad: ['', [Validators.required]],
+    direccion: ['', []],
+
+    fechaNacimiento: ['', [Validators.required]],
+    fechaIngreso: ['', [Validators.required]],
+    fechaCaducidad: ['', [Validators.required]],
+
+    idTipoRuc: ['', [Validators.required]],
+    hombre: [false, [Validators.required]],
+    ja_discapacidad: [false, [Validators.required]],
+    ja_terceraEdad: [false, [Validators.required]],
+    estadoCivil: ['', [Validators.required]],
+  });
+ -->
 <div class="container m-auto">
   <div class="py-4 font-medium text-2xl ml-7">Registro de Cliente</div>
   <div class="flex justify-start items-center">
@@ -15,7 +38,7 @@
   <mat-card>
     <mat-card-content class="dashboard-card-content m-4">
       <div class="mat-elevation-z2">
-        <form [formGroup]="myForm" >
+        <form [formGroup]="myForm">
           <div class="bg-card h-8 rounded-t-lg text-6xl">
             <h3 class="text-center text-6xl m-20">Datos del Cliente</h3>
           </div>
@@ -26,21 +49,29 @@
               <div class="flex gap-2 w-full justify-center">
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Nombre y apellidos</mat-label>
-                  <input matInput placeholder="Nombre y apellidos" />
+                  <input
+                    matInput
+                    placeholder="Nombre y apellidos"
+                    formControlName="nombre"
+                  />
                 </mat-form-field>
               </div>
 
               <div class="">
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>RUC/C.I</mat-label>
-                  <input matInput />
+                  <input matInput formControlName="ruc" />
                 </mat-form-field>
               </div>
               <!-- Telefono -->
               <div class="">
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Telefono</mat-label>
-                  <input matInput placeholder="Ex. 0987654321" />
+                  <input
+                    matInput
+                    placeholder="Ex. 0987654321"
+                    formControlName="telefono"
+                  />
                 </mat-form-field>
               </div>
 
@@ -52,6 +83,7 @@
                     matInput
                     type="email"
                     placeholder="Ex. ejemplo@gmail.com"
+                    formControlName="email"
                   />
                 </mat-form-field>
               </div>
@@ -59,20 +91,24 @@
               <!-- Select Pais -->
               <mat-form-field appearance="outline" class="w-full">
                 <mat-label>Pais</mat-label>
-                <mat-select>
-                  <mat-option value="Ecuador">Ecuador</mat-option>
-                  <mat-option value="Colombia">Colombia</mat-option>
-                  <mat-option value="Peru">Peru</mat-option>
+                <mat-select formControlName="idPais">
+                  <ng-container *ngFor="let pais of clientPaiss">
+                    <mat-option [value]="pais.idClientePais">{{
+                      pais.Pais
+                    }}</mat-option>
+                  </ng-container>
                 </mat-select>
               </mat-form-field>
 
               <!-- Select Pais -->
               <mat-form-field appearance="outline" class="w-full">
                 <mat-label>Ciudad</mat-label>
-                <mat-select formControlName="ciudad">
-                  <mat-option value="Quito">Quito</mat-option>
-                  <mat-option value="Guayaquil">Guayaquil</mat-option>
-                  <mat-option value="Quevedo">Quevedo</mat-option>
+                <mat-select formControlName="idCiudad">
+                  <ng-container *ngFor="let ciudad of clientCiudads">
+                    <mat-option [value]="ciudad.idCiudad">{{
+                      ciudad.Ciudad
+                    }}</mat-option>
+                  </ng-container>
                 </mat-select>
               </mat-form-field>
 
@@ -80,7 +116,11 @@
               <div class="col-span-1 sm:col-span-3">
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Direccion</mat-label>
-                  <input matInput placeholder="Ex. Av. 9 de Octubre" />
+                  <input
+                    matInput
+                    placeholder="Ex. Av. 9 de Octubre"
+                    formControlName="direccion"
+                  />
                 </mat-form-field>
               </div>
 
@@ -89,7 +129,11 @@
               <div class="">
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Fecha de nacimiento</mat-label>
-                  <input matInput [matDatepicker]="picker1" />
+                  <input
+                    matInput
+                    [matDatepicker]="picker1"
+                    formControlName="fechaNacimiento"
+                  />
                   <mat-datepicker-toggle
                     matSuffix
                     [for]="picker1"
@@ -101,7 +145,11 @@
               <div class="">
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Fecha de ingreso</mat-label>
-                  <input matInput [matDatepicker]="picker2" />
+                  <input
+                    matInput
+                    [matDatepicker]="picker2"
+                    formControlName="fechaIngreso"
+                  />
                   <mat-datepicker-toggle
                     matSuffix
                     [for]="picker2"
@@ -113,7 +161,11 @@
               <div class="">
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Vencimiento</mat-label>
-                  <input matInput [matDatepicker]="picker3" />
+                  <input
+                    matInput
+                    [matDatepicker]="picker3"
+                    formControlName="fechaCaducidad"
+                  />
                   <mat-datepicker-toggle
                     matSuffix
                     [for]="picker3"
@@ -127,67 +179,62 @@
               >
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Tipo de ruc</mat-label>
-                  <mat-select>
-                    <mat-option value="Exportación">Exportación</mat-option>
-                    <mat-option value="Tarjeta de identidad"
-                      >Tarjeta de identidad</mat-option
-                    >
-                    <mat-option value="Cédula de extranjería"
-                      >Cédula de extranjería</mat-option
-                    >
+                  <mat-select formControlName="idTipoRuc">
+                    <ng-container *ngFor="let tipoRuc of clientTipoRucs">
+                      <mat-option [value]="tipoRuc.idTipoRuc">{{
+                        tipoRuc.TipoRuc
+                      }}</mat-option>
+                    </ng-container>
                   </mat-select>
                 </mat-form-field>
-
-
                 <!-- Hombre o mujer -->
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Genero</mat-label>
-                  <mat-select>
-                    <mat-option value="Hombre">Hombre</mat-option>
-                    <mat-option value="Mujer">Mujer</mat-option>
+                  <mat-select formControlName="hombre">
+                    <mat-option value="H">Hombre</mat-option>
+                    <mat-option value="M">Mujer</mat-option>
                   </mat-select>
                 </mat-form-field>
 
                 <!-- Estado Civil -->
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Estado Civil</mat-label>
-                  <mat-select>
-                    <mat-option value="Soltero">Soltero</mat-option>
-                    <mat-option value="Casado">Casado</mat-option>
-                    <mat-option value="Divorciado">Divorciado</mat-option>
-                    <mat-option value="Viudo">Viudo</mat-option>
+                  <mat-select formControlName="estadoCivil">
+                    <mat-option value="S">Soltero</mat-option>
+                    <mat-option value="C">Casado</mat-option>
+                    <mat-option value="D">Divorciado</mat-option>
+                    <mat-option value="V">Viudo</mat-option>
                   </mat-select>
                 </mat-form-field>
 
                 <!-- Discapasitado  -->
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Discapasitado</mat-label>
-                  <mat-select>
-                    <mat-option value="Si">Si</mat-option>
-                    <mat-option value="No">No</mat-option>
+                  <mat-select formControlName="ja_discapacidad">
+                    <mat-option value="1">Si</mat-option>
+                    <mat-option value="0">No</mat-option>
                   </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Tercera edad</mat-label>
-                  <mat-select>
-                    <mat-option value="Si">Si</mat-option>
-                    <mat-option value="No">No</mat-option>
+                  <mat-select formControlName="ja_terceraEdad">
+                    <mat-option value="1">Si</mat-option>
+                    <mat-option value="0">No</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
-
             </div>
           </div>
           <!-- Inputs para registrar una multa -->
           <div class="flex justify-center mt-5">
             <button
               mat-raised-button
-              style="background-color: #009688; color: #fff"
+              color="accent"
               class="w-full"
               (click)="onFormSubmit()"
             >
-              Registrar
+              Registrar Cliente
             </button>
           </div>
         </form>

@@ -4,8 +4,9 @@
 </div>
 <div class="app-sidenav-content">
   <mat-card>
-    <mat-card-title>
-      <button
+    <mat-card-title >
+      <div class="w-full flex justify-between items-center">
+        <button
         mat-raised-button
         color="primary"
         [routerLink]="['/junta-de-angua/pages/add-customer']"
@@ -14,6 +15,19 @@
       >
         <mat-icon mat-list-icon>add</mat-icon> Nuevo Cliente
       </button>
+
+      <!-- Imprimir clietes -->
+      <button
+        mat-raised-button
+        color="primary"
+        class="mx-7 my-5"
+        (click)="openDialog()"
+      >
+        <mat-icon mat-list-icon>print</mat-icon> Imprimir Clientes
+      </button>
+      </div>
+
+
     </mat-card-title>
     <hr class="mx-7" />
 

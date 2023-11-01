@@ -26,6 +26,9 @@ import { DialogAddFineComponent } from './modals/dialog-add-fine/dialog-add-fine
 import { FineeditPageComponent } from './pages/fineedit-page/fineedit-page.component';
 import { AddCustomerComponent } from './components/add-customer/add-customer.component';
 import { AddMeasureComponent } from './components/add-measure/add-measure.component';
+import { TablefineViewComponent } from './modals/tablefine-view/tablefine-view.component';
+import { CustomerViewComponent } from './modals/customer-view/customer-view.component';
+
 
 @NgModule({
   declarations: [
@@ -48,6 +51,8 @@ import { AddMeasureComponent } from './components/add-measure/add-measure.compon
     FineeditPageComponent,
     AddCustomerComponent,
     AddMeasureComponent,
+    TablefineViewComponent,
+    CustomerViewComponent
   ],
   imports: [
     CommonModule,

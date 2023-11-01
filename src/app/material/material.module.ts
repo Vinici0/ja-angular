@@ -18,10 +18,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatSortModule} from '@angular/material/sort';
-import {MatRadioModule} from '@angular/material/radio';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatPseudoCheckboxModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   exports: [
@@ -45,7 +46,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatPaginatorModule,
     MatDatepickerModule,
     MatSortModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPseudoCheckboxModule,
+    MatCheckboxModule,
   ],
 })
 export class MaterialModule {}

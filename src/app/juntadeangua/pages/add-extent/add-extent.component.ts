@@ -207,16 +207,19 @@ export class AddExtentComponent implements OnInit {
     }
   }
 
+  loadingPdf = false;
+
   openDialog() {
     if (this.dataSource.sort) {
+      this.loadingPdf = true;
+
       const sortedData = this.dataSource.sortData(
         this.dataSource.filteredData.slice(),
         this.dataSource.sort
       );
 
-      this.measureServiceTsService
-        .imprimirConsumo(sortedData)
-        .subscribe((resp) => {
+      this.measureServiceTsService.imprimirConsumo(sortedData).subscribe(
+        (resp) => {
           const blobUrl = window.URL.createObjectURL(resp);
           this.pdfurl = blobUrl;
 
@@ -227,7 +230,14 @@ export class AddExtentComponent implements OnInit {
               pdfurl: this.pdfurl,
             },
           });
-        });
+
+          this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
+        },
+        (error) => {
+          this.loadingPdf = false; // Establece como falso en caso de error
+          // Realiza el manejo de errores aquí si es necesario
+        }
+      );
     }
   }
 

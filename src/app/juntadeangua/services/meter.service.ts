@@ -20,14 +20,12 @@ export class MeterService {
     return this.http.put<any>(url, { estado });
   }
 
-  imprimirConsumo(data: any): Observable<any> {
-    console.log(data);
-
+  imprimirConsumo(): Observable<any> {
     const url = `${base_url}/reports/pdf-meter`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http
-      .post<any>(url, data, { headers, responseType: 'blob' as 'json' })
+      .post<any>(url, { headers, responseType: 'blob' as 'json' })
       .pipe(
         map((resp) => {
           // console.log(resp.data);
