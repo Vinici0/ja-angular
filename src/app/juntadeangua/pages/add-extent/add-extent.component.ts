@@ -95,8 +95,10 @@ export class AddExtentComponent implements OnInit {
   }
 
   getMeasures() {
+    console.log(this.selectedMonth, this.selectedYear);
     this.measureServiceTsService
       .getMeasurementsByMonthAndYear(this.selectedMonth, this.selectedYear)
+
       .subscribe((resp) => {
         this.dataSource = new MatTableDataSource(resp.data.measure);
         this.dataSource.paginator = this.paginatior;
@@ -239,6 +241,53 @@ export class AddExtentComponent implements OnInit {
         }
       );
     }
+  }
+
+  updateLecturaAnterior(
+    Anio: any,
+    Mes: any,
+    LecturaAnterior: any,
+    LecturaActual: any,
+    idCliente: any,
+    Codigo: any,
+    Basico: any,
+    Acumulado: any,
+    element: any
+  ) {
+    this.measureServiceTsService.actualizarMedida(element).subscribe(
+      (resp) => {
+        console.log(resp);
+        element.Acumulado = resp.data.measure.Acumulado;
+        element.Saldo = resp.data.measure.Saldo;
+        element.Pago = resp.data.measure.Pago;
+        element.Total = resp.data.measure.Total;
+        element.Excedente = resp.data.measure.Excedente;
+        element.Basico = resp.data.measure.Basico;
+        element.ExcedenteV = resp.data.measure.ExcedenteV;
+        Swal.fire({
+          text: 'Actualización exitosa',
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 900,
+          width: '300px',
+          icon: 'success',
+          toast: true,
+        });
+      },
+      (error) => {
+        console.log('Ingresando al error');
+        console.log(error);
+        Swal.fire({
+          text: 'Error al actualizar',
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 900,
+          width: '300px',
+          icon: 'error',
+          toast: true,
+        });
+      }
+    );
   }
 
   actualizarMedidaAll() {

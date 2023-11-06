@@ -19,6 +19,8 @@ import Swal from 'sweetalert2';
 })
 export class AddMeasureComponent implements OnInit {
   cliente: any;
+  anio: number = new Date().getFullYear();
+  mes: number = new Date().getMonth() + 1;
 
   public myForm: FormGroup = this.fb.group({
     nombre: [{ value: '', disabled: true }, [Validators.required]],
@@ -55,10 +57,8 @@ export class AddMeasureComponent implements OnInit {
       })
       .afterClosed()
       .subscribe((result) => {
-        console.log(result);
-
         this.myForm.setValue({
-          idCliente: result.IdCliente || '',
+          idCliente: result.idCliente || '',
           nombre: result.Nombre,
           ruc: result.Ruc,
           telefono: result.Telefono,
@@ -72,12 +72,16 @@ export class AddMeasureComponent implements OnInit {
 
   getClientById(id: any) {
     this.customerService.getClientById(id).subscribe((resp: any) => {
-      console.log(resp);
       this.cliente = resp.data.client[0];
       this.myForm.setValue({
         nombre: this.cliente.Nombre,
         ruc: this.cliente.Ruc,
         telefono: this.cliente.Telefono,
+        idCliente: this.cliente.idCliente,
+        lote: this.myForm.value.lote || '',
+        manzana: this.myForm.value.manzana || '',
+        codigo: this.myForm.value.codigo || '',
+        JA_LoteVacio: this.myForm.value.JA_LoteVacio || '',
       });
     });
   }
@@ -85,30 +89,11 @@ export class AddMeasureComponent implements OnInit {
   onFormSubmit() {
     if (this.myForm.valid) {
       const formData = this.myForm.value;
-      Object.keys(formData).forEach((key) => {
-        if (typeof formData[key] === 'string') {
-          formData[key] = formData[key].toUpperCase();
-          this.myForm.get(key)?.setValue(formData[key]); // Actualizar el valor en el formulario
-        }
-      });
-      console.log(formData);
-    }
-  }
-
-  createMeusereAndUpdateCustomer() {
-    if (this.myForm.valid) {
-      const formData = this.myForm.value;
-      Object.keys(formData).forEach((key) => {
-        if (typeof formData[key] === 'string') {
-          formData[key] = formData[key].toUpperCase();
-          this.myForm.get(key)?.setValue(formData[key]); // Actualizar el valor en el formulario
-        }
-      });
-      console.log(formData);
+      formData.Anio = this.anio;
+      formData.Mes = this.mes;
       this.customerService
         .createMeusereAndUpdateCustomer(formData)
         .subscribe((resp: any) => {
-          console.log(resp);
           if (resp.ok) {
             Swal.fire({
               toast: true,
