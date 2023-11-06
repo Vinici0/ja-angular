@@ -48,4 +48,11 @@ export class CustomerService {
         catchError((err) => of(err.error))
       );
   }
+
+  createMeusereAndUpdateCustomer(data: any): any {
+    console.log(data, 'service');
+
+    const url = `${base_url}/measures/createMeusereAndUpdateCustomer`;
+    return this.http.post(url, data);
+  }
 }

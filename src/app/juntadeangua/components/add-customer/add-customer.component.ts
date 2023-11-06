@@ -24,14 +24,14 @@ export class AddCustomerComponent implements OnInit {
   filteredPaises: any[];
 
   public myForm: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required]],
-    ruc: ['', [Validators.required]],
-    telefono: ['', [Validators.required]],
+    nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]], // Validación de longitud del nombre
+    ruc: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(15)]], // Validación de longitud del RUC
+    telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], // Validación de número de teléfono
 
     email: ['', [Validators.required, Validators.email]],
     idPais: ['', [Validators.required]],
     idCiudad: ['', [Validators.required]],
-    direccion: ['', []],
+    direccion: ['', [Validators.maxLength(100)]], // Validación de longitud de dirección
 
     fechaNacimiento: ['', [Validators.required]],
     fechaIngreso: ['', [Validators.required]],
@@ -42,8 +42,8 @@ export class AddCustomerComponent implements OnInit {
     ja_discapacidad: [false, [Validators.required]],
     ja_terceraEdad: [false, [Validators.required]],
     estadoCivil: ['', [Validators.required]],
-  });
 
+  });
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -80,7 +80,7 @@ export class AddCustomerComponent implements OnInit {
             icon: 'success',
           });
           console.log(data.data.client[0].idCliente);
-
+          debugger;
           this.router.navigateByUrl(
             '/junta-de-angua/pages/add-measure?id=' +
               data.data.client[0].idCliente
