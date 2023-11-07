@@ -37,14 +37,10 @@ export class FineaddPageComponent {
   ) {}
 
   public myForm: FormGroup = this.fb.group({
-    lastNameAndName: ['', [Validators.required]],
-    ruc: ['', [Validators.required]],
-    phone: [''],
     typeFine: ['', [Validators.required]],
     descripcion: [''],
     cost: ['', [Validators.required]],
     date_fine: ['', [Validators.required]],
-    id_cliente: [''],
     id_multa: [''],
     valor_pagar: [''],
   });
@@ -103,14 +99,11 @@ export class FineaddPageComponent {
         this.dataSource.sort = this.sort;
 
         this.myForm.setValue({
-          lastNameAndName: result.Nombre,
           ruc: result.Ruc,
-          phone: result.Telefono,
           typeFine: this.myForm.value.typeFine || '',
           descripcion: '',
           cost: this.myForm.value.cost || '',
           date_fine: new Date(),
-          id_cliente: result.idCliente,
           id_multa: this.myForm.value.id_multa || '',
           valor_pagar: this.myForm.value.valor_pagar || '',
         });
@@ -136,7 +129,17 @@ export class FineaddPageComponent {
   }
 
   createFineDetail() {
-    this.fineService.createFineDetail(this.myForm.value).subscribe(
+    const data = {
+      fineDetalle: this.myForm.value,
+      clients: this.clients,
+    }
+
+    if (this.myForm.invalid) {
+      console.log('Formulario inválido');
+
+      return;
+    }
+    this.fineService.createFineDetail(data).subscribe(
       (resp) => {
         Swal.fire({
           toast: true,

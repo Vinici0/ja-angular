@@ -209,32 +209,32 @@
 
                 <!-- Discapasitado  -->
                 <mat-form-field appearance="outline" class="w-full">
-                  <mat-label>Discapasitado</mat-label>
+                  <mat-label>Discapacitado</mat-label>
                   <mat-select formControlName="ja_discapacidad">
-                    <mat-option value="1">Si</mat-option>
-                    <mat-option value="0">No</mat-option>
+                    <mat-option [value]="true">Si</mat-option>
+                    <mat-option [value]="false">No</mat-option>
                   </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Tercera edad</mat-label>
                   <mat-select formControlName="ja_terceraEdad">
-                    <mat-option value="1">Si</mat-option>
-                    <mat-option value="0">No</mat-option>
+                    <mat-option [value]="true">Si</mat-option>
+                    <mat-option [value]="false">No</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
             </div>
           </div>
           <!-- Inputs para registrar una multa -->
-          <div class="flex justify-center mt-5">
+          <div class="flex justify-center mt-5" >
             <button
               mat-raised-button
               style="background-color: #009688; color: #fff"
               class="w-full"
               (click)="onFormSubmit()"
             >
-              Registrar Cliente
+            {{ isEdit ? 'Editar Cliente' : 'Registrar Cliente' }}
             </button>
           </div>
         </form>

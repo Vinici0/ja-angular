@@ -48,7 +48,10 @@ export class CutomersPageComponent implements OnInit {
 
   eliminarCliente(id: any) {}
 
-  editarCliente(id: any) {}
+  editarCliente(id: any) {
+
+
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -93,7 +93,7 @@
               <button
                 mat-icon-button
                 color="primary"
-                (click)="editarCliente(element)"
+                [routerLink]="['/junta-de-angua/pages/add-customer/', element.idCliente]"
               >
                 <mat-icon>edit</mat-icon>
               </button>

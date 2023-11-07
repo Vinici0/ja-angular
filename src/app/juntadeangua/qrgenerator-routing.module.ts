@@ -69,6 +69,10 @@ const routes: Routes = [
         component: FineeditPageComponent,
       },
       {
+        path: 'pages/add-customer/:id',
+        component: AddCustomerComponent,
+      },
+      {
         path: 'pages/add-customer',
         component: AddCustomerComponent,
       },
