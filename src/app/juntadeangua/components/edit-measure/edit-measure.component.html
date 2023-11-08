@@ -1,0 +1,146 @@
+<div class="container m-auto">
+  <div class="py-4 font-medium text-2xl ml-7">
+    Actualizar Medidor
+  </div>
+
+  <div class="flex justify-start items-center">
+    <button
+      mat-button
+      class="mx-7"
+      [routerLink]="['/junta-de-angua/pages/add-extent']"
+    >
+      <mat-icon mat-list-icon>arrow_back</mat-icon> Regresar
+    </button>
+  </div>
+  <!-- Icono de regresasr -->
+</div>
+<div class="app-sidenav-content">
+  <mat-card>
+    <mat-card-content class="dashboard-card-content m-4">
+      <div class="mat-elevation-z2">
+        <form [formGroup]="myForm">
+          <div class="bg-card h-8 rounded-t-lg text-6xl">
+            <h3 class="text-center text-6xl m-20">Datos del Cliente</h3>
+          </div>
+          <div class="rounded">
+            <div
+              class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+            >
+              <div class="">
+                <div class="flex gap-2 w-full justify-center">
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Nombre y apellidos</mat-label>
+                    <input
+                      formControlName="nombre"
+                      matInput
+                      placeholder="Nombre y apellidos"
+                      [disabled]="true"
+                    />
+
+                    <!-- Agrega el icono aquí -->
+                  </mat-form-field>
+                  <div
+                    class="rounded h-14 t-lg text-6xl flex justify-center items-center"
+                    style="background-color: #009688; color: #fff"
+                  >
+                    <button
+                      mat-icon-button
+                      class="text-white bg-white"
+                      (click)="searchClient()"
+                    >
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Cedula</mat-label>
+                  <input formControlName="ruc" matInput />
+
+                  <!-- Agrega el icono aquí -->
+                </mat-form-field>
+              </div>
+
+              <div class="">
+                <div>
+                  <!-- Telefono -->
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Telefono</mat-label>
+                    <input
+                      formControlName="telefono"
+                      matInput
+                      placeholder="Ex. 0987654321"
+                    />
+
+                    <!-- Agrega el icono aquí -->
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-card h-8 rounded-t-lg text-6xl">
+            <h3 class="text-center text-6xl m-20">Datos del Medidor</h3>
+          </div>
+          <div class="rounded">
+            <div
+              class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-2"
+            >
+              <div class="flex gap-2 w-full justify-center">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Código del medidor</mat-label>
+                  <input
+                    matInput
+                    placeholder="Ex. 123456789"
+                    formControlName="codigo"
+                  />
+                </mat-form-field>
+              </div>
+
+              <!-- Manzana  -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Manzana</mat-label>
+                  <input matInput formControlName="manzana" />
+                </mat-form-field>
+              </div>
+
+              <!-- Lote -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Lote</mat-label>
+                  <input matInput formControlName="lote" />
+                </mat-form-field>
+              </div>
+
+              <!-- Lote Vacio select si o no -->
+              <div class="">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Lote Vacio</mat-label>
+                  <mat-select formControlName="JA_LoteVacio">
+                    <mat-option [value]="true">Si</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <!-- Inputs para registrar una multa -->
+          <div class="flex justify-center mt-5">
+            <button
+              mat-raised-button
+              style="background-color: #009688; color: #fff"
+              class="w-full"
+              (click)="updateMeauseAndCustomer()"
+            >
+              Actualizar Medidor
+            </button>
+          </div>
+        </form>
+        <!-- Datos de la multa-->
+      </div>
+    </mat-card-content>
+    <br />
+  </mat-card>
+</div>

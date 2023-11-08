@@ -81,4 +81,14 @@ export class MeasureServiceTsService {
     const url = `${base_url}/measures/updateMeasurementForAll`;
     return this.http.put<any>(url, data);
   }
+
+  getMeasureById(id: number): Observable<any> {
+    const url = `${base_url}/measures/${id}`;
+    return this.http.get<any>(url);
+  }
+
+  updateMeauseAndCustomer(data: any): Observable<any> {
+    const url = `${base_url}/measures/updateMeauseAndCustomer`;
+    return this.http.put<any>(url, data);
+  }
 }
