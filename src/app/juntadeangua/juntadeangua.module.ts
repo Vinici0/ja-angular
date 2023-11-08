@@ -28,6 +28,8 @@ import { AddCustomerComponent } from './components/add-customer/add-customer.com
 import { AddMeasureComponent } from './components/add-measure/add-measure.component';
 import { TablefineViewComponent } from './modals/tablefine-view/tablefine-view.component';
 import { CustomerViewComponent } from './modals/customer-view/customer-view.component';
+import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
+import { NewPasswordComponent } from './modals/new-password/new-password.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { CustomerViewComponent } from './modals/customer-view/customer-view.comp
     AddCustomerComponent,
     AddMeasureComponent,
     TablefineViewComponent,
-    CustomerViewComponent
+    CustomerViewComponent,
+    EditMeasureComponent,
+    NewPasswordComponent
   ],
   imports: [
     CommonModule,

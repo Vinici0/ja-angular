@@ -16,8 +16,7 @@
   <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
     <button
       mat-menu-item
-      *ngIf="usuario.role !== 'USER_ROLE'"
-      (click)="remplaceLink('company')"
+      (click)="agregarUsuario()"
     >
       <mat-icon>person</mat-icon><span>Mi Perfil.</span>
     </button>
@@ -71,11 +70,17 @@
         </div>
       </mat-list-item>
 
+      <mat-list-item routerLink="pages/fine">
+        <div class="flex items-center gap-4">
+          <mat-icon>currency_exchange</mat-icon><span>Multas</span>
+        </div>
+      </mat-list-item>
+
       <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header> Multas </mat-expansion-panel-header>
+        <mat-expansion-panel-header> Mantenimiento </mat-expansion-panel-header>
         <mat-nav-list class="flex items-center">
-          <a mat-list-item routerLink="pages/fine">Registrar Multa</a>
-          <a mat-list-item routerLink="pages/register-fine">Multas</a>
+          <!-- <a mat-list-item routerLink="pages/fine">Registrar Multa</a> -->
+          <a mat-list-item routerLink="pages/register-fine">Registrar Multa</a>
         </mat-nav-list>
       </mat-expansion-panel>
 
