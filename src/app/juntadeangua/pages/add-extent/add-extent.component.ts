@@ -15,6 +15,7 @@ import { Measure, Data } from '../../interfaces/measure.interface';
 import { MeasureServiceTsService } from '../../services/measure.service.ts.service';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-extent',
@@ -75,7 +76,8 @@ export class AddExtentComponent implements OnInit {
   constructor(
     private measureServiceTsService: MeasureServiceTsService,
     private fb: FormBuilder,
-    public dialogView: MatDialog
+    public dialogView: MatDialog,
+    private router: Router
   ) {
     this.formGroup = this.fb.group({
       year: ['2023', Validators.required],
@@ -118,7 +120,11 @@ export class AddExtentComponent implements OnInit {
     console.log(event);
   }
 
-  editcustomer(id: number) {}
+  editMeasure(idCliente: number, idMedida: number) {
+    this.router.navigate(['/junta-de-angua/pages/edit-measure'], {
+      queryParams: { idCliente, idMedida },
+    });
+  }
 
   detailcustomer(id: number) {}
 
