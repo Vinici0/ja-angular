@@ -13,15 +13,15 @@ export class Company {
     public idEmpresa?: string
   ) {}
 
-  get imagenUrl() {
-    if (this.img?.includes('https')) {
-      return this.img;
-    } else if (this.img) {
-      console.log(`${base_url}/uploads/company/${this.idEmpresa}`);
-      return `${base_url}/uploads/company/${this.idEmpresa}`;
-    } else {
-      console.log(`${base_url}/uploads/company/no-image`);
-      return `${base_url}/uploads/company/no-image`;
-    }
-  }
+  // get imagenUrl() {
+  //   if (this.img?.includes('https')) {
+  //     return this.img;
+  //   } else if (this.img) {
+  //     console.log(`${base_url}/uploads/company/${this.idEmpresa}`);
+  //     return `${base_url}/uploads/company/${this.idEmpresa}`;
+  //   } else {
+  //     console.log(`${base_url}/uploads/company/no-image`);
+  //     return `${base_url}/uploads/company/no-image`;
+  //   }
+  // }
 }

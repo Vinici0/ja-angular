@@ -70,16 +70,19 @@
             </div>
             <div class="flex justify-center">
               <img
-                *ngIf="!imgTemp"
-                [src]="company.imagenUrl"
+                src="http://localhost:3000/api/v1/uploads/company/1"
                 class="w-1/2"
                 alt="user"
               />
-              <img *ngIf="imgTemp" [src]="imgTemp" class="w-1/2" alt="user" />
+
             </div>
 
             <div>
-              <input type="file" (change)="cambiarImagen($event)" class="w-full"/>
+              <input
+                type="file"
+                (change)="cambiarImagen($event)"
+                class="w-full"
+              />
             </div>
             <!-- Boton de guardar Imagen -->
             <div class="flex justify-end col-span-3">

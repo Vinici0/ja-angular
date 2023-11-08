@@ -12,14 +12,14 @@ export class Usuario {
     public idJaUsuario?: string
   ) {}
 
-  get imagenUrl() {
-    if (this.img?.includes('https')) {
-      return this.img;
-    } else if (this.img) {
-      return `${base_url}/uploads/${this.img}`;
-    } else {
-      return `${base_url}/uploads/no-image`;
-    }
-  }
+  // get imagenUrl() {
+  //   if (this.img?.includes('https')) {
+  //     return this.img;
+  //   } else if (this.img) {
+  //     return `${base_url}/uploads/${this.img}`;
+  //   } else {
+  //     return `${base_url}/uploads/no-image`;
+  //   }
+  // }
 }
 

@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <!-- logo imagen -->
-  <img [src]="company.imagenUrl" alt="logo" class="logo" class="w-12 h-10" />
+  <img src="http://localhost:3000/api/v1/uploads/company/1" alt="logo" class="logo" class="w-12 h-10" />
   <span>{{ company.nombreEmpresa }} </span>
   <span class="toolbar-item-spacer"></span>
 
@@ -24,7 +24,7 @@
   </button>
 
   <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
-    <button mat-menu-item routerLink="#">
+    <button mat-menu-item (click)="editarUsuario()">
       <mat-icon>person</mat-icon><span>Mi Perfil</span>
     </button>
     <button mat-menu-item routerLink="pages/maintenance">

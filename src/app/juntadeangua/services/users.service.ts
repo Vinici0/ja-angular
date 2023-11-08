@@ -73,4 +73,11 @@ export class UserService {
     const url = `${base_url}/users/${id}`;
     return this.http.delete(url, this.headers);
   }
+
+  updateUserInfo(id: any, usuario: any): Observable<any> {
+    console.log(usuario, id);
+
+    const url = `${base_url}/users/info/${id}`;
+    return this.http.put(url, usuario, this.headers);
+  }
 }

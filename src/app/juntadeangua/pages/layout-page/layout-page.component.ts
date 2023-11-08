@@ -32,7 +32,7 @@ export class LayoutPageComponent {
     this.router.navigateByUrl('/maintenance/pages/' + link);
   }
 
-  agregarUsuario() {
+  editarUsuario() {
     this.dialog
       .open(NewPasswordComponent, {
         disableClose: true,
