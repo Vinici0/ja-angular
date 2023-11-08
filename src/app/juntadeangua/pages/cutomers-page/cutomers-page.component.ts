@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { DialogClienteComponent } from '../../modals/dialog-cliente/dialog-cliente.component';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-cutomers-page',
@@ -18,6 +19,8 @@ export class CutomersPageComponent implements OnInit {
 
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   displayedColumns = [
     'Nombre',
     'Ruc',
@@ -43,6 +46,7 @@ export class CutomersPageComponent implements OnInit {
     this.customerService.getAllClients().subscribe((resp: any) => {
       this.dataSource = new MatTableDataSource(resp);
       this.dataSource.paginator = this.paginatior;
+      this.dataSource.sort = this.sort;
     });
   }
 

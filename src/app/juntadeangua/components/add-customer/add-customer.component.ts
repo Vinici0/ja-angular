@@ -28,13 +28,13 @@ export class AddCustomerComponent implements OnInit {
   public myForm: FormGroup = this.fb.group({
     nombre: [
       '',
-      [Validators.required, Validators.minLength(2), Validators.maxLength(50)],
+      [Validators.required, Validators.minLength(2), /* Validators.maxLength(50) */],
     ], // Validación de longitud del nombre
     ruc: [
       '',
-      [Validators.required, Validators.minLength(11), Validators.maxLength(15)],
+      [Validators.required, Validators.minLength(7), Validators.maxLength(15)],
     ], // Validación de longitud del RUC
-    telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(7), Validators.maxLength(11)]], // Validación de longitud del teléfono
+    telefono: ['', /* [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(7), Validators.maxLength(11)] */], // Validación de longitud del teléfono
 
     email: ['', [Validators.required, Validators.email]],
     idPais: ['', [Validators.required]],
@@ -43,7 +43,7 @@ export class AddCustomerComponent implements OnInit {
 
     fechaNacimiento: ['', [Validators.required]],
     fechaIngreso: ['', [Validators.required]],
-    fechaCaducidad: ['', [Validators.required]],
+    fechaCaducidad: ['', /* [Validators.required] */],
 
     idTipoRuc: ['', [Validators.required]],
     hombre: [false, [Validators.required]],

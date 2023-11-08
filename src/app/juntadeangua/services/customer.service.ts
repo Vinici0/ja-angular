@@ -51,9 +51,13 @@ export class CustomerService {
 
   createMeusereAndUpdateCustomer(data: any): any {
     console.log(data, 'service');
-
     const url = `${base_url}/measures/createMeusereAndUpdateCustomer`;
     return this.http.post(url, data);
+  }
+
+  updateMeauseAndCustomer(data: any): any {
+    const url = `${base_url}/measures/updateMeauseAndCustomer`;
+    return this.http.put(url, data);
   }
 
   updateCustomer(id: any, data: any): any {

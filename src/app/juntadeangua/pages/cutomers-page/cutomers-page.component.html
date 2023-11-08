@@ -1,33 +1,29 @@
-
 <div class="container m-auto">
   <div class="py-4 font-medium text-2xl ml-7">Clientes</div>
 </div>
 <div class="app-sidenav-content">
   <mat-card>
-    <mat-card-title >
+    <mat-card-title>
       <div class="w-full flex justify-between items-center">
         <button
-        mat-raised-button
-        color="primary"
-        [routerLink]="['/junta-de-angua/pages/add-customer']"
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/junta-de-angua/pages/add-customer']"
+          class="mx-7 my-5"
+        >
+          <mat-icon mat-list-icon>add</mat-icon> Nuevo Cliente
+        </button>
 
-        class="mx-7 my-5"
-      >
-        <mat-icon mat-list-icon>add</mat-icon> Nuevo Cliente
-      </button>
-
-      <!-- Imprimir clietes -->
-      <button
-        mat-raised-button
-        color="primary"
-        class="mx-7 my-5"
-        (click)="openDialog()"
-      >
-        <mat-icon mat-list-icon>print</mat-icon> Imprimir Clientes
-      </button>
+        <!-- Imprimir clietes -->
+        <button
+          mat-raised-button
+          color="primary"
+          class="mx-7 my-5"
+          (click)="openDialog()"
+        >
+          <mat-icon mat-list-icon>print</mat-icon> Imprimir Clientes
+        </button>
       </div>
-
-
     </mat-card-title>
     <hr class="mx-7" />
 
@@ -43,10 +39,10 @@
       </mat-form-field>
 
       <div class="mat-elevation-z2">
-        <table mat-table [dataSource]="dataSource">
+        <table matSort mat-table [dataSource]="dataSource">
           <!-- Nombre y Apellidos Column -->
           <ng-container matColumnDef="Nombre">
-            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Nombre</th>
             <td mat-cell *matCellDef="let element">{{ element.Nombre }}</td>
           </ng-container>
 
@@ -56,12 +52,12 @@
           </ng-container>
 
           <ng-container matColumnDef="Telefono">
-            <th mat-header-cell *matHeaderCellDef>Telefono</th>
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Telefono</th>
             <td mat-cell *matCellDef="let element">{{ element.Telefono }}</td>
           </ng-container>
 
           <ng-container matColumnDef="Email">
-            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Email</th>
             <td mat-cell *matCellDef="let element">{{ element.Email }}</td>
           </ng-container>
 
@@ -78,9 +74,9 @@
           </ng-container>
 
           <ng-container matColumnDef="FechaIngreso">
-            <th mat-header-cell *matHeaderCellDef>Fecha Ingreso</th>
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Fecha Ingreso</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.FechaIngreso | date: "dd/MM/yyyy" }}
+              {{ element.FechaIngreso | date : "dd/MM/yyyy" }}
             </td>
           </ng-container>
 
@@ -93,7 +89,10 @@
               <button
                 mat-icon-button
                 color="primary"
-                [routerLink]="['/junta-de-angua/pages/add-customer/', element.idCliente]"
+                [routerLink]="[
+                  '/junta-de-angua/pages/add-customer/',
+                  element.idCliente
+                ]"
               >
                 <mat-icon>edit</mat-icon>
               </button>
