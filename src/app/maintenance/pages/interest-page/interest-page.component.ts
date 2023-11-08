@@ -12,6 +12,7 @@ import { ConfigService } from '../../services/config.service';
 })
 export class InterestPageComponent implements OnInit {
   public interes: any;
+  public loading = false;
 
   constructor(private configService: ConfigService, private fb: FormBuilder) {}
 
@@ -32,6 +33,7 @@ export class InterestPageComponent implements OnInit {
   }
 
   updateInteres() {
+    this.loading = true;
     console.log(this.interes);
     this.interes.interes = this.myForm.value.interes;
     this.configService
@@ -47,5 +49,10 @@ export class InterestPageComponent implements OnInit {
           icon: 'success',
         });
       });
+
+    this.configService.updateAllMeasurements().subscribe((resp: any) => {
+      console.log(resp);
+      this.loading = false;
+    });
   }
 }

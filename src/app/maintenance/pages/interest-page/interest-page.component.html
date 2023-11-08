@@ -12,17 +12,41 @@
             <input formControlName="interes" matInput />
             <mat-icon matSuffix>percent</mat-icon>
           </mat-form-field>
-          <div class="flex justify-end">
+          <div class="flex justify-end" *ngIf="!loading; else elseBlock">
             <button
-            mat-stroked-button
-            min="0"
-            step="0.01"
-            color="primary"
-            class="m-4 w-full border-button"
+              mat-stroked-button
+              min="0"
+              step="0.01"
+              color="primary"
+              class="m-4 w-full border-button"
               (click)="updateInteres()"
             >
               Modificar
             </button>
+          </div>
+          <div
+            class="w-full"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+            "
+          >
+            <ng-template #elseBlock>
+              <div class="w-full flex justify-center items-center">
+                <div style="text-align: center">
+                  <!-- Mensaje de por favor esperar unos 30 segundos hasta que termine de cargar -->
+                  <p>
+                    Por favor, espere unos 30 segundos mientras se completa la
+                    carga.
+                  </p>
+                  <div class="wrapper center">
+                    <mat-spinner diameter="30" ></mat-spinner>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
           </div>
         </form>
       </div>
