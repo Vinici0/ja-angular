@@ -68,6 +68,7 @@ export class AddExtentComponent implements OnInit {
   startDate = new Date();
   endDate = new Date();
   formGroup: FormGroup;
+  isgeneraAndCalculo = false;
   // Obtener la fecha actual
   currentDate: Date = new Date();
   currentMonth: number = this.currentDate.getMonth() + 1; // Se agrega 1 porque los meses en JavaScript van de 0 a 11
@@ -89,12 +90,25 @@ export class AddExtentComponent implements OnInit {
   selectedYear: number = new Date().getFullYear();
 
   ngOnInit(): void {
+    this.isgeneraAndCalculo = false;
     this.formGroup.controls['year'].setValue(this.selectedYear);
     this.formGroup.controls['fechaFin'].setValue(
       this.months[this.selectedMonth - 1]
     );
-    this.getMeasures();
+    this.measureServiceTsService.generaAndCalculo().subscribe(
+      (resp) => {
+        if (resp) {
+          this.getMeasures();
+        }
+      },
+      (error) => {
+        this.getMeasures();
+        console.log(error);
+      }
+    );
   }
+
+  isLoading = true;
 
   getMeasures() {
     console.log(this.selectedMonth, this.selectedYear);
@@ -102,6 +116,17 @@ export class AddExtentComponent implements OnInit {
       .getMeasurementsByMonthAndYear(this.selectedMonth, this.selectedYear)
 
       .subscribe((resp) => {
+        if (resp.data.measure.length > 1) {
+          console.log("entro al if");
+
+          this.measureServiceTsService.generaAndCalculo().subscribe(
+            (resp) => {
+              if (resp) {
+              }
+            },
+            (error) => {}
+          );
+        }
         this.dataSource = new MatTableDataSource(resp.data.measure);
         this.dataSource.paginator = this.paginatior;
         this.dataSource.sort = this.sort;

@@ -107,19 +107,22 @@ export class MeterPageComponent implements OnInit {
   }
 
   openDialog() {
-    this.meterService
-      .imprimirConsumo()
-      .subscribe((resp) => {
-        const blobUrl = window.URL.createObjectURL(resp);
+    this.meterService.imprimirConsumo().subscribe(
+      (blob: Blob) => { // Asegúrate de que la respuesta es un Blob.
+        const blobUrl = window.URL.createObjectURL(blob);
         this.pdfurl = blobUrl;
 
+        // Abre el diálogo pasando la URL del PDF
         this.dialogView.open(PdfViewComponent, {
           width: '750px',
           height: '700px',
-          data: {
-            pdfurl: this.pdfurl,
-          },
+          data: { pdfurl: this.pdfurl },
         });
-      });
+      },
+      (error) => {
+        console.error('Error al obtener el PDF:', error);
+      }
+    );
   }
+
 }

@@ -91,4 +91,24 @@ export class MeasureServiceTsService {
     const url = `${base_url}/measures/updateMeauseAndCustomer`;
     return this.http.put<any>(url, data);
   }
+
+  // router.post("/generaAndCalculo", generaAndCalculo);
+  generaAndCalculo() {
+    // Recuperar el año y mes actual
+    const now = new Date();
+    const anioActual = now.getFullYear(); // Obtiene el año actual
+    const mesActual = now.getMonth() + 1; // Obtiene el mes actual (enero es 0)
+
+    const mesActualFormatted = mesActual.toString().padStart(2, '0');
+
+    const data = {
+      Anio: anioActual,
+      Mes: mesActualFormatted,
+    };
+
+    console.log(data);
+
+    const url = `${base_url}/measures/generaAndCalculo`;
+    return this.http.post(url, data);
+  }
 }

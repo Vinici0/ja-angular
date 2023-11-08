@@ -51,6 +51,7 @@ export class AuthService {
         const { email, nombre, role, img = '', idJaUsuario } = resp.data;
         this.usuario = new Usuario(nombre, email, '', role, img, idJaUsuario);
         this.getCompany().subscribe();
+
         localStorage.setItem('token', resp.token);
         return true;
       }),
@@ -148,4 +149,6 @@ export class AuthService {
       })
     );
   }
+
+
 }

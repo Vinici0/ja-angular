@@ -50,9 +50,32 @@ export class InterestPageComponent implements OnInit {
         });
       });
 
-    this.configService.updateAllMeasurements().subscribe((resp: any) => {
-      console.log(resp);
-      this.loading = false;
-    });
+    this.configService.updateAllMeasurements().subscribe(
+      (resp: any) => {
+        console.log(resp);
+        this.loading = false;
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          width: 450,
+          timer: 2000,
+          title: 'Se ha actualizado correctamente',
+          icon: 'success',
+        });
+      },
+      (err) => {
+        this.loading = false;
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          width: 450,
+          timer: 2000,
+          title: 'No se ha podido actualizar',
+          icon: 'error',
+        });
+      }
+    );
   }
 }
