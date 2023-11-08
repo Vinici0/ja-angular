@@ -14,6 +14,7 @@ import { RegisterFinePageComponent } from './pages/register-fine-page/register-f
 import { FineeditPageComponent } from './pages/fineedit-page/fineedit-page.component';
 import {AddCustomerComponent} from './components/add-customer/add-customer.component';
 import {AddMeasureComponent} from './components/add-measure/add-measure.component';
+import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,10 @@ const routes: Routes = [
         path: 'pages/add-measure',
         component: AddMeasureComponent,
       },
+      {
+        path: 'pages/edit-measure',
+        component:EditMeasureComponent
+      }
     ],
   },
 ];

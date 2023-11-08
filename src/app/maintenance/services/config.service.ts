@@ -83,4 +83,9 @@ export class ConfigService {
 
     return data;
   }
+
+  updateAllMeasurements()  : Observable<any> {
+    const url = `${base_url}/measures/updateAllMeasurements`;
+    return this.http.put(url, {});
+  }
 }

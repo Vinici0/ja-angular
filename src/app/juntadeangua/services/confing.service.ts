@@ -17,28 +17,26 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class ConfigService {
-
-  constructor( private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
   url = `${base_url}/config`;
 
-  getClientPais(){
+  getClientPais() {
     const url = `${this.url}/pais`;
     return this.http.get(url);
   }
 
-  getClienteCiudad(){
+  getClienteCiudad() {
     const url = `${this.url}/ciudad`;
     return this.http.get(url);
   }
 
-  getClienteTipoRuc(){
+  getClienteTipoRuc() {
     const url = `${this.url}/tipoRuc`;
     return this.http.get(url);
   }
 
-  getClienteTipo(){
+  getClienteTipo() {
     const url = `${this.url}/tipo`;
     return this.http.get(url);
   }
-
 }
