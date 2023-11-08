@@ -18,7 +18,6 @@ import { Usuario } from 'src/app/auth/models/usuario.model';
   styleUrls: ['./new-password.component.css'],
 })
 export class NewPasswordComponent {
-
   public formUsuario: FormGroup;
   public hide: boolean = true;
   public accion: string = 'Agregar';
@@ -36,71 +35,24 @@ export class NewPasswordComponent {
     public dialogRef: MatDialogRef<NewPasswordComponent>
   ) {
     this.formUsuario = this.fb.group({
-      nombre: ['', Validators.required],
-      email: ['', Validators.required],
-      role: ['', Validators.required],
-      password: ['', Validators.required],
+      newName: ['', Validators.required],
+      newEmail: ['', Validators.required],
+      oldPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    if (this.usuarioEditar) {
-      this.accion = 'Editar';
-      this.accionBoton = 'Actualizar';
-    }
+    this.usuario = authService.usuario;
   }
 
   ngOnInit(): void {
-    console.log('console.log(this.usuarioEditar)');
-
-    console.log(this.usuarioEditar);
-
-    if (this.usuarioEditar) {
-      this.formUsuario.patchValue({
-        nombre: this.usuarioEditar.nombre,
-        email: this.usuarioEditar.email,
-        role: this.usuarioEditar.role,
-        password: this.usuarioEditar.password,
-      });
-    }
+    this.formUsuario.patchValue({
+      newName: this.usuario.nombre,
+      newEmail: this.usuario.email,
+      oldPassword: '',
+    });
   }
 
   ngAfterViewInit() {}
-
-  agregarEditarUsuario() {
-    if (this.usuarioEditar) {
-      const usuarioEditado: any = {
-        idJaUsuario: this.usuarioEditar.idJaUsuario,
-        nombre: this.formUsuario.get('nombre')?.value,
-        email: this.formUsuario.get('email')?.value,
-        role: this.formUsuario.get('role')?.value,
-        password: this.formUsuario.get('password')?.value,
-        img: this.usuarioEditar.img,
-      };
-
-
-      this.userService
-        .actualizarUsuario(this.usuarioEditar.idJaUsuario, usuarioEditado)
-        .subscribe((resp) => {
-          if (resp) {
-            this.mostrarAlerta('Usuario actualizado correctamente', 'success');
-            this.dialogRef.close('actualizado');
-          }
-        });
-    } else {
-      const nuevoUsuario: any = {
-        nombre: this.formUsuario.get('nombre')?.value,
-        email: this.formUsuario.get('email')?.value,
-        role: this.formUsuario.get('role')?.value,
-        password: this.formUsuario.get('password')?.value,
-      };
-
-      this.userService.createUser(nuevoUsuario).subscribe((resp) => {
-        if (resp) {
-          this.mostrarAlerta('Usuario creado correctamente', 'success');
-          this.dialogRef.close('agregado');
-        }
-      });
-    }
-  }
 
   mostrarAlerta(mensaje: string, tipo: string) {
     this._snackBar.open(mensaje, tipo, {
@@ -108,5 +60,33 @@ export class NewPasswordComponent {
       verticalPosition: 'top',
       duration: 3000,
     });
+  }
+
+  updateUserInfo() {
+    console.log(this.formUsuario.value);
+
+    if (this.formUsuario.invalid) {
+      // alerta de completar campos
+      this.mostrarAlerta('Complete los campos', 'error');
+      return;
+    }
+    const usuario = this.formUsuario.value;
+    this.userService
+      .updateUserInfo(this.usuario.idJaUsuario, usuario)
+      .subscribe(
+        (resp) => {
+          console.log(resp);
+          this.mostrarAlerta('Se ha actualizado correctamente', 'success');
+          this.dialogRef.close('agregado');
+          // Actualizar el objeto usuario
+          this.authService.usuario.nombre = usuario.newName;
+          this.authService.usuario.email = usuario.newEmail;
+
+        },
+        (err) => {
+          console.log(err);
+          this.mostrarAlerta('Error al actualizar', 'error');
+        }
+      );
   }
 }
