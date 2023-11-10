@@ -3,44 +3,49 @@
 </div>
 <div class="app-sidenav-content">
   <mat-card>
-    <mat-card-header>
-      <div class="flex justify-between items-center">
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar por Mes</mat-label>
-          <mat-select
-            [(ngModel)]="selectedMonth"
-            (ngModelChange)="getMeasures()"
-          >
-            <mat-option value="1">Enero</mat-option>
-            <mat-option value="2">Febrero</mat-option>
-            <mat-option value="3">Marzo</mat-option>
-            <mat-option value="4">Abril</mat-option>
-            <mat-option value="5">Mayo</mat-option>
-            <mat-option value="6">Junio</mat-option>
-            <mat-option value="7">Julio</mat-option>
-            <mat-option value="8">Agosto</mat-option>
-            <mat-option value="9">Septiembre</mat-option>
-            <mat-option value="10">Octubre</mat-option>
-            <mat-option value="11">Noviembre</mat-option>
-            <mat-option value="12">Diciembre</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+    <div class="flex justify-between items-center">
+      <mat-card-header>
+        <div class="flex justify-between items-center">
+          <mat-form-field appearance="fill">
+            <mat-label>Buscar por Mes</mat-label>
+            <mat-select
+              [(ngModel)]="selectedMonth"
+              (ngModelChange)="getMeasures()"
+            >
+              <mat-option value="1">Enero</mat-option>
+              <mat-option value="2">Febrero</mat-option>
+              <mat-option value="3">Marzo</mat-option>
+              <mat-option value="4">Abril</mat-option>
+              <mat-option value="5">Mayo</mat-option>
+              <mat-option value="6">Junio</mat-option>
+              <mat-option value="7">Julio</mat-option>
+              <mat-option value="8">Agosto</mat-option>
+              <mat-option value="9">Septiembre</mat-option>
+              <mat-option value="10">Octubre</mat-option>
+              <mat-option value="11">Noviembre</mat-option>
+              <mat-option value="12">Diciembre</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-      <div class="flex justify-between items-center mx-4">
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar por Año</mat-label>
-          <mat-select
-            [(ngModel)]="selectedYear"
-            (ngModelChange)="getMeasures()"
-          >
-            <mat-option value="2021">2021</mat-option>
-            <mat-option value="2022">2022</mat-option>
-            <mat-option value="2023">2023</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="flex justify-between items-center mx-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Buscar por Año</mat-label>
+            <mat-select
+              [(ngModel)]="selectedYear"
+              (ngModelChange)="getMeasures()"
+            >
+              <mat-option value="2021">2021</mat-option>
+              <mat-option value="2022">2022</mat-option>
+              <mat-option value="2023">2023</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-header>
+      <div class="mx-5 font-medium">
+        Mes/año seleccionado: {{ months[selectedMonth - 1] }} {{ selectedYear }}
       </div>
-    </mat-card-header>
+    </div>
 
     <mat-card-content>
       <div
@@ -64,7 +69,7 @@
             class="mb-4 w-48"
             (click)="actualizarMedidaAll()"
           >
-            <mat-icon>add</mat-icon> Cargar Lecturas
+            Copiar Lecturas
           </button>
           <div class="flex justify-center items-center">
             <mat-spinner
@@ -198,7 +203,12 @@
           </th>
 
           <td *matCellDef="let element" class="flex justify-around">
-            <button mat-icon-button color="primary" tabindex="-1" (click)="editMeasure(element.idCliente, element.idMedida)">
+            <button
+              mat-icon-button
+              color="primary"
+              tabindex="-1"
+              (click)="editMeasure(element.idCliente, element.idMedida)"
+            >
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="accent" tabindex="-1">

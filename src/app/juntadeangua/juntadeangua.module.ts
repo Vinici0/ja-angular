@@ -30,6 +30,7 @@ import { TablefineViewComponent } from './modals/tablefine-view/tablefine-view.c
 import { CustomerViewComponent } from './modals/customer-view/customer-view.component';
 import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
 import { NewPasswordComponent } from './modals/new-password/new-password.component';
+import { CalculateTotalAmountComponent } from './components/calculate-total-amount/calculate-total-amount.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { NewPasswordComponent } from './modals/new-password/new-password.compone
     TablefineViewComponent,
     CustomerViewComponent,
     EditMeasureComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    CalculateTotalAmountComponent
   ],
   imports: [
     CommonModule,

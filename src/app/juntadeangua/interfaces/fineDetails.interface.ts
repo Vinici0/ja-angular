@@ -17,5 +17,6 @@ export interface FineDetail {
   idMultaDetalle: number;
   nombre:         string;
   ruc:            string;
+  telefono?:       string;
   typeFine:       string;
 }

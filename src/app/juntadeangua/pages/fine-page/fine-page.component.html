@@ -41,39 +41,19 @@
             <td mat-cell *matCellDef="let element">{{ element.ruc }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="typeFine">
+          <ng-container matColumnDef="cantidadMultas">
             <th mat-header-cell *matHeaderCellDef>Tipo de Multa</th>
-            <td mat-cell *matCellDef="let element">{{ element.typeFine }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="valor_pagar">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Valor a Pagar</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.valor_pagar | currency }}
+              {{ element.cantidadMultas }}
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="date_fine">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Fecha de Multa</th>
+          <ng-container matColumnDef="totalPagar">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>
+              Valor a Pagar
+            </th>
             <td mat-cell *matCellDef="let element">
-              {{ element.date_fine | date : "dd/MM/yyyy" }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="pagado">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Pagado</th>
-            <td mat-cell *matCellDef="let element" class="text-white">
-              <button
-                mat-button
-                [ngClass]="{
-                  'pagado-button': element.pagado,
-                  'no-pagado-button': !element.pagado
-                }"
-                (click)="togglePagado(element)"
-                style="color: white; width: 80px"
-              >
-                {{ element.pagado ? "Pagado" : "Pediente" }}
-              </button>
+              {{ element.totalPagar | currency }}
             </td>
           </ng-container>
 
@@ -86,19 +66,15 @@
                 mat-icon-button
                 color="primary"
                 [routerLink]="[
-                  '/junta-de-angua/pages/fineedit',
-                  element.idMultaDetalle
+                  '/junta-de-angua/pages/calculate-total-amount',
+                  element.idCliente
                 ]"
               >
-                <mat-icon>edit</mat-icon>
+                <mat-icon>visibility</mat-icon>
               </button>
-              <button
-                mat-icon-button
-                color="warn"
-                (click)="deleteFineDetail(element.idMultaDetalle)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
+
+
+
             </td>
           </ng-container>
 

@@ -19,10 +19,8 @@ export class FinePageComponent {
   displayedColumns: string[] = [
     'nombre',
     'ruc',
-    'typeFine',
-    'valor_pagar',
-    'date_fine',
-    'pagado',
+    'cantidadMultas',
+    'totalPagar',
     'acciones',
   ];
   dataSource = new MatTableDataSource();
@@ -61,10 +59,11 @@ export class FinePageComponent {
   }
 
   loadFines() {
-    this.fineService.getFineDetails().subscribe((fines) => {
-      console.log('fines', fines);
+    this.fineService.calculateTotalAmount().subscribe((data) => {
+      console.log('data', data);
 
-      this.fineDetails = fines;
+
+      this.fineDetails = data.data.calculateTotalAmount;
       this.dataSource.data = this.fineDetails;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -163,4 +162,7 @@ export class FinePageComponent {
       }
     );
   }
+
+
+
 }

@@ -12,9 +12,10 @@ import { FinePageComponent } from './pages/fine-page/fine-page.component';
 import { FineaddPageComponent } from './pages/fineadd-page/fineadd-page.component';
 import { RegisterFinePageComponent } from './pages/register-fine-page/register-fine.component';
 import { FineeditPageComponent } from './pages/fineedit-page/fineedit-page.component';
-import {AddCustomerComponent} from './components/add-customer/add-customer.component';
-import {AddMeasureComponent} from './components/add-measure/add-measure.component';
+import { AddCustomerComponent } from './components/add-customer/add-customer.component';
+import { AddMeasureComponent } from './components/add-measure/add-measure.component';
 import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
+import { CalculateTotalAmountComponent } from './components/calculate-total-amount/calculate-total-amount.component';
 
 const routes: Routes = [
   {
@@ -83,8 +84,12 @@ const routes: Routes = [
       },
       {
         path: 'pages/edit-measure',
-        component:EditMeasureComponent
-      }
+        component: EditMeasureComponent,
+      },
+      {
+        path: 'pages/calculate-total-amount/:id',
+        component: CalculateTotalAmountComponent,
+      },
     ],
   },
 ];

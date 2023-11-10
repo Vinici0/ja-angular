@@ -85,6 +85,7 @@ export class UsuarioPageComponent implements OnInit, AfterViewInit {
   }
 
   agregarUsuario() {
+
     //SI NO ADMIN_ROLE NO PUEDE AGREGAR USUARIOS
     if (this.usuario.role !== 'ADMIN_ROLE') {
       return;
