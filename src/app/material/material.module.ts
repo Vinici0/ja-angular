@@ -23,6 +23,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   exports: [
@@ -49,6 +51,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatRadioModule,
     MatPseudoCheckboxModule,
     MatCheckboxModule,
+    MatTooltipModule
   ],
 })
 export class MaterialModule {}

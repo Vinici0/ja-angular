@@ -117,7 +117,7 @@ export class AddExtentComponent implements OnInit {
 
       .subscribe((resp) => {
         if (resp.data.measure.length > 1) {
-          console.log("entro al if");
+          console.log('entro al if');
 
           this.measureServiceTsService.generaAndCalculo().subscribe(
             (resp) => {
@@ -274,6 +274,33 @@ export class AddExtentComponent implements OnInit {
     }
   }
 
+  // OpenDialog registro actual selectsionado
+  openDialogRegistroActual(element: any) {
+    const selecActual = [];
+    selecActual.push(element);
+
+    this.measureServiceTsService.imprimirConsumo(selecActual).subscribe(
+      (resp) => {
+        const blobUrl = window.URL.createObjectURL(resp);
+        this.pdfurl = blobUrl;
+
+        this.dialogView.open(PdfViewComponent, {
+          width: '750px',
+          height: '700px',
+          data: {
+            pdfurl: this.pdfurl,
+          },
+        });
+
+        this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
+      },
+      (error) => {
+        this.loadingPdf = false; // Establece como falso en caso de error
+        // Realiza el manejo de errores aquí si es necesario
+      }
+    );
+  }
+
   updateLecturaAnterior(
     Anio: any,
     Mes: any,
@@ -338,5 +365,9 @@ export class AddExtentComponent implements OnInit {
           toast: true, // El modal se muestra como toast
         });
       });
+  }
+
+  recalcular(){
+
   }
 }

@@ -62,15 +62,19 @@
           </mat-form-field>
         </div>
 
-        <div class="flex gap-4 ml-5">
+        <div class="flex gap-2 ml-5">
           <button
             mat-raised-button
             color="accent"
-            class="mb-4 w-48"
+            class="mb-4 w-16"
             (click)="actualizarMedidaAll()"
+            matTooltip="Copiar Lecturas"
           >
-            Copiar Lecturas
+            <div class="flex items-center">
+              <mat-icon>file_copy</mat-icon>
+            </div>
           </button>
+
           <div class="flex justify-center items-center">
             <mat-spinner
               *ngIf="loadingPdf"
@@ -82,10 +86,25 @@
             *ngIf="!loadingPdf"
             mat-raised-button
             color="primary"
-            class="mb-4 w-48"
+            class="mb-4 w-16"
             (click)="openDialog()"
+            matTooltip="Imprimir todos los registros"
           >
-            <mat-icon>print</mat-icon> Imprimir Consumo
+            <div class="flex items-center">
+              <mat-icon>print</mat-icon>
+            </div>
+          </button>
+
+          <button
+            mat-raised-button
+            color="warn"
+            class="mb-4 w-16"
+            (click)="recalcular()"
+            matTooltip="Recalcular"
+          >
+            <div class="flex items-center">
+              <mat-icon>refresh</mat-icon>
+            </div>
           </button>
         </div>
       </div>
@@ -211,12 +230,17 @@
             >
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="accent" tabindex="-1">
+            <button
+              mat-icon-button
+              color="accent"
+              tabindex="-1"
+              (click)="openDialogRegistroActual(element)"
+            >
               <mat-icon>print</mat-icon>
             </button>
-            <button mat-icon-button color="warn" tabindex="-1">
+            <!-- <button mat-icon-button color="warn" tabindex="-1">
               <mat-icon>delete</mat-icon>
-            </button>
+            </button> -->
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
