@@ -88,4 +88,11 @@ export class ConfigService {
     const url = `${base_url}/measures/updateAllMeasurements`;
     return this.http.put(url, {});
   }
+
+  // router.put("/calculateAllAndUpdateMedidasAcumulado", calculateAllAndUpdateMedidasAcumulado);
+  calculateAllAndUpdateMedidasAcumulado() : Observable<any> {
+    const url = `${base_url}/measures/calculateAllAndUpdateMedidasAcumulado`;
+    return this.http.put(url, {});
+  }
+
 }

@@ -16,6 +16,7 @@ import { MeasureServiceTsService } from '../../services/measure.service.ts.servi
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { ConfigService } from 'src/app/maintenance/services/config.service';
 
 @Component({
   selector: 'app-add-extent',
@@ -73,12 +74,14 @@ export class AddExtentComponent implements OnInit {
   currentDate: Date = new Date();
   currentMonth: number = this.currentDate.getMonth() + 1; // Se agrega 1 porque los meses en JavaScript van de 0 a 11
   currentYear: number = this.currentDate.getFullYear();
+  public loading = false;
 
   constructor(
     private measureServiceTsService: MeasureServiceTsService,
     private fb: FormBuilder,
     public dialogView: MatDialog,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService
   ) {
     this.formGroup = this.fb.group({
       year: ['2023', Validators.required],
@@ -367,7 +370,43 @@ export class AddExtentComponent implements OnInit {
       });
   }
 
-  recalcular(){
+  recalcular() {
+    this.configService
+      .calculateAllAndUpdateMedidasAcumulado()
+      .subscribe((resp) => {
+        console.log(resp);
+      });
 
+    this.loading = true;
+    this.configService.updateAllMeasurements().subscribe(
+      (resp: any) => {
+        this.configService
+          .calculateAllAndUpdateMedidasAcumulado()
+          .subscribe((resp) => {
+            this.loading = false;
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              width: 450,
+              timer: 2000,
+              title: 'Se ha actualizado correctamente',
+              icon: 'success',
+            });
+          });
+      },
+      (err) => {
+        this.loading = false;
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          width: 450,
+          timer: 2000,
+          title: 'No se ha podido actualizar',
+          icon: 'error',
+        });
+      }
+    );
   }
 }

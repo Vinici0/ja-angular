@@ -75,15 +75,8 @@
             </div>
           </button>
 
-          <div class="flex justify-center items-center">
-            <mat-spinner
-              *ngIf="loadingPdf"
-              style="margin-bottom: 16px; width: 192px; height: 50px"
-            ></mat-spinner>
-          </div>
-
           <button
-            *ngIf="!loadingPdf"
+            *ngIf="!loadingPdf; else elseBlock"
             mat-raised-button
             color="primary"
             class="mb-4 w-16"
@@ -95,17 +88,31 @@
             </div>
           </button>
 
+          <ng-template #elseBlock>
+            <div class="wrapper center">
+              <mat-spinner diameter="30"></mat-spinner>
+            </div>
+          </ng-template>
+
           <button
             mat-raised-button
             color="warn"
             class="mb-4 w-16"
             (click)="recalcular()"
-            matTooltip="Recalcular"
+            matTooltip="Volver a calcular los totales"
+            *ngIf="!loading; else elseBlock"
           >
             <div class="flex items-center">
-              <mat-icon>refresh</mat-icon>
+              <mat-icon>update</mat-icon>
+
             </div>
           </button>
+
+          <ng-template #elseBlock>
+            <div class="wrapper center">
+              <mat-spinner diameter="30"></mat-spinner>
+            </div>
+          </ng-template>
         </div>
       </div>
 
