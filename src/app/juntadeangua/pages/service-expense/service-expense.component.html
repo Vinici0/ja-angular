@@ -20,14 +20,20 @@
 
       </div>
 
-      <div class="flex gap-4">
+      <div class="flex gap-4 mx-5">
         <button mat-raised-button color="primary" class="mb-4 w-48" (click)="openDialog()">
           <mat-icon>print</mat-icon> Imprimir Consumo
         </button>
       </div>
+
+      <div class="flex gap-4">
+        <button mat-raised-button color="primary" class="mb-4 w-48" (click)="downloadPDF()">
+          <mat-icon>print</mat-icon> Imprimir Cortes
+        </button>
+      </div>
     </div>
 
-    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="htmlData">
       <!-- <ng-container matColumnDef="Anio">
         <th mat-header-cell *matHeaderCellDef>Año</th>
         <td mat-footer-cell>

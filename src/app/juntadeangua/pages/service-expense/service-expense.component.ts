@@ -7,6 +7,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 import { MatSort } from '@angular/material/sort';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import html2canvas from 'html2canvas';
+
+interface TableRow {
+  Nombre: string;
+  Manzana: string;
+  Lote: string;
+  Codigo: string;
+  Meses: string;
+  Saldo: string;
+}
 
 @Component({
   selector: 'app-service-expense',
@@ -110,4 +122,69 @@ export class ServiceExpenseComponent implements OnInit {
         });
     }
   }
+
+  printCorte() {}
+
+  public downloadPDF() {
+    const doc = new jsPDF();
+
+    // Define las columnas que deseas mostrar en el PDF
+    const columns = ['Nombre', 'Manzana', 'Lote', 'Codigo', 'Meses', 'Saldo'];
+
+    // Obtiene los datos de tu arreglo de objetos a mostrar en el PDF
+    let sortedData = this.dataSource.filteredData.slice();
+
+    if (this.dataSource.sort) {
+      sortedData = this.dataSource.sortData(sortedData, this.dataSource.sort);
+    }
+
+    // Mapea los datos a un formato compatible con autoTable
+    const rows: any[][] = sortedData.map((d) => [
+      d.Nombre,
+      d.Manzana,
+      d.Lote,
+      d.codigo,
+      d.meses,
+      d.saldo,
+    ]);
+
+    // Establece el tamaño de la fuente
+    doc.setFontSize(11);
+
+    // Establece el titulo del PDF
+    doc.text('Corte de Servicio', 11, 8);
+
+    // Establece el subtitulo del PDF
+    doc.setFontSize(8);
+    doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
+
+    // Crea la tabla
+    autoTable(doc, {
+      columns,
+      body: rows,
+      startY: 14,
+      theme: 'grid',
+      headStyles: {
+        fillColor: '#ffffff',
+        textColor: '#000000',
+        fontSize: 10,
+      },
+      bodyStyles: {
+        fillColor: '#ffffff',
+        textColor: '#000000',
+        fontSize: 8,
+      },
+      alternateRowStyles: {
+        fillColor: '#f5f5f5',
+      },
+    });
+
+    // Abre el archivo PDF en una nueva ventana
+    // doc.output('dataurlnewwindow');
+
+    // Descarga el archivo PDF
+    doc.save('corte-servicio.pdf');
+  }
+
+
 }
