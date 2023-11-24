@@ -104,11 +104,12 @@ export class CutomersPageComponent implements OnInit {
 
     // Map the data to a format compatible with autoTable
     const rows: any[][] = data.map((d) => [
-      d.Nombre,
-      d.Ruc,
-      d.Telefono,
-      d.Email,
-      '       ', // Placeholder for the signature field
+      //Quitar espacio en blanco del nombre
+      d.Nombre.trim(),
+      d.Ruc.trim(),
+      d.Telefono ? d.Telefono.trim() : '',
+      d.Email ? d.Email.trim() : '',
+      '', // Placeholder for the signature field
     ]);
 
     // Set the font size
@@ -116,6 +117,7 @@ export class CutomersPageComponent implements OnInit {
 
     // Set the title of the PDF
     doc.text('Clientes', 11, 8);
+
 
     // Set the subtitle of the PDF
     doc.setFontSize(8);

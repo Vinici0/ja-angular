@@ -127,7 +127,13 @@ export class ServiceExpenseComponent implements OnInit {
 
   public downloadPDF() {
     const doc = new jsPDF();
-
+    const addHeader = () =>  {
+      doc.setFontSize(11);
+      doc.setFont('bold');
+      doc.text('Corte de Servicio', 11, 8);
+      doc.setFontSize(8);
+      doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
+    }
     // Define las columnas que deseas mostrar en el PDF
     const columns = ['Nombre', 'Manzana', 'Lote', 'Codigo', 'Meses', 'Saldo'];
 
@@ -140,6 +146,7 @@ export class ServiceExpenseComponent implements OnInit {
 
     // Mapea los datos a un formato compatible con autoTable
     const rows: any[][] = sortedData.map((d) => [
+
       d.Nombre,
       d.Manzana,
       d.Lote,
@@ -152,12 +159,8 @@ export class ServiceExpenseComponent implements OnInit {
     doc.setFontSize(11);
 
     // Establece el titulo del PDF
-    doc.text('Corte de Servicio', 11, 8);
 
-    // Establece el subtitulo del PDF
-    doc.setFontSize(8);
-    doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
-
+    addHeader();
     // Crea la tabla
     autoTable(doc, {
       columns,
