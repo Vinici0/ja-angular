@@ -39,4 +39,6 @@ export class ConfigService {
     const url = `${this.url}/tipo`;
     return this.http.get(url);
   }
+
+
 }

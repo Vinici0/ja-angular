@@ -371,18 +371,28 @@ export class AddExtentComponent implements OnInit {
   }
 
   recalcular() {
-    this.configService
-      .calculateAllAndUpdateMedidasAcumulado()
-      .subscribe((resp) => {
-        console.log(resp);
-      });
-
     this.loading = true;
-    this.configService.updateAllMeasurements().subscribe(
-      (resp: any) => {
-        this.configService
-          .calculateAllAndUpdateMedidasAcumulado()
-          .subscribe((resp) => {
+    this.configService
+      .updateDatosAlcantarilladoConSaldoPositivo()
+      .subscribe((resp: any) => {
+        this.configService.updateAllMeasurements().subscribe(
+          (resp: any) => {
+            this.configService
+              .calculateAllAndUpdateMedidasAcumulado()
+              .subscribe((resp) => {
+                this.loading = false;
+                Swal.fire({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  width: 450,
+                  timer: 2000,
+                  title: 'Se ha actualizado correctamente',
+                  icon: 'success',
+                });
+              });
+          },
+          (err) => {
             this.loading = false;
             Swal.fire({
               toast: true,
@@ -390,23 +400,11 @@ export class AddExtentComponent implements OnInit {
               showConfirmButton: false,
               width: 450,
               timer: 2000,
-              title: 'Se ha actualizado correctamente',
-              icon: 'success',
+              title: 'No se ha podido actualizar',
+              icon: 'error',
             });
-          });
-      },
-      (err) => {
-        this.loading = false;
-        Swal.fire({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          width: 450,
-          timer: 2000,
-          title: 'No se ha podido actualizar',
-          icon: 'error',
-        });
-      }
-    );
+          }
+        );
+      });
   }
 }
