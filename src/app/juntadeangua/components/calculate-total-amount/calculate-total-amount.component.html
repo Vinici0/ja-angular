@@ -1,5 +1,6 @@
 <div class="container m-auto">
-  <div class="py-4 font-medium text-2xl ml-7">Registro de Multas</div>
+  <div class="py-4 font-medium text-2xl ml-7">
+    <h1>Detalle de Multa</h1>
   <div class="flex justify-start items-center">
     <button
       mat-button
@@ -14,10 +15,34 @@
   <mat-card>
     <mat-card-content class="dashboard-card-content m-4">
       <div class="mat-elevation-z2">
+        <div class="flex justify-end">
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="mb-4 w-16"
+            (click)="generateNotificationPDF()"
+            matTooltip="Descargar en pdf"
+          >
+            <div class="flex items-center">
+              <mat-icon>print</mat-icon>
+            </div>
+          </button>
+
+          <!-- Descargar en excel -->
+          <button
+
+            class="mb-4 w-16 color-gren mx-4"
+            matTooltip="Descargar en excel"
+          >
+            <div class="flex items-center">
+              <mat-icon>get_app</mat-icon>
+            </div>
+          </button>
+
+        </div>
         <form [formGroup]="myForm">
-          <div class="bg-card h-8 rounded-t-lg text-6xl">
-            <h3 class="text-center text-6xl m-20">Datos del Cliente</h3>
-          </div>
+
           <div class="rounded">
             <div
               class="grid gap-4 mt-5 mx-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"

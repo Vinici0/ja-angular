@@ -107,4 +107,19 @@ export class FineServiceDetails {
       })
     );
   }
+
+  // router.get("/getCustomerInformation/:id", getCustomerInformation);
+  getCustomerInformation(id: string): Observable<any> {
+    const url = `${base_url}/measures/getCustomerInformation/${id}`;
+    return this.http.get<any>(url, this.headers).pipe(
+      map((resp) => {
+        const measure = resp.data.measure;
+        return measure;
+      }),
+      catchError((error) => {
+        return of([]);
+      })
+    );
+  }
+
 }

@@ -98,17 +98,18 @@ export class AddExtentComponent implements OnInit {
     this.formGroup.controls['fechaFin'].setValue(
       this.months[this.selectedMonth - 1]
     );
-    this.measureServiceTsService.generaAndCalculo().subscribe(
-      (resp) => {
-        if (resp) {
           this.getMeasures();
-        }
-      },
-      (error) => {
-        this.getMeasures();
-        console.log(error);
-      }
-    );
+    // debugger;
+    // this.measureServiceTsService.generaAndCalculo().subscribe(
+    //   (resp) => {
+    //     if (resp) {
+    //     }
+    //   },
+    //   (error) => {
+    //     this.getMeasures();
+    //     console.log(error);
+    //   }
+    // );
   }
 
   isLoading = true;

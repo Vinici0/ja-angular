@@ -7,3 +7,14 @@
   background-color: #f44c3e;
   color: #fff;
 }
+
+.color-gren{
+
+  background-color: #57b85c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 10%;
+  width: 60px;
+}
