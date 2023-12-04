@@ -14,7 +14,7 @@ import { Client } from '../../interfaces/customer.interface';
   styleUrls: ['./search-client.component.css'],
 })
 export class SearchClientComponent {
-  dataSource!: MatTableDataSource<Client, MatTableDataSourcePaginator>;
+  dataSource!: MatTableDataSource<any, MatTableDataSourcePaginator>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 

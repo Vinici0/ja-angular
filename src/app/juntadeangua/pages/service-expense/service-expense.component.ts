@@ -36,6 +36,7 @@ export class ServiceExpenseComponent implements OnInit {
   filterAnio: any;
   columnFilters: { [key: string]: string } = {};
   pdfurl: string = '';
+  loadingPdf = false;
 
   constructor(
     private measureServiceTsService: MeasureServiceTsService,
@@ -123,17 +124,38 @@ export class ServiceExpenseComponent implements OnInit {
     }
   }
 
-  printCorte() {}
+  printCorte() {
+    this.measureServiceTsService.imprimirCorteNotificacion().subscribe(
+      (resp : any) => {
+        const blobUrl = window.URL.createObjectURL(resp);
+        this.pdfurl = blobUrl;
+
+        this.dialogView.open(PdfViewComponent, {
+          width: '750px',
+          height: '700px',
+          data: {
+            pdfurl: this.pdfurl,
+          },
+        });
+
+        this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
+      },
+      (error) => {
+        this.loadingPdf = false; // Establece como falso en caso de error
+        // Realiza el manejo de errores aquí si es necesario
+      }
+    );
+  }
 
   public downloadPDF() {
     const doc = new jsPDF();
-    const addHeader = () =>  {
+    const addHeader = () => {
       doc.setFontSize(11);
       doc.setFont('bold');
       doc.text('Corte de Servicio', 11, 8);
       doc.setFontSize(8);
       doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
-    }
+    };
     // Define las columnas que deseas mostrar en el PDF
     const columns = ['Nombre', 'Manzana', 'Lote', 'Codigo', 'Meses', 'Saldo'];
 
@@ -146,13 +168,12 @@ export class ServiceExpenseComponent implements OnInit {
 
     // Mapea los datos a un formato compatible con autoTable
     const rows: any[][] = sortedData.map((d) => [
-
       d.Nombre,
       d.Manzana,
       d.Lote,
       d.codigo,
       d.meses,
-      d.saldo,
+      `$${d.saldo.toFixed(2)}`,
     ]);
 
     // Establece el tamaño de la fuente
@@ -188,6 +209,4 @@ export class ServiceExpenseComponent implements OnInit {
     // Descarga el archivo PDF
     doc.save('corte-servicio.pdf');
   }
-
-
 }

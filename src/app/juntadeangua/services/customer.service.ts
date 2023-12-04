@@ -24,6 +24,17 @@ export class CustomerService {
     );
   }
 
+  getAllClientsAndManzadaAndLote(): any {
+    const url = `${base_url}/customers/customers/getAllClientsAndManzadaAndLote`;
+    return this.http.get<ClienteReponse>(url).pipe(
+      map((resp) => {
+        // this.countCustomersAll = resp.data.total;
+        const clientes = resp.data.clients;
+        return clientes;
+      })
+    );
+  }
+
   getClientById(id: any): any {
     const url = `${base_url}/customers/${id}`;
     return this.http.get(url);

@@ -52,8 +52,36 @@ export class MeasureServiceTsService {
       );
   }
 
+  imprimirCorteNotificacion(): Observable<any> {
+    const url = `${base_url}/reports/pdf-court-all`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    /*
+      {
+    "meses" : 3,
+    "day" : 15,
+    "month": 5,
+    "monthsCorte" : 3
+}
+    */
+    const data = {
+      meses: 2,
+      // El Dia actual  en numero
+      day: new Date().getDate(),
+      monthsCorte: 11,
+      month: 11,
 
+    };
 
+    return this.http
+      .post<any>(url,  data, { headers, responseType: 'blob' as 'json' })
+      .pipe(
+        map((resp) => {
+          // console.log(resp.data);
+          return resp;
+        }),
+        catchError((err) => of(err.error))
+      );
+  }
 
   execCorte() {
     const url = `${base_url}/measures/court`;

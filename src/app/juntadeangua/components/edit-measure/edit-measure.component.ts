@@ -31,7 +31,7 @@ export class EditMeasureComponent {
     telefono: [{ value: '', disabled: true }, ],
     lote: ['', [Validators.required]],
     manzana: ['', [Validators.required]],
-    codigo: [{ value: '', disabled: true }, [Validators.required]],
+    codigo: [[Validators.required]],
     JA_LoteVacio: ['', [Validators.required]],
     idCliente: [''],
   });
@@ -97,7 +97,7 @@ export class EditMeasureComponent {
   updateMeauseAndCustomer() {
     //agregar codigo al formulario
     const formData = this.myForm.value;
-    formData.codigo = this.codigo;
+    // formData.codigo = this.codigo;
     if (this.myForm.valid) {
       this.customerService
         .updateMeauseAndCustomer(formData)

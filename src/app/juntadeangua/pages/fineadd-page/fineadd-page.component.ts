@@ -26,7 +26,7 @@ export class FineaddPageComponent {
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = ['Nombre', 'Ruc', 'Telefono', 'Email', 'acciones'];
+  displayedColumns = ['Nombre', 'Ruc', 'Manzana', 'Lote', 'acciones'];
 
   constructor(
     private fineService: FineServiceDetails,
@@ -73,9 +73,10 @@ export class FineaddPageComponent {
       })
       .afterClosed()
       .subscribe((result) => {
+        console.log('result', result);
+
         result.forEach((value: boolean, key: any) => {
           const client = key;
-          console.log('client', client);
 
           // Verifica si el cliente ya existe en el array clients
           const existingClient = this.clients.find(
@@ -85,10 +86,11 @@ export class FineaddPageComponent {
           // Si el cliente no existe en el array, agrégalo
           if (!existingClient) {
             this.clients.push({
-              Nombre: client.Nombre,
-              Ruc: client.Ruc,
-              Telefono: client.Telefono,
-              Email: client.Email,
+              Nombre: client.nombre,
+              Ruc: client.ruc,
+              Telefono: client.telefono,
+              Manzana: client.manzana,
+              Lote: client.lote,
               idCliente: client.idCliente,
             });
           }

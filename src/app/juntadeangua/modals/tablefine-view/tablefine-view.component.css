@@ -2,3 +2,15 @@
   min-width: 900px; /* Puedes ajustar este valor según tus necesidades */
   max-width: 900px; /* Puedes ajustar este valor según tus necesidades */
 }
+
+
+.mat-elevation-z2 table {
+  table-layout: fixed;
+}
+
+.mat-elevation-z2 th,
+.mat-elevation-z2 td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

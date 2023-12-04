@@ -62,7 +62,6 @@ export class FinePageComponent {
     this.fineService.calculateTotalAmount().subscribe((data) => {
       console.log('data', data);
 
-
       this.fineDetails = data.data.calculateTotalAmount;
       this.dataSource.data = this.fineDetails;
       this.dataSource.paginator = this.paginator;
@@ -162,7 +161,4 @@ export class FinePageComponent {
       }
     );
   }
-
-
-
 }

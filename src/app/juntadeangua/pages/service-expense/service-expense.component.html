@@ -2,12 +2,11 @@
   <div class="py-4 font-medium text-2xl">Reporte de Cortes</div>
 </div>
 <mat-card>
-  <mat-card-header>
-
-  </mat-card-header>
+  <mat-card-header> </mat-card-header>
   <mat-card-content class="">
-
-    <div class="flex justify-center items-center sm:flex-row flex-col sm:justify-between">
+    <div
+      class="flex justify-center items-center sm:flex-row flex-col sm:justify-between"
+    >
       <div class="w-full mr-10">
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Buscar</mat-label>
@@ -17,23 +16,44 @@
             placeholder="Filtrar por Nombre, Código, Manzana, Lote"
           />
         </mat-form-field>
-
       </div>
 
       <div class="flex gap-4 mx-5">
-        <button mat-raised-button color="primary" class="mb-4 w-48" (click)="openDialog()">
-          <mat-icon>print</mat-icon> Imprimir Consumo
+        <button
+          mat-raised-button
+          color="accent"
+          class="mb-4 w-16"
+          (click)="printCorte()"
+          matTooltip="Imprimir notificaciones"
+        >
+          <div class="flex items-center">
+            <mat-icon>notifications</mat-icon>
+          </div>
         </button>
       </div>
 
       <div class="flex gap-4">
-        <button mat-raised-button color="primary" class="mb-4 w-48" (click)="downloadPDF()">
-          <mat-icon>print</mat-icon> Imprimir Cortes
+        <button
+          mat-raised-button
+          color="primary"
+          class="mb-4 w-16"
+          (click)="downloadPDF()"
+          matTooltip="Imprimir todos los cortes"
+        >
+          <div class="flex items-center">
+            <mat-icon>print</mat-icon>
+          </div>
         </button>
       </div>
     </div>
 
-    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="htmlData">
+    <table
+      matSort
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      id="htmlData"
+    >
       <!-- <ng-container matColumnDef="Anio">
         <th mat-header-cell *matHeaderCellDef>Año</th>
         <td mat-footer-cell>
@@ -69,7 +89,9 @@
 
       <ng-container matColumnDef="Saldo">
         <th mat-sort-header mat-header-cell *matHeaderCellDef>Saldo</th>
-        <td mat-cell *matCellDef="let element">{{ element.saldo | currency }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.saldo | currency }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

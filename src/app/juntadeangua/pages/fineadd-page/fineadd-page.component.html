@@ -111,7 +111,6 @@
             </div>
           </div>
 
-
           <div *ngIf="clients.length > 0; else noClients">
             <div class="bg-card h-8 rounded-t-lg text-6xl">
               <h3 class="text-center text-6xl m-20">Lista de Clientes</h3>
@@ -139,23 +138,24 @@
 
                 <ng-container matColumnDef="Ruc">
                   <th mat-sort-header mat-header-cell *matHeaderCellDef>Ruc</th>
-                  <td mat-cell *matCellDef="let element">{{ element.Ruc }}</td>
+                  <td mat-cell *matCellDef="let element">{{ element.ruc }}</td>
                 </ng-container>
 
-                <ng-container matColumnDef="Telefono">
-                  <th mat-header-cell *matHeaderCellDef>Telefono</th>
-                  <td mat-cell *matCellDef="let element">
-                    {{ element.Telefono }}
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="Email">
+                <!-- Manzana y lote -->
+                <ng-container matColumnDef="Manzana">
                   <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                    Email
+                    Manzana
                   </th>
                   <td mat-cell *matCellDef="let element">
-                    {{ element.Email }}
+                    {{ element.manzana }}
                   </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Lote">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                    Lote
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.lote }}</td>
                 </ng-container>
 
                 <!-- Acciones -->
@@ -205,11 +205,9 @@
 
           <!-- Que diga no hay clientes sleccionados -->
           <ng-template #noClients>
-
-              <h3 class="text-center text-6xl m-20 text-gray-500">
-                No hay clientes seleccionados
-              </h3>
-
+            <h3 class="text-center text-6xl m-20 text-gray-500">
+              No hay clientes seleccionados
+            </h3>
           </ng-template>
         </form>
         <!-- Datos de la multa-->

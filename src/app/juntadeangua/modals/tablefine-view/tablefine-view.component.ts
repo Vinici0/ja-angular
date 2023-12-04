@@ -18,13 +18,13 @@ import { Client } from '../../interfaces/customer.interface';
 })
 
 export class TablefineViewComponent {
-  dataSource!: MatTableDataSource<Client, MatTableDataSourcePaginator>;
+  dataSource!: MatTableDataSource<any, MatTableDataSourcePaginator>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['Nombre', 'Ruc', 'Telefono', 'Email', 'acciones'];
+  displayedColumns = ['Nombre', 'Ruc', 'Manzana', 'Lote', 'acciones'];
 
-  clients: Client[] = [];
+  clients: any[] = [];
   selectedClients = new Map<any, boolean>();
 
   constructor(
@@ -40,7 +40,7 @@ export class TablefineViewComponent {
   }
 
   getAllClients() {
-    this.customerService.getAllClients().subscribe((clients: Client[]) => {
+    this.customerService.getAllClientsAndManzadaAndLote().subscribe((clients: any[]) => {
       this.dataSource = new MatTableDataSource(clients);
       this.dataSource.paginator = this.paginatior;
       this.dataSource.sort = this.sort;

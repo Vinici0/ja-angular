@@ -183,7 +183,7 @@ export class AddExtentComponent implements OnInit {
         debugger;
         console.log(resp);
         element.Acumulado = resp.data.measure.Acumulado;
-        element.Saldo = resp.data.measure.Saldo;
+        element.Saldo = resp.data.measure.Saldo + 3;
         element.Pago = resp.data.measure.Pago;
         element.Total = resp.data.measure.Total;
         element.Excedente = resp.data.measure.Excedente;
