@@ -6,18 +6,16 @@
     <mat-card-title> </mat-card-title>
     <hr class="mx-7" />
 
-    <mat-card-content class="dashboard-card-content m-4">
+    <mat-card-content class="m-4">
       <!-- gap-4 text-white -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 text-white">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 text-white"
+      >
         <div
           class="flex flex-row justify-between sm:flex-row md: items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] color-cutomer"
         >
           <div class="m-4">
-            <img
-            src="assets/group.png"
-              alt="medidor"
-              class="w-20 h-20"
-            />
+            <img src="assets/group.png" alt="medidor" class="w-20 h-20" />
           </div>
           <div class="m-4">
             <div class="text-2xl font-bold">Clientes</div>
@@ -28,11 +26,7 @@
           class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] color-meter"
         >
           <div class="m-4">
-            <img
-            src="assets/meter.png"
-              alt="medidor"
-              class="w-20 h-20"
-            />
+            <img src="assets/meter.png" alt="medidor" class="w-20 h-20" />
           </div>
           <div class="m-4">
             <div class="text-2xl font-bold">Medidores</div>
@@ -41,13 +35,9 @@
         </div>
         <div
           class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] color-meter-repair"
-        > 
+        >
           <div class="m-4">
-            <img
-              src="assets/repair.png"
-              alt="medidor"
-              class="w-20 h-20"
-            />
+            <img src="assets/repair.png" alt="medidor" class="w-20 h-20" />
           </div>
           <div class="m-4">
             <div class="text-2xl font-bold">Medidores en Reparación</div>
@@ -56,22 +46,54 @@
         </div>
 
         <div
-        class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]  color-user"
-      >
-        <div class="m-4">
-          <img
-            src="assets/customer.png"
-            alt="medidor"
-            class="w-20"
-          />
-        </div>
-        <div class="m-4">
-          <div class="text-2xl font-bold">Usuarios</div>
-          <div class="text-4xl font-bold">5</div>
+          class="flex flex-row justify-between items-center box-shadow: shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] color-user"
+        >
+          <div class="m-4">
+            <img src="assets/customer.png" alt="medidor" class="w-20" />
+          </div>
+          <div class="m-4">
+            <div class="text-2xl font-bold">Usuarios</div>
+            <div class="text-4xl font-bold">5</div>
+          </div>
         </div>
       </div>
+      <div class="w-full my-10">
+        <div class="grid grid-cols-3 justify-start">
+          <div class="">
+            <h4 class="">Filtrar por tipo:</h4>
+            <!-- Select anguar material de Tipos: Agua, Alcantarrilado, Multas -->
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Tipo</mat-label>
+              <mat-select>
+                <mat-option value="option">Agua</mat-option>
+                <mat-option value="option">Alcantarrilado</mat-option>
+                <mat-option value="option">Multas</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
+          <div>
+            <h4 class="">Filtrar por fecha:</h4>
+            <!-- Fecha angular material  -->
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Fecha</mat-label>
+              <input matInput [matDatepicker]="picker" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div>
+            <h4 class="">Tipo de gráfico:</h4>
 
+          </div>
+        </div>
+        <div class="grid grid-cols-2">
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

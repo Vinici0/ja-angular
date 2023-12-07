@@ -30,13 +30,16 @@ export class ServiceExpenseComponent implements OnInit {
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  startDate = new Date();
-  endDate = new Date();
-  formGroup: FormGroup;
-  filterAnio: any;
   columnFilters: { [key: string]: string } = {};
-  pdfurl: string = '';
+  endDate = new Date();
+  filterAnio: any;
+  formGroup: FormGroup;
   loadingPdf = false;
+  pdfurl: string = '';
+  selectedDia: string = '';
+  selectedMes: string = '';
+  selectedMesesAtraso: string = '';
+  startDate = new Date();
 
   constructor(
     private measureServiceTsService: MeasureServiceTsService,
@@ -48,6 +51,12 @@ export class ServiceExpenseComponent implements OnInit {
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
     });
+
+    // Obtener el mes y día actuales al inicializar el componente
+    const currentDate = new Date();
+    this.selectedMes = (currentDate.getMonth() + 1).toString(); // Se suma 1 ya que los meses en JavaScript van de 0 a 11
+    this.selectedDia = currentDate.getDate().toString();
+    this.selectedMesesAtraso = '2';
   }
 
   displayedColumns: string[] = [
@@ -57,6 +66,70 @@ export class ServiceExpenseComponent implements OnInit {
     'Codigo',
     'Meses',
     'Saldo',
+  ];
+
+  meses: { value: string; viewValue: string }[] = [
+    { value: '1', viewValue: 'Enero' },
+    { value: '2', viewValue: 'Febrero' },
+    { value: '3', viewValue: 'Marzo' },
+    { value: '4', viewValue: 'Abril' },
+    { value: '5', viewValue: 'Mayo' },
+    { value: '6', viewValue: 'Junio' },
+    { value: '7', viewValue: 'Julio' },
+    { value: '8', viewValue: 'Agosto' },
+    { value: '9', viewValue: 'Septiembre' },
+    { value: '10', viewValue: 'Octubre' },
+    { value: '11', viewValue: 'Noviembre' },
+    { value: '12', viewValue: 'Diciembre' },
+  ];
+
+  dias: { value: string; viewValue: string }[] = [
+    { value: '1', viewValue: '1' },
+    { value: '2', viewValue: '2' },
+    { value: '3', viewValue: '3' },
+    { value: '4', viewValue: '4' },
+    { value: '5', viewValue: '5' },
+    { value: '6', viewValue: '6' },
+    { value: '7', viewValue: '7' },
+    { value: '8', viewValue: '8' },
+    { value: '9', viewValue: '9' },
+    { value: '10', viewValue: '10' },
+    { value: '11', viewValue: '11' },
+    { value: '12', viewValue: '12' },
+    { value: '13', viewValue: '13' },
+    { value: '14', viewValue: '14' },
+    { value: '15', viewValue: '15' },
+    { value: '16', viewValue: '16' },
+    { value: '17', viewValue: '17' },
+    { value: '18', viewValue: '18' },
+    { value: '19', viewValue: '19' },
+    { value: '20', viewValue: '20' },
+    { value: '21', viewValue: '21' },
+    { value: '22', viewValue: '22' },
+    { value: '23', viewValue: '23' },
+    { value: '24', viewValue: '24' },
+    { value: '25', viewValue: '25' },
+    { value: '26', viewValue: '26' },
+    { value: '27', viewValue: '27' },
+    { value: '28', viewValue: '28' },
+    { value: '29', viewValue: '29' },
+    { value: '30', viewValue: '30' },
+    { value: '31', viewValue: '31' },
+  ];
+
+  mesesAtraso: { value: string; viewValue: string }[] = [
+    { value: '1', viewValue: '1' },
+    { value: '2', viewValue: '2' },
+    { value: '3', viewValue: '3' },
+    { value: '4', viewValue: '4' },
+    { value: '5', viewValue: '5' },
+    { value: '6', viewValue: '6' },
+    { value: '7', viewValue: '7' },
+    { value: '8', viewValue: '8' },
+    { value: '9', viewValue: '9' },
+    { value: '10', viewValue: '10' },
+    { value: '11', viewValue: '11' },
+    { value: '12', viewValue: '12' },
   ];
 
   ngOnInit(): void {
@@ -84,6 +157,16 @@ export class ServiceExpenseComponent implements OnInit {
 
   Filterchange(event: any) {
     console.log(event);
+  }
+
+  getMes() {
+    // Actualizar lógica según sea necesario
+    console.log('Mes seleccionado:', this.selectedMes);
+  }
+
+  getDia() {
+    // Actualizar lógica según sea necesario
+    console.log('Día seleccionado:', this.selectedDia);
   }
 
   onSubmitForm() {
@@ -125,8 +208,16 @@ export class ServiceExpenseComponent implements OnInit {
   }
 
   printCorte() {
-    this.measureServiceTsService.imprimirCorteNotificacion().subscribe(
-      (resp : any) => {
+    const data = {
+      meses: this.selectedMes,
+      // El Dia actual  en numero
+      day: this.selectedDia,
+      monthsCorte: 11,
+      month: 11,
+    };
+
+    this.measureServiceTsService.imprimirCorteNotificacion(data).subscribe(
+      (resp: any) => {
         const blobUrl = window.URL.createObjectURL(resp);
         this.pdfurl = blobUrl;
 
@@ -157,7 +248,7 @@ export class ServiceExpenseComponent implements OnInit {
       doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
     };
     // Define las columnas que deseas mostrar en el PDF
-    const columns = ['Nombre', 'Manzana', 'Lote', 'Codigo', 'Meses', 'Saldo'];
+    const columns = ['Nombre', 'Codigo','Lote',  'Manzana', 'Meses', 'Saldo'];
 
     // Obtiene los datos de tu arreglo de objetos a mostrar en el PDF
     let sortedData = this.dataSource.filteredData.slice();
@@ -169,9 +260,9 @@ export class ServiceExpenseComponent implements OnInit {
     // Mapea los datos a un formato compatible con autoTable
     const rows: any[][] = sortedData.map((d) => [
       d.Nombre,
-      d.Manzana,
-      d.Lote,
       d.codigo,
+      d.Lote,
+      d.Manzana,
       d.meses,
       `$${d.saldo.toFixed(2)}`,
     ]);

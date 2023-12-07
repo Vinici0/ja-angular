@@ -18,6 +18,36 @@
         </mat-form-field>
       </div>
 
+      <!-- Input de seleccionar el mes y dia de corte -->
+      <div class="flex gap-4">
+        <!-- Input que diga meses de atraso -->
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Meses de atraso</mat-label>
+          <mat-select [(value)]="selectedMesesAtraso">
+            <mat-option *ngFor="let mes of mesesAtraso" [value]="mes.value">
+              {{ mes.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-form-field appearance="fill">
+          <mat-label>Mes</mat-label>
+          <mat-select [(value)]="selectedMes" (selectionChange)="getMes()">
+            <mat-option *ngFor="let mes of meses" [value]="mes.value">
+              {{ mes.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Día</mat-label>
+          <mat-select [(value)]="selectedDia" (selectionChange)="getDia()">
+            <mat-option *ngFor="let dia of dias" [value]="dia.value">
+              {{ dia.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div class="flex gap-4 mx-5">
         <button
           mat-raised-button
