@@ -1,0 +1,20 @@
+//sass --watch src/app/auth/pages/login-page/login-page.scss:src/app/auth/pages/login-page/login-page.component.css --load-path=assets/scss
+
+@use '../../../../assets/scss/vars/colors' as colors;
+
+.contenedor {
+  box-shadow: 3px 3px 15px rgba(colors.$black, 0.5);
+}
+
+.title {
+  font-size: 25px;
+  color: lighten(colors.$black, 30%);
+}
+
+.btn-inicio {
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+

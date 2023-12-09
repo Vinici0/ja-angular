@@ -1,0 +1,16 @@
+.contenedor {
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-size: 25px;
+  color: #4d4d4d;
+}
+
+.btn-inicio {
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=login-page.component.css.map */
