@@ -66,7 +66,7 @@
     background-color: colors.$customer;
 
     &:hover {
-      background-color: darken(colors.$customer, 10%);
+      background-color: darken(colors.$customer, 5%);
     }
   }
 
@@ -74,7 +74,7 @@
     background-color: colors.$meter;
 
     &:hover {
-      background-color: darken(colors.$meter, 10%);
+      background-color: darken(colors.$meter, 5%);
     }
   }
 
@@ -82,7 +82,7 @@
     background-color: colors.$meter-repair;
 
     &:hover {
-      background-color: darken(colors.$meter-repair, 10%);
+      background-color: darken(colors.$meter-repair, 5%);
     }
   }
 
@@ -90,7 +90,7 @@
     background-color: colors.$user;
 
     &:hover {
-      background-color: darken(colors.$user, 10%);
+      background-color: darken(colors.$user, 5%);
     }
   }
 

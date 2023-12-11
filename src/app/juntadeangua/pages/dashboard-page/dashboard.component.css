@@ -64,25 +64,25 @@
   background-color: #ef4f4c;
 }
 .content-cards .card-customer:hover {
-  background-color: #eb211d;
+  background-color: #ed3835;
 }
 .content-cards .card-meter {
   background-color: #2196f3;
 }
 .content-cards .card-meter:hover {
-  background-color: #0c7cd5;
+  background-color: #0d8aee;
 }
 .content-cards .card-meter-repair {
   background-color: #009688;
 }
 .content-cards .card-meter-repair:hover {
-  background-color: #00635a;
+  background-color: #007d71;
 }
 .content-cards .card-user {
   background-color: #3f51b5;
 }
 .content-cards .card-user:hover {
-  background-color: #32408f;
+  background-color: #3849a2;
 }
 @media (max-width: 1024px) {
   .content-cards {

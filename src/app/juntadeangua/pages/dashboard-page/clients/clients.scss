@@ -1,0 +1,9 @@
+//sass --watch src/app/juntadeangua/pages/dashboard-page/clients/clients.scss:src/app/juntadeangua/pages/dashboard-page/clients/clients.component.css --load-path=assets/scss
+
+@use "../../../../../assets/scss/vars/colors" as colors;
+
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}

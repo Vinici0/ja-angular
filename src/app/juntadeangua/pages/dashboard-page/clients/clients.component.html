@@ -1,1 +1,23 @@
-<p>clients works!</p>
+<section class="contenedor">
+  <div>
+    <h4 class="">Filtrar por tipo:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Tipo</mat-label>
+      <mat-select>
+        <mat-option value="option">Agua</mat-option>
+        <mat-option value="option">Alcantarrilado</mat-option>
+        <mat-option value="option">Multas</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="">Filtrar por fecha:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</section>
