@@ -3,32 +3,20 @@
     <mat-icon>menu</mat-icon>
   </button>
   <!-- logo imagen -->
-  <img src="http://localhost:3000/api/v1/uploads/company/1"
-   alt="logo" class="logo" class="w-12 h-10" />
+  <img src="http://localhost:3000/api/v1/uploads/company/1" alt="logo" class="logo" class="w-12 h-10" />
   <span>{{ company.nombreEmpresa }} </span>
   <span class="toolbar-item-spacer"></span>
-  <button
-    mat-icon-button
-    matTooltip="My Account"
-    [matMenuTriggerFor]="userAccountMenu"
-  >
+  <button mat-icon-button matTooltip="My Account" [matMenuTriggerFor]="userAccountMenu">
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
-    <button
-      mat-menu-item
-      (click)="editarUsuario()"
-    >
+    <button mat-menu-item (click)="editarUsuario()">
       <mat-icon>person</mat-icon><span>Mi Perfil.</span>
     </button>
 
     <!-- Si usuario.role es USER_ROLE no tenga la opcion de  Configuración-->
 
-    <button
-      mat-menu-item
-      *ngIf="usuario.role !== 'USER_ROLE'"
-      (click)="remplaceLink('company')"
-    >
+    <button mat-menu-item *ngIf="usuario.role !== 'USER_ROLE'" (click)="remplaceLink('company')">
       <mat-icon>settings</mat-icon><span>Configuración</span>
     </button>
 
@@ -40,12 +28,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="app-container">
-  <mat-sidenav
-    #sidenav
-    mode="side"
-    [class.mat-elevation-z4]="true"
-    class="app-sidenav"
-  >
+  <mat-sidenav #sidenav mode="side" [class.mat-elevation-z4]="true" class="app-sidenav">
     <mat-nav-list>
       <mat-list-item routerLink="pages/dashboard">
         <div class="flex items-center gap-4">
@@ -94,7 +77,7 @@
       </mat-expansion-panel>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content [class.expanded-margin]="sidenav.opened">
     <div class="container m-auto">
       <router-outlet> </router-outlet>
     </div>

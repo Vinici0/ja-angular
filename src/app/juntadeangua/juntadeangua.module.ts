@@ -31,6 +31,10 @@ import { CustomerViewComponent } from './modals/customer-view/customer-view.comp
 import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
 import { NewPasswordComponent } from './modals/new-password/new-password.component';
 import { CalculateTotalAmountComponent } from './components/calculate-total-amount/calculate-total-amount.component';
+import { ClientsComponent } from './pages/dashboard-page/clients/clients.component';
+import { MeterComponent } from './pages/dashboard-page/meter/meter.component';
+import { RepairMeterComponent } from './pages/dashboard-page/repair-meter/repair-meter.component';
+import { UsersComponent } from './pages/dashboard-page/users/users.component';
 
 
 @NgModule({
@@ -58,7 +62,11 @@ import { CalculateTotalAmountComponent } from './components/calculate-total-amou
     CustomerViewComponent,
     EditMeasureComponent,
     NewPasswordComponent,
-    CalculateTotalAmountComponent
+    CalculateTotalAmountComponent,
+    ClientsComponent,
+    MeterComponent,
+    RepairMeterComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,

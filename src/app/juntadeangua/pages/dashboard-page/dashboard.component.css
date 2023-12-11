@@ -1,43 +1,98 @@
-.grid-container {
-  margin: 20px;
+.content-cards {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
 }
-
-.dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+.content-cards .card {
+  display: flex;
+  gap: 10px;
+  border-radius: 3px;
+  padding: 20px;
+  color: #fff;
+  align-items: center;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
 }
-
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+.content-cards .card .icon-card img {
+  width: 70px;
+  height: 70px;
 }
-
-.dashboard-card-content {
+.content-cards .card .text-card {
+  display: grid;
+  gap: 15px;
+  width: 70%;
+}
+.content-cards .card .text-card .title,
+.content-cards .card .text-card .value {
+  font-size: 25px;
   text-align: center;
 }
-
-.with-icon {
-  font-size: 2.5rem;
+@media (max-width: 1280px) {
+  .content-cards .card .text-card .title,
+  .content-cards .card .text-card .value {
+    font-size: 15px;
+  }
 }
-
-.color-cutomer{
+@media (max-width: 1024px) {
+  .content-cards .card .text-card .title,
+  .content-cards .card .text-card .value {
+    font-size: 20px;
+  }
+}
+@media (max-width: 630px) {
+  .content-cards .card .text-card .title,
+  .content-cards .card .text-card .value {
+    font-size: 15px;
+  }
+}
+@media (max-width: 480px) {
+  .content-cards .card .text-card .title,
+  .content-cards .card .text-card .value {
+    font-size: 20px;
+  }
+}
+@media (max-width: 360px) {
+  .content-cards .card .text-card .title,
+  .content-cards .card .text-card .value {
+    font-size: 15px;
+  }
+}
+.content-cards .card .text-card .title {
+  font-weight: bold;
+  line-height: 1.2;
+}
+.content-cards .card-customer {
   background-color: #ef4f4c;
 }
-
-.color-meter{
+.content-cards .card-customer:hover {
+  background-color: #eb211d;
+}
+.content-cards .card-meter {
   background-color: #2196f3;
 }
-
-.color-meter-repair{
+.content-cards .card-meter:hover {
+  background-color: #0c7cd5;
+}
+.content-cards .card-meter-repair {
   background-color: #009688;
 }
-
-.color-user{
+.content-cards .card-meter-repair:hover {
+  background-color: #00635a;
+}
+.content-cards .card-user {
   background-color: #3f51b5;
 }
+.content-cards .card-user:hover {
+  background-color: #32408f;
+}
+@media (max-width: 1024px) {
+  .content-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .content-cards {
+    grid-template-columns: 1fr;
+  }
+}
 
-/* #ef4f4c, #2196f3, #009688, #3f51b5, #ffeb3b,#4caf50 */
+/*# sourceMappingURL=dashboard.component.css.map */

@@ -1,0 +1,104 @@
+//sass --watch src/app/juntadeangua/pages/dashboard-page/dashboard.scss:src/app/juntadeangua/pages/dashboard-page/dashboard.component.css --load-path=assets/scss
+
+@use "../../../../assets/scss/vars/colors" as colors;
+
+.content-cards {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+
+  .card {
+    display: flex;
+    gap: 10px;
+    border-radius: 3px;
+    padding: 20px;
+    color: colors.$white;
+    align-items: center;
+    box-shadow: 3px 3px 15px rgba(colors.$black, 0.5);
+
+    .icon-card {
+
+      img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    .text-card {
+      display: grid;
+      gap: 15px;
+      width: 70%;
+
+      .title,
+      .value {
+        font-size: 25px;
+        text-align: center;
+
+        @media (max-width: 1280px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 1024px) {
+          font-size: 20px;
+        }
+
+        @media (max-width: 630px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 20px;
+        }
+
+        @media (max-width: 360px) {
+          font-size: 15px;
+        }
+      }
+
+      .title {
+        font-weight: bold;
+        line-height: 1.2;
+      }
+    }
+  }
+
+  .card-customer {
+    background-color: colors.$customer;
+
+    &:hover {
+      background-color: darken(colors.$customer, 10%);
+    }
+  }
+
+  .card-meter {
+    background-color: colors.$meter;
+
+    &:hover {
+      background-color: darken(colors.$meter, 10%);
+    }
+  }
+
+  .card-meter-repair {
+    background-color: colors.$meter-repair;
+
+    &:hover {
+      background-color: darken(colors.$meter-repair, 10%);
+    }
+  }
+
+  .card-user {
+    background-color: colors.$user;
+
+    &:hover {
+      background-color: darken(colors.$user, 10%);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
