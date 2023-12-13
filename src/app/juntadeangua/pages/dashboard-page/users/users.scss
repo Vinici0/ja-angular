@@ -2,8 +2,12 @@
 
 @use "../../../../../assets/scss/vars/colors" as colors;
 
-.contenedor-filtros,
-.contenedor-fechas {
+.subtitle {
+  text-align: center;
+  font-weight: bold;
+}
+
+.contenedor-filtros {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;

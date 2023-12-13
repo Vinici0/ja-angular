@@ -34,14 +34,39 @@ export class DashboardService {
   }
 
 
-  // Obtener lista de datos
+  // Obtener lista de datos Clientes
+  getListCiudades() {
+    const url = `${base_url}/dashboard/listCiudades`;
+    return this.http.get<any>(url);
+  }
+
+  getListPaises() {
+    const url = `${base_url}/dashboard/listPaises`;
+    return this.http.get<any>(url);
+  }
+
+  getListTipoClientes() {
+    const url = `${base_url}/dashboard/listTipoCliente`;
+    return this.http.get<any>(url);
+  }
+
+
+  // Obtener lista de datos Usuarios
   getListRoles() {
     const url = `${base_url}/dashboard/listRoles`;
     return this.http.get<any>(url);
   }
 
+  
+  getDataFiltrada(idCiudad: string, idPais: string, idTipoCliente: string): Observable<any[]> {
+    const url = `${base_url}/dashboard/datosFiltrados/${idCiudad}/${idPais}/${idTipoCliente}`;
+    return this.http.get<any[]>(url);
+  }
 
-  // Obtener datos de grafica
+
+
+
+  // Obtener datos de grafica Usuarios
   graficaUsers_todos() {
     const url = `${base_url}/dashboard/graficaUserTodos`;
     return this.http.get<any>(url)

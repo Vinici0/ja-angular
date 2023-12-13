@@ -1,3 +1,8 @@
+<hr>
+<br>
+<h2 class="subtitle">USUARIOS</h2>
+<hr>
+<br>
 <section class="contenedor-filtros">
   <div>
     <h4 class="title">Filtrar por rango:</h4>
@@ -10,6 +15,7 @@
     </mat-form-field>
   </div>
 </section>
+
 <hr>
 
 <section class="contenedor-grafica">
@@ -17,17 +23,9 @@
     <h4>TOTAL REGISTROS <b>{{selectedDefault}}</b>: {{ getTotal() }}</h4>
   </div>
   <div style="display: block">
-    <ngx-charts-pie-chart
-      [view]="view"
-      scheme="cool"
-      [results]="chartData"
-      [gradient]="gradient"
-      [legend]="showLegend"
-      [labels]="showLabels"
-      [doughnut]="isDoughnut"
-      (select)="onSelect($event)"
-      (activate)="onActivate($event)"
-      (deactivate)="onDeactivate($event)"
-    ></ngx-charts-pie-chart>
+    <ngx-charts-pie-chart [view]="view" scheme="cool" [results]="chartData" [gradient]="gradient" [legend]="showLegend"
+      [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)" (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"></ngx-charts-pie-chart>
   </div>
 </section>
+<hr>

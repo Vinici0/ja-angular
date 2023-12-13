@@ -21,7 +21,6 @@ export class UsersComponent implements OnInit {
   viewSmall: [number, number] = [400, 400];
 
   view: [number, number] = this.view1024;
-
   gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;
@@ -128,6 +127,4 @@ export class UsersComponent implements OnInit {
   onDeactivate(data: any): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
-
-
 }

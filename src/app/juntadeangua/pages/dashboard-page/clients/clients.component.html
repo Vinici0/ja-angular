@@ -1,23 +1,100 @@
-<section class="contenedor">
+<hr>
+<br>
+<h2 class="subtitle">CLIENTES</h2>
+<hr>
+<br>
+<section class="contenedor-filtros">
   <div>
-    <h4 class="">Filtrar por tipo:</h4>
+    <h4 class="title">Filtrar por ciudad:</h4>
     <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Tipo</mat-label>
-      <mat-select>
-        <mat-option value="option">Agua</mat-option>
-        <mat-option value="option">Alcantarrilado</mat-option>
-        <mat-option value="option">Multas</mat-option>
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault1" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">{{ ciudad.Ciudad }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
   <div>
-    <h4 class="">Filtrar por fecha:</h4>
+    <h4 class="title">Filtrar por País:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault2" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let pais of paises" [value]="pais.idClientePais">{{ pais.Pais }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="title">Filtrar por Tipo:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault3" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let tipo of tipoClientes" [value]="tipo.idTipoCliente">{{ tipo.TipoCliente }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</section>
+
+<hr>
+
+
+<section class="contenedor-grafica">
+  <div class="pagination-buttons">
+    <button mat-icon-button (click)="prevPage()" [disabled]="currentPage === 1">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button mat-icon-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+
+  <ngx-charts-bar-horizontal
+  [view]="view"
+  scheme="forest"
+  [results]="chartData"
+  [gradient]="gradient"
+  [xAxis]="axisX"
+  [yAxis]="axisY"
+  [legend]="showLegend"
+  [showXAxisLabel]="showLabelsX"
+  [showYAxisLabel]="showLabelsY"
+  xAxisLabel="{{xAxisLabel}}"
+  yAxisLabel="{{yAxisLabel}}">
+</ngx-charts-bar-horizontal>
+</section>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="total_datos">
+  <h4>TOTAL REGISTROS <b>{{selectedDefault}}</b>: {{ getTotal() }}</h4>
+</div>
+<div style="display: block">
+  <ngx-charts-pie-chart [view]="view" scheme="cool" [results]="chartData" [gradient]="gradient" [legend]="showLegend"
+    [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)" (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"></ngx-charts-pie-chart>
+</div> -->
+
+
+
+
+    <!-- <h4 class="">Filtrar por fecha:</h4>
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Fecha</mat-label>
       <input matInput [matDatepicker]="picker" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
-</section>
+    </mat-form-field> -->

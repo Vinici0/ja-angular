@@ -61,10 +61,10 @@
   line-height: 1.2;
 }
 .content-cards .card-customer {
-  background-color: #ef4f4c;
+  background-color: #009688;
 }
 .content-cards .card-customer:hover {
-  background-color: #ed3835;
+  background-color: #007d71;
 }
 .content-cards .card-meter {
   background-color: #2196f3;
@@ -73,10 +73,10 @@
   background-color: #0d8aee;
 }
 .content-cards .card-meter-repair {
-  background-color: #009688;
+  background-color: #ef4f4c;
 }
 .content-cards .card-meter-repair:hover {
-  background-color: #007d71;
+  background-color: #ed3835;
 }
 .content-cards .card-user {
   background-color: #3f51b5;
