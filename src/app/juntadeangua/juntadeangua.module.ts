@@ -35,6 +35,9 @@ import { ClientsComponent } from './pages/dashboard-page/clients/clients.compone
 import { MeterComponent } from './pages/dashboard-page/meter/meter.component';
 import { RepairMeterComponent } from './pages/dashboard-page/repair-meter/repair-meter.component';
 import { UsersComponent } from './pages/dashboard-page/users/users.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -76,6 +79,7 @@ import { UsersComponent } from './pages/dashboard-page/users/users.component';
     FormsModule,
     ReactiveFormsModule,
     NgxExtendedPdfViewerModule,
+    NgxChartsModule,
   ],
   exports: [QrgeneratorRoutingModule],
 })

@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
     this.activeSection = section;
   }
 
+  // Obtener numero de datos
   getContClients() {
     this.dashboardService.getContClients().subscribe((resp: any) => {
       if (resp && resp.data && resp.data.total && resp.data.total.length > 0) {
@@ -76,5 +77,4 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
 }

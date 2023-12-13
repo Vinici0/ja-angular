@@ -1,0 +1,36 @@
+//sass --watch src/app/juntadeangua/pages/dashboard-page/users/users.scss:src/app/juntadeangua/pages/dashboard-page/users/users.component.css --load-path=assets/scss
+
+@use "../../../../../assets/scss/vars/colors" as colors;
+
+.contenedor-filtros,
+.contenedor-fechas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0px;
+  }
+}
+
+.contenedor-filtros {
+  .title {
+    font-weight: bold;
+  }
+}
+
+.contenedor-grafica {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+
+  .total_datos {
+    h4 {
+      @media (max-width: 500px) {
+        text-align: center;
+      }
+    }
+  }
+}

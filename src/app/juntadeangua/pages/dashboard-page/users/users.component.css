@@ -1,0 +1,31 @@
+.contenedor-filtros,
+.contenedor-fechas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (max-width: 768px) {
+  .contenedor-filtros,
+  .contenedor-fechas {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0px;
+  }
+}
+
+.contenedor-filtros .title {
+  font-weight: bold;
+}
+
+.contenedor-grafica {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+@media (max-width: 500px) {
+  .contenedor-grafica .total_datos h4 {
+    text-align: center;
+  }
+}
+
+/*# sourceMappingURL=users.component.css.map */

@@ -12,6 +12,7 @@ const base_url = environment.base_url;
 export class DashboardService {
   constructor(private http: HttpClient) { }
 
+  // Obtener contidad de datos
   getContClients() {
     const url = `${base_url}/dashboard/numClients`;
     return this.http.get<any>(url);
@@ -31,4 +32,44 @@ export class DashboardService {
     const url = `${base_url}/dashboard/numUsers`;
     return this.http.get<any>(url);
   }
+
+
+  // Obtener lista de datos
+  getListRoles() {
+    const url = `${base_url}/dashboard/listRoles`;
+    return this.http.get<any>(url);
+  }
+
+
+  // Obtener datos de grafica
+  graficaUsers_todos() {
+    const url = `${base_url}/dashboard/graficaUserTodos`;
+    return this.http.get<any>(url)
+      .pipe(
+        map((response: any) => {
+          const formattedData = (response.data.total || []).map((item: any) => ({
+            role: item.role,
+            Total: item.Total,
+            fecha: item.fecha ? new Date(item.fecha) : null,
+          }));
+          return { ...response, data: { total: formattedData } };
+        })
+      );
+  }
+
+  graficaUser(customRole: string): Observable<any> {
+    const url = `${base_url}/dashboard/graficaUser/${customRole}`;
+    return this.http.get<any>(url)
+      .pipe(
+        map((response: any) => {
+          const formattedData = (response.data.total || []).map((item: any) => ({
+            fechaIni: item.fechaIni,
+            Total: item.Total,
+            fecha: item.fecha ? new Date(item.fecha) : null,
+          }));
+          return { ...response, data: { total: formattedData } };
+        })
+      );
+  }
+
 }
