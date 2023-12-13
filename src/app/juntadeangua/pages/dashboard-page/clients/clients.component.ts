@@ -129,6 +129,16 @@ export class ClientsComponent implements OnInit {
     }
   }
 
+  firstPage() {
+    this.currentPage = 1;
+    this.updateChartData();
+  }
+
+  lastPage() {
+    this.currentPage = this.totalPages;
+    this.updateChartData();
+  }
+
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }

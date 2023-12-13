@@ -93,13 +93,7 @@ export class UsersComponent implements OnInit {
   }
 
   getTotal(): number {
-    if (this.selectedDefault === 'TODOS') {
-      // Si el filtro es 'all', devuelve la suma de todos los valores
-      return this.chartData.reduce((total, item) => total + item.value, 0);
-    } else {
-      // Si el filtro no es 'all', encuentra el total del rol específico
-      return  this.chartData.reduce((total, item) => total + item.value, 0);
-    }
+    return this.chartData.reduce((total, item) => total + item.value, 0);
   }
 
 
