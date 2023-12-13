@@ -86,8 +86,32 @@ export class ClientsComponent implements OnInit {
   }
 
 
-
+  // Agrega un nuevo campo para almacenar los filtros anteriores
+  private previousFilters: { selectedDefault1: string, selectedDefault2: string, selectedDefault3: string } = {
+    selectedDefault1: 'TODOS',
+    selectedDefault2: 'TODOS',
+    selectedDefault3: 'TODOS'
+  };
+  
   updateChartData() {
+    // Compara los filtros actuales con los anteriores
+    const filtersChanged =
+      this.selectedDefault1 !== this.previousFilters.selectedDefault1 ||
+      this.selectedDefault2 !== this.previousFilters.selectedDefault2 ||
+      this.selectedDefault3 !== this.previousFilters.selectedDefault3;
+
+    if (filtersChanged) {
+      // Si los filtros han cambiado, reinicia la página a 1
+      this.currentPage = 1;
+
+      // Actualiza los filtros anteriores
+      this.previousFilters = {
+        selectedDefault1: this.selectedDefault1,
+        selectedDefault2: this.selectedDefault2,
+        selectedDefault3: this.selectedDefault3
+      };
+    }
+
     this.dashboardService.getDataFiltrada(this.selectedDefault1, this.selectedDefault2, this.selectedDefault3)
       .subscribe((response: any) => {
         console.log("Datos recibidos:", response);
