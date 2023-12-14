@@ -21,6 +21,7 @@
 .contenedor-filtros {
   .title {
     font-weight: bold;
+    padding-bottom: 5px;
   }
 }
 
@@ -30,17 +31,34 @@
   align-items: center;
   padding-top: 30px;
 
-  .pagination-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  .contenedor-datos {
+    display: grid;
 
-  .total_datos {
-    h4 {
-      @media (max-width: 500px) {
-        text-align: center;
+    .chart-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    .pagination-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      div {
+        display: flex;
+      }
+    }
+
+    .contenedor-grafico {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+    }
   }
+
+
 }

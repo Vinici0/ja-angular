@@ -1,0 +1,44 @@
+.subtitle {
+  text-align: center;
+  font-weight: bold;
+}
+
+.contenedor-filtros {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 1024px) {
+  .contenedor-filtros {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .contenedor-filtros {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0px;
+  }
+}
+
+.contenedor-filtros .title {
+  font-weight: bold;
+}
+
+.contenedor-grafica {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+.contenedor-grafica .pagination-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 500px) {
+  .contenedor-grafica .total_datos h4 {
+    text-align: center;
+  }
+}
+
+/*# sourceMappingURL=meter.component.css.map */

@@ -34,6 +34,7 @@ export class DashboardService {
   }
 
 
+
   // Obtener lista de datos Clientes
   getListCiudades() {
     const url = `${base_url}/dashboard/listCiudades`;
@@ -50,6 +51,44 @@ export class DashboardService {
     return this.http.get<any>(url);
   }
 
+  getDataFiltradaClients(idCiudad: string, idPais: string, idTipoCliente: string): Observable<any[]> {
+    const url = `${base_url}/dashboard/datosFiltradosClientes/${idCiudad}/${idPais}/${idTipoCliente}`;
+    return this.http.get<any[]>(url);
+  }
+
+
+
+  // Obtener lista de medidores
+  getListEstados() {
+    const url = `${base_url}/dashboard/listEstados`;
+    return this.http.get<any>(url);
+  }
+
+  getListCantidades() {
+    const url = `${base_url}/dashboard/listCantidades`;
+    return this.http.get<any>(url);
+  }
+
+  getListLotes() {
+    const url = `${base_url}/dashboard/listLotes`;
+    return this.http.get<any>(url);
+  }
+
+  getListManzanas() {
+    const url = `${base_url}/dashboard/listManzanas`;
+    return this.http.get<any>(url);
+  }
+
+  getDataFiltradaMeter(estado: string, numMedidores: string, lote: string, manzana: string): Observable<any[]> {
+    const url = `${base_url}/dashboard/datosFiltradosMedidores/${estado}/${numMedidores}/${lote}/${manzana}`;
+    return this.http.get<any[]>(url);
+  }
+
+
+
+  // Obtener lista de x
+
+
 
   // Obtener lista de datos Usuarios
   getListRoles() {
@@ -57,16 +96,6 @@ export class DashboardService {
     return this.http.get<any>(url);
   }
 
-  
-  getDataFiltrada(idCiudad: string, idPais: string, idTipoCliente: string): Observable<any[]> {
-    const url = `${base_url}/dashboard/datosFiltrados/${idCiudad}/${idPais}/${idTipoCliente}`;
-    return this.http.get<any[]>(url);
-  }
-
-
-
-
-  // Obtener datos de grafica Usuarios
   graficaUsers_todos() {
     const url = `${base_url}/dashboard/graficaUserTodos`;
     return this.http.get<any>(url)

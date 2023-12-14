@@ -17,6 +17,7 @@
 
 .contenedor-filtros .title {
   font-weight: bold;
+  padding-bottom: 5px;
 }
 
 .contenedor-grafica {
@@ -25,15 +26,30 @@
   align-items: center;
   padding-top: 30px;
 }
-.contenedor-grafica .pagination-buttons {
+.contenedor-grafica .contenedor-datos {
+  display: grid;
+}
+.contenedor-grafica .contenedor-datos .chart-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 768px) {
+  .contenedor-grafica .contenedor-datos .chart-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.contenedor-grafica .contenedor-datos .pagination-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-@media (max-width: 500px) {
-  .contenedor-grafica .total_datos h4 {
-    text-align: center;
-  }
+.contenedor-grafica .contenedor-datos .pagination-buttons div {
+  display: flex;
+}
+.contenedor-grafica .contenedor-datos .contenedor-grafico {
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
 
 /*# sourceMappingURL=clients.component.css.map */

@@ -15,6 +15,7 @@ export class ClientsComponent implements OnInit {
   selectedDefault3: string = 'TODOS';
 
   chartData: any[] = [];
+  dataSource: any[] = [];
 
   // Dimensionar grafica
   view1024: [number, number] = [750, 500];
@@ -22,6 +23,8 @@ export class ClientsComponent implements OnInit {
   view600: [number, number] = [500, 400];
   view535: [number, number] = [400, 400];
   viewSmall: [number, number] = [300, 400];
+
+  view2: [number, number] =  [200, 125];
 
   view: [number, number] = this.view1024;
   gradient: boolean = false;
@@ -37,6 +40,7 @@ export class ClientsComponent implements OnInit {
   itemsPerPage: number = 15;
   currentPage: number = 1;
   totalItems: number = 0;
+
 
   updateView(): void {
     // Actualiza la vista basada en el tamaño de la pantalla
@@ -59,13 +63,19 @@ export class ClientsComponent implements OnInit {
     this.selectedDefault3 = 'TODOS';
   }
 
+
   ngOnInit() {
     this.updateView();
     this.getListCiudad();
     this.getListPais();
     this.getListTipoCliente();
     this.updateChartData();
+    this.dataSource;
   }
+
+  // Definir las columnas
+  columnas: string[] = ['nombre', 'valor'];
+
 
   getListCiudad() {
     this.dashboardService.getListCiudades().subscribe((resp: any) => {
@@ -92,7 +102,7 @@ export class ClientsComponent implements OnInit {
     selectedDefault2: 'TODOS',
     selectedDefault3: 'TODOS'
   };
-  
+
   updateChartData() {
     // Compara los filtros actuales con los anteriores
     const filtersChanged =
@@ -112,7 +122,7 @@ export class ClientsComponent implements OnInit {
       };
     }
 
-    this.dashboardService.getDataFiltrada(this.selectedDefault1, this.selectedDefault2, this.selectedDefault3)
+    this.dashboardService.getDataFiltradaClients(this.selectedDefault1, this.selectedDefault2, this.selectedDefault3)
       .subscribe((response: any) => {
         console.log("Datos recibidos:", response);
 
@@ -127,6 +137,12 @@ export class ClientsComponent implements OnInit {
             name: item.Nombre,
             value: item.Total
           }));
+          this.dataSource = [
+            { nombre: 'Ciudades', valor: this.ciudades.length },
+            { nombre: 'Paises', valor: this.paises.length },
+            { nombre: 'Tipos de Cliente', valor: this.tipoClientes.length },
+            { nombre: 'TOTAL CLIENTES', valor: this.totalItems }
+          ];
         } else {
           console.error("Los datos recibidos no tienen el formato esperado.");
         }
