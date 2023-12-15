@@ -6,13 +6,123 @@
     <mat-card-title> </mat-card-title>
     <hr class="mx-7" />
 
-    <mat-card-content class="m-4">
+    <mat-card-content class="m-4 contenedor">
+      <div class="content-totales">
+        <div class="title-general">
+          <h1>Recaudación 2023</h1>
+        </div>
+        <div class="cards">
+          <div class="card card-money">
+            <div class="icon-card">
+              <img src="{{ money_icon }}">
+            </div>
+            <div class="text-card">
+              <div class="title">Total</div>
+              <div class="totales">
+                <div>
+                  <div class="subtitle">Estimado</div>
+                  <div class="value">$ 15000</div>
+                </div>
+                <div>
+                  <div class="subtitle">Recaudado</div>
+                  <div class="value">$ 7500</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="card card-water">
+            <div class="icon-card">
+              <img src="{{ water_icon }}">
+            </div>
+            <div class="text-card">
+              <div class="title">Agua</div>
+              <div class="totales">
+                <div>
+                  <div class="subtitle">Estimado</div>
+                  <div class="value">$ 10000</div>
+                </div>
+                <div>
+                  <div class="subtitle">Recaudado</div>
+                  <div class="value">$ 5000</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-sewer">
+            <div class="icon-card">
+              <img
+                src="{{ sewer_icon }}">
+            </div>
+            <div class="text-card">
+              <div class="title">Alcantarillado</div>
+              <div class="totales">
+                <div>
+                  <div class="subtitle">Estimado</div>
+                  <div class="value">$ 5000</div>
+                </div>
+                <div>
+                  <div class="subtitle">Recaudado</div>
+                  <div class="value">$ 2500</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+
+            <div class="content-filtro">
+              <div class="filtros">
+                <div>
+                  <mat-form-field appearance="outline" class="w-40">
+                    <mat-label>Año</mat-label>
+                    <mat-select>
+                      <mat-option value="TODOS">TODOS</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="w-40">
+                    <mat-label>Mes</mat-label>
+                    <mat-select>
+                      <mat-option value="TODOS">TODOS</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-filtro">
+              <div class="filtros">
+                <div>
+                  <mat-form-field appearance="outline" class="w-40">
+                    <mat-label>Lote</mat-label>
+                    <mat-select>
+                      <mat-option value="TODOS">TODOS</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="w-40">
+                    <mat-label>Manzana</mat-label>
+                    <mat-select>
+                      <mat-option value="TODOS">TODOS</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="content-cards">
 
         <button (click)="changeSection('clients')" class="card card-customer">
           <div class="icon-card">
-            <img src="assets/img/icons/group.png" alt="Clientes">
+            <img  src="{{ customer_icon }}">
           </div>
           <div class="text-card">
             <div class="title">Clientes</div>
@@ -22,7 +132,7 @@
 
         <button (click)="changeSection('meter')" class="card card-meter">
           <div class="icon-card">
-            <img src="assets/img/icons/meter.png" alt="Medidores">
+            <img src="{{ meter_icon }}">
           </div>
           <div class="text-card">
             <div class="title">Medidores</div>
@@ -30,19 +140,21 @@
           </div>
         </button>
 
-        <button (click)="changeSection('repair-meter')" class="card card-meter-repair">
+        <button (click)="changeSection('repair-meter')" class="card card-fine">
           <div class="icon-card">
-            <img src="assets/img/icons/repair.png" alt="Medidores en reparación">
+            <img
+              src="{{ fine_icon }}">
           </div>
           <div class="text-card">
-            <div class="title">Medidas</div>
+            <div class="title">Multas</div>
             <div class="value">{{count_repair_meters}}</div>
           </div>
         </button>
 
         <button (click)="changeSection('user')" class="card card-user">
           <div class="icon-card">
-            <img src="assets/img/icons/customer.png" alt="Usuarios">
+            <img
+              src="{{ user_icon }}">
           </div>
           <div class="text-card">
             <div class="title">Usuarios</div>
@@ -62,7 +174,7 @@
         </div>
 
         <div *ngIf="activeSection === 'repair-meter'">
-          <app-repair-meter></app-repair-meter>
+          <app-meditions></app-meditions>
         </div>
 
         <div *ngIf="activeSection === 'user'">

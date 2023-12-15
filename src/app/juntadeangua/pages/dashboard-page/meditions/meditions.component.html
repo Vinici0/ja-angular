@@ -1,0 +1,51 @@
+<hr>
+<br>
+<h2 class="subtitle">MULTAS</h2>
+<hr>
+<br>
+<section class="contenedor-filtros">
+  <div>
+    <h4 class="title">Filtrar por w:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault1" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let estado of filtro1" [value]="estado.idEstado">{{ estado.Estado }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="title">Filtrar por x:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault1" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let estado of filtro1" [value]="estado.idEstado">{{ estado.Estado }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="title">Filtrar por y:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault1" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let estado of filtro1" [value]="estado.idEstado">{{ estado.Estado }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="title">Filtrar por z:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault1" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let estado of filtro1" [value]="estado.idEstado">{{ estado.Estado }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</section>

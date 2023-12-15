@@ -2,6 +2,11 @@
 
 @use "../../../../assets/scss/vars/colors" as colors;
 
+.contenedor {
+  display: grid;
+  gap: 15px;
+}
+
 .content-cards {
   display: grid;
   gap: 10px;
@@ -17,7 +22,6 @@
     box-shadow: 3px 3px 15px rgba(colors.$black, 0.5);
 
     .icon-card {
-
       img {
         width: 70px;
         height: 70px;
@@ -78,7 +82,7 @@
     }
   }
 
-  .card-meter-repair {
+  .card-fine {
     background-color: colors.$meter-repair;
 
     &:hover {
@@ -100,5 +104,87 @@
 
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
+  }
+}
+
+.content-totales {
+  display: grid;
+  padding: 15px 0px;
+
+  .title-general {
+    text-align: center;
+    h1 {
+      font-weight: bold;
+    }
+  }
+
+  .cards {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+
+    .card {
+      display: grid;
+      gap: 10px;
+      border-radius: 3px;
+      padding: 20px;
+      color: colors.$white;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      box-shadow: inset 3px 3px 15px rgba(colors.$black, 0.5);
+    }
+
+    .icon-card {
+      display: grid;
+      justify-content: center;
+      width: 50px;
+    }
+
+    .text-card {
+      display: grid;
+      gap: 5px;
+      text-align: center;
+
+      .title {
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .totales {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+
+        .subtitle {
+          text-align: left;
+          font-size: 10px;
+        }
+
+        .value {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .card-money {
+      background-color: colors.$money;
+    }
+
+    .card-water {
+      background-color: colors.$water;
+    }
+
+    .card-sewer {
+      background-color: colors.$sewer;
+    }
+
+    .content-filtro {
+      .filtros {
+        display: grid;
+        gap: 5px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   }
 }

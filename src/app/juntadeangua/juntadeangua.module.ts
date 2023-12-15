@@ -33,11 +33,11 @@ import { NewPasswordComponent } from './modals/new-password/new-password.compone
 import { CalculateTotalAmountComponent } from './components/calculate-total-amount/calculate-total-amount.component';
 import { ClientsComponent } from './pages/dashboard-page/clients/clients.component';
 import { MeterComponent } from './pages/dashboard-page/meter/meter.component';
-import { RepairMeterComponent } from './pages/dashboard-page/repair-meter/repair-meter.component';
 import { UsersComponent } from './pages/dashboard-page/users/users.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { MeditionsComponent } from './pages/dashboard-page/meditions/meditions.component';
 
 
 @NgModule({
@@ -68,8 +68,8 @@ import { BrowserModule } from '@angular/platform-browser';
     CalculateTotalAmountComponent,
     ClientsComponent,
     MeterComponent,
-    RepairMeterComponent,
-    UsersComponent
+    UsersComponent,
+    MeditionsComponent
   ],
   imports: [
     CommonModule,

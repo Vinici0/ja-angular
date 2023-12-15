@@ -1,3 +1,8 @@
+.contenedor {
+  display: grid;
+  gap: 15px;
+}
+
 .content-cards {
   display: grid;
   gap: 10px;
@@ -72,10 +77,10 @@
 .content-cards .card-meter:hover {
   background-color: #0d8aee;
 }
-.content-cards .card-meter-repair {
+.content-cards .card-fine {
   background-color: #ef4f4c;
 }
-.content-cards .card-meter-repair:hover {
+.content-cards .card-fine:hover {
   background-color: #ed3835;
 }
 .content-cards .card-user {
@@ -93,6 +98,73 @@
   .content-cards {
     grid-template-columns: 1fr;
   }
+}
+
+.content-totales {
+  display: grid;
+  padding: 15px 0px;
+}
+.content-totales .title-general {
+  text-align: center;
+}
+.content-totales .title-general h1 {
+  font-weight: bold;
+}
+.content-totales .cards {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.content-totales .cards .card {
+  display: grid;
+  gap: 10px;
+  border-radius: 3px;
+  padding: 20px;
+  color: #fff;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  box-shadow: inset 3px 3px 15px rgba(0, 0, 0, 0.5);
+}
+.content-totales .cards .icon-card {
+  display: grid;
+  justify-content: center;
+  width: 50px;
+}
+.content-totales .cards .text-card {
+  display: grid;
+  gap: 5px;
+  text-align: center;
+}
+.content-totales .cards .text-card .title {
+  font-weight: bold;
+  font-size: 20px;
+}
+.content-totales .cards .text-card .totales {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.content-totales .cards .text-card .totales .subtitle {
+  text-align: left;
+  font-size: 10px;
+}
+.content-totales .cards .text-card .totales .value {
+  font-size: 18px;
+}
+.content-totales .cards .card-money {
+  background-color: #4CAF50;
+}
+.content-totales .cards .card-water {
+  background-color: #1565C0;
+}
+.content-totales .cards .card-sewer {
+  background-color: #607D8B;
+}
+.content-totales .cards .content-filtro .filtros {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 /*# sourceMappingURL=dashboard.component.css.map */
