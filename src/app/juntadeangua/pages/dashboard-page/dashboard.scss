@@ -116,12 +116,40 @@
     h1 {
       font-weight: bold;
     }
+
+    .filter-title {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .content-filtro {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(4, 1fr);
+
+      @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+      }
+    }
   }
 
   .cards {
     display: grid;
     gap: 15px;
     grid-template-columns: repeat(4, 1fr);
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
 
     .card {
       display: grid;
@@ -151,20 +179,32 @@
         font-size: 20px;
       }
 
+      .subtitle {
+        text-align: left;
+        font-size: 10px;
+      }
+
+      .value {
+        font-size: 18px;
+      }
+
       .totales {
         display: grid;
         gap: 20px;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+      }
 
+      .totales2 {
         .subtitle {
-          text-align: left;
-          font-size: 10px;
-        }
-
-        .value {
-          font-size: 18px;
+          text-align: center;
         }
       }
+    }
+
+    .contenedor_card2 {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .card-money {
@@ -179,12 +219,13 @@
       background-color: colors.$sewer;
     }
 
-    .content-filtro {
-      .filtros {
-        display: grid;
-        gap: 5px;
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .card-totalReal {
+      background-color: colors.$totalReal;
     }
+
+    .card-exedente {
+      background-color: colors.$exedente;
+    }
+
   }
 }

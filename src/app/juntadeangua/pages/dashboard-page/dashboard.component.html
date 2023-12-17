@@ -7,122 +7,170 @@
     <hr class="mx-7" />
 
     <mat-card-content class="m-4 contenedor">
-      <div class="content-totales">
-        <div class="title-general">
-          <h1>Recaudación 2023</h1>
-        </div>
-        <div class="cards">
-          <div class="card card-money">
-            <div class="icon-card">
-              <img src="{{ money_icon }}">
-            </div>
-            <div class="text-card">
-              <div class="title">Total</div>
-              <div class="totales">
-                <div>
-                  <div class="subtitle">Estimado</div>
-                  <div class="value">$ 15000</div>
-                </div>
-                <div>
-                  <div class="subtitle">Recaudado</div>
-                  <div class="value">$ 7500</div>
-                </div>
+      <form [formGroup]="filtroForm">
+        <div class="content-totales">
+          <div class="title-general">
+            <h1>Recaudación general a partir del 2023</h1>
+            <hr>
+            <br>
+
+            <div class="filter-title">
+              <div>
+                <mat-form-field class="w-full">
+                  <mat-label>Nombre del cliente</mat-label>
+                  <input matInput placeholder="Nombre" formControlName="nombre">
+                </mat-form-field>
               </div>
-            </div>
-
-          </div>
-
-          <div class="card card-water">
-            <div class="icon-card">
-              <img src="{{ water_icon }}">
-            </div>
-            <div class="text-card">
-              <div class="title">Agua</div>
-              <div class="totales">
-                <div>
-                  <div class="subtitle">Estimado</div>
-                  <div class="value">$ 10000</div>
-                </div>
-                <div>
-                  <div class="subtitle">Recaudado</div>
-                  <div class="value">$ 5000</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card card-sewer">
-            <div class="icon-card">
-              <img
-                src="{{ sewer_icon }}">
-            </div>
-            <div class="text-card">
-              <div class="title">Alcantarillado</div>
-              <div class="totales">
-                <div>
-                  <div class="subtitle">Estimado</div>
-                  <div class="value">$ 5000</div>
-                </div>
-                <div>
-                  <div class="subtitle">Recaudado</div>
-                  <div class="value">$ 2500</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-
-            <div class="content-filtro">
-              <div class="filtros">
-                <div>
-                  <mat-form-field appearance="outline" class="w-40">
-                    <mat-label>Año</mat-label>
-                    <mat-select>
-                      <mat-option value="TODOS">TODOS</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div>
-                  <mat-form-field appearance="outline" class="w-40">
-                    <mat-label>Mes</mat-label>
-                    <mat-select>
-                      <mat-option value="TODOS">TODOS</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+              <div>
+                <mat-form-field class="w-full">
+                  <mat-label>RUC del cliente</mat-label>
+                  <input matInput placeholder="RUC" formControlName="ruc">
+                </mat-form-field>
               </div>
             </div>
 
             <div class="content-filtro">
-              <div class="filtros">
-                <div>
-                  <mat-form-field appearance="outline" class="w-40">
-                    <mat-label>Lote</mat-label>
-                    <mat-select>
-                      <mat-option value="TODOS">TODOS</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+              <div>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Año</mat-label>
+                  <mat-select formControlName="anio">
+                    <mat-option value="TODOS">TODOS</mat-option>
+                    <mat-option *ngFor="let anio of anios" [value]="anio">{{ anio }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Mes</mat-label>
+                  <mat-select formControlName="mes">
+                    <mat-option value="TODOS">TODOS</mat-option>
+                    <mat-option *ngFor="let mes of meses" [value]="mes.id">{{ mes.nombre }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Lote</mat-label>
+                  <mat-select formControlName="lote">
+                    <mat-option value="TODOS">TODOS</mat-option>
+                    <mat-option *ngFor="let lote of lotes" [value]="lote">{{ lote }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Manzana</mat-label>
+                  <mat-select formControlName="manzana">
+                    <mat-option value="TODOS">TODOS</mat-option>
+                    <mat-option *ngFor="let manzana of manzanas" [value]="manzana">{{ manzana }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="cards">
+            <div class="card card-money">
+              <div class="icon-card">
+                <img src="{{ money_icon }}">
+              </div>
+              <div class="text-card">
+                <div class="title">Total</div>
+                <div class="totales">
+                  <div>
+                    <div class="subtitle">Estimado</div>
+                    <div class="value">${{ total_estimado }}</div>
+                  </div>
+                  <div>
+                    <div class="subtitle">Recaudado</div>
+                    <div class="value">${{ total_recaudado }}</div>
+                  </div>
+                  <div>
+                    <div class="subtitle">Pendiente</div>
+                    <div class="value">${{ total_pendiente }}</div>
+                  </div>
                 </div>
-                <div>
-                  <mat-form-field appearance="outline" class="w-40">
-                    <mat-label>Manzana</mat-label>
-                    <mat-select>
-                      <mat-option value="TODOS">TODOS</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="contenedor_card2">
+              <div class="card card-totalReal">
+                <div class="icon-card">
+                  <img src="{{ totalReal_icon }}">
+                </div>
+                <div class="text-card">
+                  <div class="title">Total Real</div>
+                  <div class="totales2">
+                    <div>
+                      <div class="subtitle">Estimado</div>
+                      <div class="value">${{ total_real }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card card-exedente">
+                <div class="icon-card">
+                  <img src="{{ exedente_icon }}">
+                </div>
+                <div class="text-card">
+                  <div class="title">Excedente</div>
+                  <div class="totales2">
+                    <div>
+                      <div class="subtitle">Estimado</div>
+                      <div class="value">${{ excedente_estimado }}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div class="card card-water">
+              <div class="icon-card">
+                <img src="{{ water_icon }}">
+              </div>
+              <div class="text-card">
+                <div class="title">Agua</div>
+                <div class="totales2">
+                  <div>
+                    <div class="subtitle">Estimado</div>
+                    <div class="value">${{ agua_estimado }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card-sewer">
+              <div class="icon-card">
+                <img src="{{ sewer_icon }}">
+              </div>
+              <div class="text-card">
+                <div class="title">Alcantarillado</div>
+                <div class="totales2">
+                  <div>
+                    <div class="subtitle">Estimado</div>
+                    <div class="value">${{ alcantarillado_estimado }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-      </div>
+      </form>
+
+      <hr>
 
       <div class="content-cards">
 
         <button (click)="changeSection('clients')" class="card card-customer">
           <div class="icon-card">
-            <img  src="{{ customer_icon }}">
+            <img src="{{ customer_icon }}">
           </div>
           <div class="text-card">
             <div class="title">Clientes</div>
@@ -142,19 +190,17 @@
 
         <button (click)="changeSection('repair-meter')" class="card card-fine">
           <div class="icon-card">
-            <img
-              src="{{ fine_icon }}">
+            <img src="{{ fine_icon }}">
           </div>
           <div class="text-card">
             <div class="title">Multas</div>
-            <div class="value">{{count_repair_meters}}</div>
+            <div class="value">{{count_fade}}</div>
           </div>
         </button>
 
         <button (click)="changeSection('user')" class="card card-user">
           <div class="icon-card">
-            <img
-              src="{{ user_icon }}">
+            <img src="{{ user_icon }}">
           </div>
           <div class="text-card">
             <div class="title">Usuarios</div>

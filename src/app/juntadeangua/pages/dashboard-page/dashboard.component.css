@@ -110,10 +110,40 @@
 .content-totales .title-general h1 {
   font-weight: bold;
 }
+.content-totales .title-general .filter-title {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+.content-totales .title-general .content-filtro {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1024px) {
+  .content-totales .title-general .content-filtro {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .content-totales .title-general .content-filtro {
+    grid-template-columns: 1fr;
+  }
+}
 .content-totales .cards {
   display: grid;
   gap: 15px;
   grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1024px) {
+  .content-totales .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .content-totales .cards {
+    grid-template-columns: 1fr;
+  }
 }
 .content-totales .cards .card {
   display: grid;
@@ -140,17 +170,25 @@
   font-weight: bold;
   font-size: 20px;
 }
-.content-totales .cards .text-card .totales {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
-}
-.content-totales .cards .text-card .totales .subtitle {
+.content-totales .cards .text-card .subtitle {
   text-align: left;
   font-size: 10px;
 }
-.content-totales .cards .text-card .totales .value {
+.content-totales .cards .text-card .value {
   font-size: 18px;
+}
+.content-totales .cards .text-card .totales {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.content-totales .cards .text-card .totales2 .subtitle {
+  text-align: center;
+}
+.content-totales .cards .contenedor_card2 {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
 }
 .content-totales .cards .card-money {
   background-color: #4CAF50;
@@ -161,10 +199,11 @@
 .content-totales .cards .card-sewer {
   background-color: #607D8B;
 }
-.content-totales .cards .content-filtro .filtros {
-  display: grid;
-  gap: 5px;
-  grid-template-columns: repeat(2, 1fr);
+.content-totales .cards .card-totalReal {
+  background-color: #d7a308;
+}
+.content-totales .cards .card-exedente {
+  background-color: #b63634;
 }
 
 /*# sourceMappingURL=dashboard.component.css.map */
