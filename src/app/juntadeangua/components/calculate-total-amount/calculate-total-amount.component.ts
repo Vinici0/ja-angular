@@ -329,7 +329,7 @@ export class CalculateTotalAmountComponent {
     const logoHeightP = 18; // Altura de la imagen (ajusta según sea necesario)
     const logoXP = 10; // Alineado al lado izquierdo con un margen de 10 unidades
     const logoYP = headerYPosition - 5; // Alineado a la misma altura del encabezado
-    doc.addImage('assets/logo.png', 'PNG', logoXP, logoYP, logoWidthP, logoHeightP);
+    doc.addImage('assets/img/logos/logo.png', 'PNG', logoXP, logoYP, logoWidthP, logoHeightP);
 
       // Configurar estilos del subtítulo
       const subtitleStyles = {
@@ -515,7 +515,7 @@ export class CalculateTotalAmountComponent {
     const logoHeightP = 18; // Altura de la imagen (ajusta según sea necesario)
     const logoXP = 10; // Alineado al lado izquierdo con un margen de 10 unidades
     const logoYP = headerYPosition - 5; // Alineado a la misma altura del encabezado
-    doc.addImage('assets/logo.png', 'PNG', logoXP, logoYP, logoWidthP, logoHeightP);
+    doc.addImage('assets/img/logos/logo.png', 'PNG', logoXP, logoYP, logoWidthP, logoHeightP);
 
     // Sutitulo de multas de asamblea
     const subheaderTextLine1 = 'MULTAS DE ASAMBLEA';

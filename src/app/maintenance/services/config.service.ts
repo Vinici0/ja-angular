@@ -99,5 +99,4 @@ export class ConfigService {
     const url = `${base_url}/measures/updateDatosAlcantarilladoConSaldoPositivo`;
     return this.http.put<any>(url, {});
   }
-
 }

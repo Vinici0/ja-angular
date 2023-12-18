@@ -1,0 +1,64 @@
+//sass --watch src/app/juntadeangua/pages/dashboard-page/clients/clients.scss:src/app/juntadeangua/pages/dashboard-page/clients/clients.component.css --load-path=assets/scss
+
+@use "../../../../../assets/scss/vars/colors" as colors;
+
+.subtitle {
+  text-align: center;
+  font-weight: bold;
+}
+
+.contenedor-filtros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0px;
+  }
+}
+
+.contenedor-filtros {
+  .title {
+    font-weight: bold;
+    padding-bottom: 5px;
+  }
+}
+
+.contenedor-grafica {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+
+  .contenedor-datos {
+    display: grid;
+
+    .chart-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .pagination-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      div {
+        display: flex;
+      }
+    }
+
+    .contenedor-grafico {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+
+}

@@ -1,0 +1,90 @@
+<hr>
+<br>
+<h2 class="subtitle">MEDIDORES</h2>
+<hr>
+<br>
+<section class="contenedor-filtros">
+  <div>
+    <h4 class="title">Filtrar por Estado:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault1" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let estado of estados" [value]="estado.idEstado">{{ estado.Estado }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="title">Filtrar por Cantidad:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault2" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let cantidad of cantidades" [value]="cantidad">{{ cantidad }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="title">Filtrar por Lote:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault3" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let lote of lotes" [value]="lote">{{ lote }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h4 class="title">Filtrar por Manzana:</h4>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Rango</mat-label>
+      <mat-select [(ngModel)]="selectedDefault4" (ngModelChange)="updateChartData()">
+        <mat-option value="TODOS">TODOS</mat-option>
+        <mat-option *ngFor="let manzana of manzanas" [value]="manzana">{{ manzana }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</section>
+
+<hr>
+<section class="contenedor-grafica">
+  <div class="total_datos">
+    <h4>CLIENTES CON MEDIDORES: {{ totalItems }}</h4>
+  </div>
+
+  <div class="pagination-buttons">
+    <button mat-icon-button (click)="firstPage()" [disabled]="currentPage === 1">
+      <mat-icon>first_page</mat-icon>
+    </button>
+    <button mat-icon-button (click)="prevPage()" [disabled]="currentPage === 1">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button mat-icon-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+    <button mat-icon-button (click)="lastPage()" [disabled]="currentPage === totalPages">
+      <mat-icon>last_page</mat-icon>
+    </button>
+  </div>
+
+  <ngx-charts-bar-vertical
+  [view]="view"
+  scheme="forest"
+  [results]="chartData"
+  [gradient]="gradient"
+  [xAxis]="axisX"
+  [yAxis]="axisY"
+  [legend]="showLegend"
+  [showXAxisLabel]="showLabelsX"
+  [showYAxisLabel]="showLabelsY"
+  xAxisLabel="{{xAxisLabel}}"
+  yAxisLabel="{{yAxisLabel}}">
+</ngx-charts-bar-vertical>
+
+</section>
+<hr>

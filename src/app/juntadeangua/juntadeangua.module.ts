@@ -31,6 +31,13 @@ import { CustomerViewComponent } from './modals/customer-view/customer-view.comp
 import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
 import { NewPasswordComponent } from './modals/new-password/new-password.component';
 import { CalculateTotalAmountComponent } from './components/calculate-total-amount/calculate-total-amount.component';
+import { ClientsComponent } from './pages/dashboard-page/clients/clients.component';
+import { MeterComponent } from './pages/dashboard-page/meter/meter.component';
+import { UsersComponent } from './pages/dashboard-page/users/users.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { MeditionsComponent } from './pages/dashboard-page/meditions/meditions.component';
 
 
 @NgModule({
@@ -58,7 +65,11 @@ import { CalculateTotalAmountComponent } from './components/calculate-total-amou
     CustomerViewComponent,
     EditMeasureComponent,
     NewPasswordComponent,
-    CalculateTotalAmountComponent
+    CalculateTotalAmountComponent,
+    ClientsComponent,
+    MeterComponent,
+    UsersComponent,
+    MeditionsComponent
   ],
   imports: [
     CommonModule,
@@ -68,6 +79,7 @@ import { CalculateTotalAmountComponent } from './components/calculate-total-amou
     FormsModule,
     ReactiveFormsModule,
     NgxExtendedPdfViewerModule,
+    NgxChartsModule,
   ],
   exports: [QrgeneratorRoutingModule],
 })

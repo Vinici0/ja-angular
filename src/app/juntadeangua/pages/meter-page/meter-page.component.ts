@@ -34,7 +34,7 @@ export class MeterPageComponent implements OnInit {
   constructor(
     private meterService: MeterService,
     public dialogView: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getMeters();

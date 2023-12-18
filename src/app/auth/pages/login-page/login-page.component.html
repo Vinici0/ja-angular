@@ -1,29 +1,24 @@
-<mat-card >
-  <img
-    mat-card-image
-    src="assets/juntosporelagua.png"
-    alt="Photo of a Shiba Inu"
-    class="w-1/2 mx-auto"
-  />
+<mat-card class="contenedor p-10">
+  <img mat-card-image src="assets/img/logos/logo_horizontal.png" alt="Photo of a Shiba Inu" class="mx-auto" />
   <mat-card-header class="flex flex-col items-center justify-center mb-4">
     <!-- <div mat-card-avatar></div> -->
-    <mat-card-title>Iniciar sesión</mat-card-title>
+    <mat-card-title class="title">Iniciar Sesión</mat-card-title>
     <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
   </mat-card-header>
-  <mat-card-content >
-    <form [formGroup]="myForm" (ngSubmit)="onLogin()"  class="flex flex-col items-center justify-center" class="w-full" >
+  <mat-card-content>
+    <form [formGroup]="myForm" (ngSubmit)="onLogin()" class="flex flex-col items-center justify-center" class="w-full">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Email</mat-label>
-        <mat-icon matPrefix>email</mat-icon>
-        <input matInput placeholder="Email"   formControlName="email"/>
+        <mat-icon matPrefix class="icon">email</mat-icon>
+        <input matInput placeholder="Email" formControlName="email" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Contraseña</mat-label>
-        <mat-icon matPrefix>lock</mat-icon>
-        <input matInput placeholder="Contraseña" formControlName="password" type="password"/>
+        <mat-icon matPrefix class="icon">lock</mat-icon>
+        <input matInput placeholder="Contraseña" formControlName="password" type="password" />
       </mat-form-field>
-      <button mat-raised-button color="primary" class="w-full">
-        Iniciar sesión
+      <button mat-raised-button color="primary" class="btn-inicio w-full">
+        Ingresar
       </button>
     </form>
   </mat-card-content>

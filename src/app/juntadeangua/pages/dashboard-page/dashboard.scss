@@ -1,0 +1,231 @@
+//sass --watch src/app/juntadeangua/pages/dashboard-page/dashboard.scss:src/app/juntadeangua/pages/dashboard-page/dashboard.component.css --load-path=assets/scss
+
+@use "../../../../assets/scss/vars/colors" as colors;
+
+.contenedor {
+  display: grid;
+  gap: 15px;
+}
+
+.content-cards {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+
+  .card {
+    display: flex;
+    gap: 10px;
+    border-radius: 3px;
+    padding: 20px;
+    color: colors.$white;
+    align-items: center;
+    box-shadow: 3px 3px 15px rgba(colors.$black, 0.5);
+
+    .icon-card {
+      img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    .text-card {
+      display: grid;
+      gap: 15px;
+      width: 70%;
+
+      .title,
+      .value {
+        font-size: 25px;
+        text-align: center;
+
+        @media (max-width: 1280px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 1024px) {
+          font-size: 20px;
+        }
+
+        @media (max-width: 630px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 20px;
+        }
+
+        @media (max-width: 360px) {
+          font-size: 15px;
+        }
+      }
+
+      .title {
+        font-weight: bold;
+        line-height: 1.2;
+      }
+    }
+  }
+
+  .card-customer {
+    background-color: colors.$customer;
+
+    &:hover {
+      background-color: darken(colors.$customer, 5%);
+    }
+  }
+
+  .card-meter {
+    background-color: colors.$meter;
+
+    &:hover {
+      background-color: darken(colors.$meter, 5%);
+    }
+  }
+
+  .card-fine {
+    background-color: colors.$meter-repair;
+
+    &:hover {
+      background-color: darken(colors.$meter-repair, 5%);
+    }
+  }
+
+  .card-user {
+    background-color: colors.$user;
+
+    &:hover {
+      background-color: darken(colors.$user, 5%);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.content-totales {
+  display: grid;
+  padding: 15px 0px;
+
+  .title-general {
+    text-align: center;
+    h1 {
+      font-weight: bold;
+    }
+
+    .filter-title {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .content-filtro {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(4, 1fr);
+
+      @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  .cards {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      display: grid;
+      gap: 10px;
+      border-radius: 3px;
+      padding: 20px;
+      color: colors.$white;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      box-shadow: inset 3px 3px 15px rgba(colors.$black, 0.5);
+    }
+
+    .icon-card {
+      display: grid;
+      justify-content: center;
+      width: 50px;
+    }
+
+    .text-card {
+      display: grid;
+      gap: 5px;
+      text-align: center;
+
+      .title {
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .subtitle {
+        text-align: left;
+        font-size: 10px;
+      }
+
+      .value {
+        font-size: 18px;
+      }
+
+      .totales {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .totales2 {
+        .subtitle {
+          text-align: center;
+        }
+      }
+    }
+
+    .contenedor_card2 {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-money {
+      background-color: colors.$money;
+    }
+
+    .card-water {
+      background-color: colors.$water;
+    }
+
+    .card-sewer {
+      background-color: colors.$sewer;
+    }
+
+    .card-totalReal {
+      background-color: colors.$totalReal;
+    }
+
+    .card-exedente {
+      background-color: colors.$exedente;
+    }
+
+  }
+}
