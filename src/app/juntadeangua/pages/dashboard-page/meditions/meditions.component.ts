@@ -49,6 +49,11 @@ export class MeditionsComponent implements OnInit {
     }
   }
 
+  //PAginacion
+  pageSize: number = 10; // Número de elementos por página
+  currentPage: number = 1;
+  totalPages: number;
+
   constructor(private dashboardService: DashboardService, private zone: NgZone) {
     this.selectedDefault1 = 'TODOS';
     this.selectedDefault2 = 'TODOS';
@@ -67,11 +72,17 @@ export class MeditionsComponent implements OnInit {
 
     this.dashboardService.getDataFiltradaMultas(multa, estado).subscribe(
       (resp: any) => {
-        // Procesa los datos y asigna a chartData
-        this.chartData = resp.data.map((item: MultaData) => ({
+        const data = resp.data.map((item: MultaData) => ({
           name: item.Nombre,
           value: item.TotalCost
         }));
+
+        this.totalPages = Math.ceil(data.length / this.pageSize);
+
+        // Obtén solo los elementos de la página actual
+        const startIndex = (this.currentPage - 1) * this.pageSize;
+        const endIndex = startIndex + this.pageSize;
+        this.chartData = data.slice(startIndex, endIndex);
       },
       (error) => {
         console.error('Error en getDataFiltradaMultas:', error);
@@ -120,6 +131,33 @@ export class MeditionsComponent implements OnInit {
 
   onDeactivate(data: any): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  }
+
+
+
+
+  firstPage() {
+    this.currentPage = 1;
+    this.updateChartData();
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateChartData();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateChartData();
+    }
+  }
+
+  lastPage() {
+    this.currentPage = this.totalPages;
+    this.updateChartData();
   }
 
 }

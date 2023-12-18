@@ -20,4 +20,13 @@
   }
 }
 
+.pagination-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination-buttons div {
+  display: flex;
+}
+
 /*# sourceMappingURL=meditions.component.css.map */

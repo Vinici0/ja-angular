@@ -45,4 +45,20 @@
       (deactivate)="onDeactivate($event)">
     </ngx-charts-pie-chart>
   </div>
+  
+  <div class="pagination-buttons">
+    <button mat-icon-button (click)="firstPage()" [disabled]="currentPage === 1">
+      <mat-icon>first_page</mat-icon>
+    </button>
+    <button mat-icon-button (click)="prevPage()" [disabled]="currentPage === 1">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <div><span>{{ currentPage }} </span> <span> / </span> <span> {{ totalPages }}</span></div>
+    <button mat-icon-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+    <button mat-icon-button (click)="lastPage()" [disabled]="currentPage === totalPages">
+      <mat-icon>last_page</mat-icon>
+    </button>
+  </div>
 </section>
