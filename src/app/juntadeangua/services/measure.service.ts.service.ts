@@ -123,4 +123,6 @@ export class MeasureServiceTsService {
     const url = `${base_url}/measures/generaAndCalculo`;
     return this.http.post(url, data);
   }
+
+
 }

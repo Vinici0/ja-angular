@@ -18,10 +18,11 @@ import { MatSort } from '@angular/material/sort';
 export class FinePageComponent {
   displayedColumns: string[] = [
     'nombre',
-    'ruc',
+    'codigo',
+    'manzana',
+    'lote',
     'cantidadMultas',
-    'totalPagar',
-    'acciones',
+    "acciones"
   ];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -59,10 +60,9 @@ export class FinePageComponent {
   }
 
   loadFines() {
-    this.fineService.calculateTotalAmount().subscribe((data) => {
-      console.log('data', data);
+    this.fineService.getMeasureTotalFineByManzanaLote().subscribe((data) => {
 
-      this.fineDetails = data.data.calculateTotalAmount;
+      this.fineDetails = data;
       this.dataSource.data = this.fineDetails;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

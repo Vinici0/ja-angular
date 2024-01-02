@@ -36,24 +36,29 @@
             <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="ruc">
-            <th mat-header-cell *matHeaderCellDef>RUC</th>
-            <td mat-cell *matCellDef="let element">{{ element.ruc }}</td>
+          <ng-container matColumnDef="codigo">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Código</th>
+            <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="cantidadMultas">
-            <th mat-header-cell *matHeaderCellDef>Tipo de Multa</th>
+          <ng-container matColumnDef="manzana">
+            <th mat-header-cell *matHeaderCellDef>Manzana</th>
+            <td mat-cell *matCellDef="let element">{{ element.manzana }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lote">
+            <th mat-header-cell *matHeaderCellDef>Lote</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.cantidadMultas }}
+              {{ element.lote }}
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="totalPagar">
+          <ng-container matColumnDef="cantidadMultas">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>
-              Valor a Pagar
+              Total Multas
             </th>
             <td mat-cell *matCellDef="let element">
-              {{ element.totalPagar | currency }}
+              {{ element.cantidadMultas }}
             </td>
           </ng-container>
 
@@ -72,9 +77,6 @@
               >
                 <mat-icon>visibility</mat-icon>
               </button>
-
-
-
             </td>
           </ng-container>
 
@@ -88,7 +90,7 @@
           </tr>
         </table>
         <mat-paginator
-          [pageSizeOptions]="[5, 10, 20]"
+          [pageSizeOptions]="[5, 10, 20, 50, 100, 200]"
           showFirstLastButtons
           aria-label="Select page of periodic elements"
         >

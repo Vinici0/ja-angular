@@ -122,4 +122,17 @@ export class FineServiceDetails {
     );
   }
 
+  getMeasureTotalFineByManzanaLote(){
+    const url = `${base_url}/measures/getMeasureTotalFineByManzanaLote`;
+    return this.http.get<any>(url, this.headers).pipe(
+      map((resp) => {
+        const measure = resp.data.measure;
+        return measure;
+      }),
+      catchError((error) => {
+        return of([]);
+      })
+    );
+  }
+
 }
