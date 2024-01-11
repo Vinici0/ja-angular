@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { environment } from 'src/app/environments/environmen';
 import { FineReponse } from '../interfaces/fine.interface';
 import { FinesDetailsReponse } from '../interfaces/fineDetails.interface';
@@ -10,7 +10,7 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class FineServiceDetails {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -77,10 +77,30 @@ export class FineServiceDetails {
     );
   }
 
+
+
+
+  // No se usa ya
   updateFineDetail(id: any, data: any): Observable<any> {
     const url = `${base_url}/details/${id}`;
     return this.http.put<any>(url, data);
   }
+
+  updateFineDetailAbono(id_multaDetalle: any, id_cliente: any, abonoNumber: any): Observable<any> {
+    const url = `${base_url}/details/${id_multaDetalle}/abono`;
+    const body = { id_cliente, abonoNumber }; // Datos que se envían en el cuerpo de la solicitud
+
+    return this.http.put(url, body).pipe(
+      catchError(error => {
+        console.error('Error al enviar el abono', error);
+        return throwError(error); // Devolver el error recibido desde el servidor
+      })
+    );
+  }
+
+
+
+
 
   deleteFineDetail(id: string): Observable<any> {
     const url = `${base_url}/details/${id}`;
@@ -122,7 +142,7 @@ export class FineServiceDetails {
     );
   }
 
-  getMeasureTotalFineByManzanaLote(){
+  getMeasureTotalFineByManzanaLote() {
     const url = `${base_url}/measures/getMeasureTotalFineByManzanaLote`;
     return this.http.get<any>(url, this.headers).pipe(
       map((resp) => {

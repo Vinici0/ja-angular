@@ -113,10 +113,20 @@
 
                   <ng-container matColumnDef="valor_pagar">
                     <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                      Valor a Pagar
+                      Valor Pendiente
                     </th>
                     <td mat-cell *matCellDef="let element">
                       {{ element.valor_pagar | currency }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Abonos -->
+                  <ng-container matColumnDef="valor_abonado">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                      Valor abonado
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.total_abono | currency }}
                     </td>
                   </ng-container>
 

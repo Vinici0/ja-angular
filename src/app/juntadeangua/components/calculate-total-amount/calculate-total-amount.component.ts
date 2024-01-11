@@ -31,6 +31,7 @@ export class CalculateTotalAmountComponent {
   displayedColumns: string[] = [
     'typeFine',
     'valor_pagar',
+    'valor_abonado',
     'date_fine',
     'pagado',
     'acciones',
@@ -190,8 +191,7 @@ export class CalculateTotalAmountComponent {
   }
 
   togglePagado(element: any) {
-    this.fineService
-      .togglePaymentStatus(element.idMultaDetalle, element)
+    this.fineService.togglePaymentStatus(element.idMultaDetalle, element)
       .subscribe(
         (resp) => {
           element.pagado = !element.pagado;
@@ -204,6 +204,9 @@ export class CalculateTotalAmountComponent {
             icon: 'success',
             title: 'Se ha actualizado correctamente',
           });
+
+          // Vuelve a cargar los detalles de la multa después de la actualización
+          this.loadFineDetails();
         },
         (error) => {
           console.log(error);
@@ -219,6 +222,7 @@ export class CalculateTotalAmountComponent {
         }
       );
   }
+
 
   adjustDateToLocale(dateString: string) {
     const date = new Date(dateString);

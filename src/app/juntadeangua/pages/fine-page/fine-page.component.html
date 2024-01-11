@@ -4,13 +4,8 @@
 <div class="app-sidenav-content">
   <mat-card>
     <mat-card-title>
-      <button
-        mat-raised-button
-        color="primary"
-        class="mx-7 my-5"
-        [routerLink]="['/junta-de-angua/pages/addfine']"
-        [queryParams]="{ id: 0 }"
-      >
+      <button mat-raised-button color="primary" class="mx-7 my-5" [routerLink]="['/junta-de-angua/pages/addfine']"
+        [queryParams]="{ id: 0 }">
         <mat-icon mat-list-icon>add</mat-icon> Registrar Multa
       </button>
     </mat-card-title>
@@ -19,12 +14,7 @@
     <mat-card-content class="dashboard-card-content m-4">
       <mat-form-field appearance="fill" class="w-full">
         <mat-label>Filter</mat-label>
-        <input
-          matInput
-          (keyup)="applyFilter($event)"
-          placeholder="Ex. Mia"
-          #input
-        />
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
       </mat-form-field>
 
       <div class="mat-elevation-z2">
@@ -67,14 +57,10 @@
               Acciones
             </th>
             <td mat-cell *matCellDef="let element">
-              <button
-                mat-icon-button
-                color="primary"
-                [routerLink]="[
+              <button mat-icon-button color="primary" [routerLink]="[
                   '/junta-de-angua/pages/calculate-total-amount',
                   element.idCliente
-                ]"
-              >
+                ]">
                 <mat-icon>visibility</mat-icon>
               </button>
             </td>
@@ -89,11 +75,8 @@
             </td>
           </tr>
         </table>
-        <mat-paginator
-          [pageSizeOptions]="[5, 10, 20, 50, 100, 200]"
-          showFirstLastButtons
-          aria-label="Select page of periodic elements"
-        >
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 200]" showFirstLastButtons
+          aria-label="Select page of periodic elements">
         </mat-paginator>
       </div>
     </mat-card-content>

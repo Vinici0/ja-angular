@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
+import { Location } from '@angular/common';
 import { switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -22,6 +22,7 @@ import { FineServiceDetails } from '../../services/finesDetails.service';
 })
 export class FineeditPageComponent {
   fines: Fine[] = [];
+  pagar: number;
 
   dataSource = new MatTableDataSource([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,11 +32,12 @@ export class FineeditPageComponent {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private location: Location
+    ) { }
 
-  public myForm: FormGroup = this.fb.group({
-    lastNameAndName: ['', [Validators.required]],
+    public myForm: FormGroup = this.fb.group({
+      lastNameAndName: ['', [Validators.required]],
     ruc: ['', [Validators.required]],
     phone: [''],
     typeFine: ['', [Validators.required]],
@@ -46,6 +48,8 @@ export class FineeditPageComponent {
     id_multa: [''],
     valor_pagar: [''],
   });
+
+
 
   ngOnInit(): void {
     this.leadFines();
@@ -77,6 +81,9 @@ export class FineeditPageComponent {
           id_multa: fine.id_multa,
           valor_pagar: fine.valor_pagar,
         });
+
+        // Asigna el valor de pagar aquí después de haber cargado los datos
+        this.pagar = this.myForm.value.valor_pagar;
       });
   }
 
@@ -84,7 +91,7 @@ export class FineeditPageComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  applyFilter(event: Event) {}
+  applyFilter(event: Event) { }
 
   searchClient() {
     this.dialog
@@ -115,6 +122,8 @@ export class FineeditPageComponent {
       this.fines = fines;
     });
   }
+
+
   onSelectionChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
 
@@ -158,4 +167,74 @@ export class FineeditPageComponent {
       }
     );
   }
+
+
+
+
+  updateFineDetailAbono(abonoValue: string) {
+    // Convertir el valor a un número
+    const abonoNumber = parseFloat(abonoValue);
+
+    if (isNaN(abonoNumber)) {
+      // Manejar el caso en el que el valor no sea un número válido
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        width: 450,
+        timer: 2000,
+        title: 'El valor de abono no es un número válido',
+        icon: 'error',
+      });
+
+      console.error('El valor de abono no es un número válido');
+      return;
+    }
+
+    const id_multaDetalle = this.activatedRoute.snapshot.paramMap.get('id');
+    const id_cliente = this.myForm.value.id_cliente;
+
+    console.log(id_multaDetalle, id_cliente, abonoNumber);
+
+    // Llama al servicio para enviar los datos de abono
+    this.fineService.updateFineDetailAbono(id_multaDetalle, id_cliente, abonoNumber).subscribe(
+      (resp) => {
+        // Maneja la respuesta del servicio si es necesario
+        console.log('Abono enviado correctamente', resp);
+        // Puedes realizar acciones adicionales aquí
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          width: 450,
+          timer: 2000,
+          title: 'Abono enviado correctamente',
+          icon: 'success',
+        });
+
+        this.redirectToPreviousPage();
+      },
+      (err) => {
+        // Maneja los errores del servicio si es necesario
+        console.error('Error al enviar el abono', err);
+        // Puedes mostrar mensajes de error u otras acciones aquí
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          width: 450,
+          timer: 2000,
+          title: 'Error al enviar el abono',
+          icon: 'error',
+        });
+      }
+    );
+  }
+
+
+  redirectToPreviousPage() {
+    this.location.back();
+  }
 }
+
+

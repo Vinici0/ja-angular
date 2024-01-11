@@ -2,7 +2,7 @@
   color: #fff;
 }
 
-.bg-card{
+.bg-card {
   background-color: #3f51b5;
   color: #fff;
   font-size: 16;
@@ -11,12 +11,27 @@
 }
 
 
-.colorInput{
+.colorInput {
   color: #fff;
   background-color: #009688;
 }
 
-.colorButton{
+.colorButton {
   color: #fff;
   background-color: #009688;
+}
+
+.abonado {
+  margin: 0 350px;
+  border-radius: 10px;
+  border: 1px solid #858585;
+  padding: 10px;
+
+
+}
+
+@media (max-width: 1023px) {
+  .abonado {
+    margin: 0px;
+  }
 }
