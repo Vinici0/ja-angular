@@ -75,7 +75,7 @@ export class FineeditPageComponent {
           phone: fine.Telefono || '',
           typeFine: fine.typeFine,
           descripcion: fine.descripcion,
-          cost: fine.cost,
+          cost: fine.valor_pagar,
           date_fine: fine.date_fine,
           id_cliente: fine.id_cliente,
           id_multa: fine.id_multa,
