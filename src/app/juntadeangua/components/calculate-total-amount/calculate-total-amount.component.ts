@@ -68,7 +68,7 @@ export class CalculateTotalAmountComponent {
   }
 
   disableFormControls(): void {
-    this.myForm.controls['cost'].disable();
+    this.myForm.controls['cost'];
     this.myForm.controls['phone'].disable();
     this.myForm.controls['ruc'].disable();
     this.myForm.controls['lastNameAndName'].disable();

@@ -53,7 +53,7 @@ export class FineeditPageComponent {
 
   ngOnInit(): void {
     this.leadFines();
-    this.myForm.controls['cost'].disable();
+    this.myForm.controls['valor_pagar'];
     this.myForm.controls['phone'].disable();
     this.myForm.controls['ruc'].disable();
     this.myForm.controls['lastNameAndName'].disable();

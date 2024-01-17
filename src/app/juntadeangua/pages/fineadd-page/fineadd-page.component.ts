@@ -46,7 +46,7 @@ export class FineaddPageComponent {
   });
 
   ngOnInit(): void {
-    this.myForm.controls['cost'].disable();
+    this.myForm.controls['cost'];
     this.myForm.controls['date_fine'].setValue(new Date());
     this.leadFines();
   }
