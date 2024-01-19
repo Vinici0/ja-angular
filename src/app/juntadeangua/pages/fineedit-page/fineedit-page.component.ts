@@ -175,7 +175,7 @@ export class FineeditPageComponent {
     // Convertir el valor a un número
     const abonoNumber = parseFloat(abonoValue);
 
-    if (isNaN(abonoNumber)) {
+    if (isNaN(abonoNumber) || abonoNumber < 0 || abonoNumber > this.pagar) {
       // Manejar el caso en el que el valor no sea un número válido
       Swal.fire({
         toast: true,
@@ -183,11 +183,11 @@ export class FineeditPageComponent {
         showConfirmButton: false,
         width: 450,
         timer: 2000,
-        title: 'El valor de abono no es un número válido',
+        title: 'El valor de abono no es válido',
         icon: 'error',
       });
 
-      console.error('El valor de abono no es un número válido');
+      console.error('El valor de abono no es válido');
       return;
     }
 

@@ -120,8 +120,8 @@
                     <div>
                       <mat-form-field appearance="outline" class="w-full">
                         <mat-label>Valor abonado</mat-label>
-                        <input #abonoInput matInput autocomplete="off" class="w-full" type="number" min="0" step="0.01"
-                          placeholder="Valor a abonar" />
+                        <input #abonoInput matInput autocomplete="off" class="w-full" type="number" min="0"
+                          max="{{ pagar }}" step="0.01" placeholder="Valor a abonar" />
                       </mat-form-field>
                     </div>
                   </div>
