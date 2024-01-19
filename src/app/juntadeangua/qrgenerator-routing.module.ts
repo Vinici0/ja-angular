@@ -16,6 +16,7 @@ import { AddCustomerComponent } from './components/add-customer/add-customer.com
 import { AddMeasureComponent } from './components/add-measure/add-measure.component';
 import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
 import { CalculateTotalAmountComponent } from './components/calculate-total-amount/calculate-total-amount.component';
+import { ListAbonosComponent } from './components/list-abonos/list-abonos.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
       {
         path: 'pages/fineedit/:id',
         component: FineeditPageComponent,
+      },
+      {
+        path: 'pages/listabonos/:id',
+        component: ListAbonosComponent,
       },
       {
         path: 'pages/add-customer/:id',

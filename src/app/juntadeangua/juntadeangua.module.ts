@@ -38,6 +38,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { MeditionsComponent } from './pages/dashboard-page/meditions/meditions.component';
+import { ListAbonosComponent } from './components/list-abonos/list-abonos.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { MeditionsComponent } from './pages/dashboard-page/meditions/meditions.c
     ClientsComponent,
     MeterComponent,
     UsersComponent,
-    MeditionsComponent
+    MeditionsComponent,
+    ListAbonosComponent
   ],
   imports: [
     CommonModule,

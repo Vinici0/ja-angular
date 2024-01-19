@@ -98,10 +98,29 @@ export class FineServiceDetails {
     );
   }
 
+  getMultaDetalleAbono(id: string): Observable<any> {
+    const url = `${base_url}/details/abonos/${id}`;
+    return this.http.get<FinesDetailsReponse>(url, this.headers).pipe(
+      map((resp) => {
+        console.log('resp', resp);
+
+        const fines = resp.data.fineDetails;
+        return fines;
+      }),
+      catchError((error) => {
+        return of([]);
+      })
+    );
+  }
+
+  deleteFineDetailAbono(id: string): Observable<any> {
+    const url = `${base_url}/details/abonos/${id}`;
+    return this.http.delete<any>(url);
+  }
 
 
 
-
+  
   deleteFineDetail(id: string): Observable<any> {
     const url = `${base_url}/details/${id}`;
     return this.http.delete<any>(url);
