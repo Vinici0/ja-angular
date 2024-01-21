@@ -1,0 +1,140 @@
+<div class="flex justify-between items-center">
+  <h1 mat-dialog-title>Buscar Medidor</h1>
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<table
+matSort
+mat-table
+class="mat-elevation-z8"
+>
+<!-- [dataSource]="dataSource" -->
+<ng-container matColumnDef="Nombre">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Nombre</th>
+  <td mat-cell *matCellDef="let element">{{ element.Nombre }}</td>
+</ng-container>
+<ng-container matColumnDef="Codigo">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Código</th>
+  <td mat-cell *matCellDef="let element">{{ element.Codigo }}</td>
+</ng-container>
+<ng-container matColumnDef="Manzana">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Manzana</th>
+  <td mat-cell *matCellDef="let element">{{ element.Manzana }}</td>
+</ng-container>
+<ng-container matColumnDef="Lote">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Lote</th>
+  <td mat-cell *matCellDef="let element">{{ element.Lote }}</td>
+</ng-container>
+<ng-container matColumnDef="LecturaAnterior">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>
+    Lectura Anterior
+  </th>
+  <td mat-cell *matCellDef="let element">
+    {{ element.LecturaAnterior }}
+  </td>
+</ng-container>
+<ng-container matColumnDef="LecturaActual">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>
+    Lectura Actual
+  </th>
+  <td mat-cell *matCellDef="let element">
+    <!-- <label class="switch"> Lectura Actual</label> -->
+
+    <!-- [disabled]="element.Mes !== currentMonth || element.Anio !== currentYear" -->
+    <!-- <input
+      type="number"
+      (keydown.tab)="
+        updateLecturaActual(
+          element.Anio,
+          element.Mes,
+          element.LecturaAnterior,
+          element.LecturaActual,
+          element.idCliente,
+          element.Codigo,
+          element.Basico,
+          element.Acumulado,
+          element
+        )
+      "
+      class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-700 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+      id="exampleFormControlInputNumber"
+      [(ngModel)]="element.LecturaActual"
+      placeholder="Example label"
+    /> -->
+    <label
+      for="exampleFormControlInputNumber"
+      class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+    >
+    </label>
+  </td>
+</ng-container>
+<ng-container matColumnDef="Basico">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Básico</th>
+  <td mat-cell *matCellDef="let element">
+    {{ element.Basico | currency }}
+  </td>
+</ng-container>
+<!-- <ng-container matColumnDef="Pago">
+  <th mat-header-cell *matHeaderCellDef>Pago</th>
+  <td mat-cell *matCellDef="let element">{{ element.Pago }}</td>
+</ng-container> -->
+
+<ng-container matColumnDef="Excedente">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Excedente</th>
+  <td mat-cell *matCellDef="let element">{{ element.Excedente }}</td>
+</ng-container>
+
+<ng-container matColumnDef="Total">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Total</th>
+  <td mat-cell *matCellDef="let element">
+    {{ element.Total | currency }}
+  </td>
+</ng-container>
+<ng-container matColumnDef="Saldo">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Saldo</th>
+  <td mat-cell *matCellDef="let element">
+    {{ element.Saldo | currency }}
+  </td>
+</ng-container>
+<!-- acciones de editar, imprimir y eliminar -->
+<!-- <ng-container matColumnDef="Acumulado">
+  <th mat-sort-header mat-header-cell *matHeaderCellDef>Acumulado</th>
+  <td mat-cell *matCellDef="let element">
+    {{ element.Acumulado | currency }}
+  </td>
+</ng-container> -->
+
+<ng-container matColumnDef="acciones">
+  <th mat-header-cell *matHeaderCellDef class="text-center">
+    <div class="flex justify-center">Acciones</div>
+  </th>
+
+  <td *matCellDef="let element" class="flex justify-around">
+    <button
+      mat-icon-button
+      color="primary"
+      tabindex="-1"
+      >
+      <!-- (click)="editMeasure(element.idCliente, element.idMedida)" -->
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="accent"
+      tabindex="-1"
+      >
+      <!-- (click)="openDialogRegistroActual(element)" -->
+      <mat-icon>print</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" tabindex="-1"
+    >
+    <!-- (click)="deleteMeasure(element)" -->
+      <mat-icon>delete</mat-icon>
+    </button>
+  </td>
+</ng-container>
+<!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr> -->
+</table>

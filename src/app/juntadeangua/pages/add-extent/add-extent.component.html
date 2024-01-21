@@ -91,10 +91,6 @@
             </div>
           </button>
 
-
-
-
-
           <ng-template #elseBlock>
             <div class="wrapper center">
               <mat-spinner diameter="30"></mat-spinner>
@@ -111,7 +107,6 @@
           >
             <div class="flex items-center">
               <mat-icon>update</mat-icon>
-
             </div>
           </button>
 
@@ -252,9 +247,11 @@
             >
               <mat-icon>print</mat-icon>
             </button>
-            <!-- <button mat-icon-button color="warn" tabindex="-1">
+            <button mat-icon-button color="warn" tabindex="-1"
+              (click)="deleteMeasure(element)"
+            >
               <mat-icon>delete</mat-icon>
-            </button> -->
+            </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

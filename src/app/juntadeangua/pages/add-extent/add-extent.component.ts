@@ -98,7 +98,7 @@ export class AddExtentComponent implements OnInit {
     this.formGroup.controls['fechaFin'].setValue(
       this.months[this.selectedMonth - 1]
     );
-          this.getMeasures();
+    this.getMeasures();
     // debugger;
     // this.measureServiceTsService.generaAndCalculo().subscribe(
     //   (resp) => {
@@ -255,27 +255,72 @@ export class AddExtentComponent implements OnInit {
         this.dataSource.sort
       );
 
-      this.measureServiceTsService.imprimirConsumo(sortedData).subscribe(
-        (resp) => {
-          const blobUrl = window.URL.createObjectURL(resp);
-          this.pdfurl = blobUrl;
+      //Preguntar si getCodigosRepetidos es mayor a 0 que pregunte si desea imprimir sabidno que hay codigos repetidos
+      // this.measureServiceTsService.getCodigosRepetidos().subscribe(
+      //   (resp) => {
+      //     if (resp.data.measure.length > 0) {
+      Swal.fire({
+        title:
+          '¿Desea imprimir todos los registros sabiendo que hay códigos repetidos?',
+        text: 'Se imprimirán todos los registros',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Si, imprimir',
+        cancelButtonText: 'Ver códigos repetidos',
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.measureServiceTsService.imprimirConsumo(sortedData).subscribe(
+            (resp) => {
+              const blobUrl = window.URL.createObjectURL(resp);
+              this.pdfurl = blobUrl;
 
-          this.dialogView.open(PdfViewComponent, {
-            width: '750px',
-            height: '700px',
-            data: {
-              pdfurl: this.pdfurl,
+              this.dialogView.open(PdfViewComponent, {
+                width: '750px',
+                height: '700px',
+                data: {
+                  pdfurl: this.pdfurl,
+                },
+              });
+
+              this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
             },
-          });
-
-          this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
-        },
-        (error) => {
-          this.loadingPdf = false; // Establece como falso en caso de error
-          // Realiza el manejo de errores aquí si es necesario
+            (error) => {
+              this.loadingPdf = false; // Establece como falso en caso de error
+              // Realiza el manejo de errores aquí si es necesario
+            }
+          );
+        } else {
+          this.loadingPdf = false;
         }
-      );
+      });
+    } else {
+      // this.measureServiceTsService.imprimirConsumo(sortedData).subscribe(
+      //   (resp) => {
+      //     const blobUrl = window.URL.createObjectURL(resp);
+      //     this.pdfurl = blobUrl;
+      //     this.dialogView.open(PdfViewComponent, {
+      //       width: '750px',
+      //       height: '700px',
+      //       data: {
+      //         pdfurl: this.pdfurl,
+      //       },
+      //     });
+      //     this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
+      //   },
+      //   (error) => {
+      //     this.loadingPdf = false; // Establece como falso en caso de error
+      //     // Realiza el manejo de errores aquí si es necesario
+      //   }
+      // );
     }
+    // },
+    // (error) => {
+    //   console.log(error);
+    // }
+    // );
+    // }
   }
 
   // OpenDialog registro actual selectsionado
@@ -407,5 +452,50 @@ export class AddExtentComponent implements OnInit {
           }
         );
       });
+  }
+
+  deleteMeasure(element: any) {
+    console.log(element);
+
+    Swal.fire({
+      title: '¿Está seguro de eliminar la medida?',
+      text: 'No se podrá recuperar la medida',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'No, cancelar',
+      cancelButtonColor: '#d33',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.measureServiceTsService
+          .deleteMeasureAndCodigoAndManzanaAndLote(element)
+          .subscribe(
+            (resp) => {
+              Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                width: 450,
+                timer: 2000,
+                title: 'Se ha eliminado correctamente',
+                icon: 'success',
+              });
+              this.getMeasures();
+            },
+            (err) => {
+              Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                width: 450,
+                timer: 2000,
+                title: 'No se ha podido eliminar',
+                icon: 'error',
+              });
+            }
+          );
+      }
+    });
   }
 }

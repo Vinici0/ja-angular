@@ -12,7 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { JuntadeanguaModule } from './juntadeangua/juntadeangua.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,

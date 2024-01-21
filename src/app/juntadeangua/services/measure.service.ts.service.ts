@@ -124,5 +124,20 @@ export class MeasureServiceTsService {
     return this.http.post(url, data);
   }
 
+  /*
+  router.post("/deleteMeasureAndCodigoAndManzanaAndLote", deleteMeasureAndCodigoAndManzanaAndLote);
+  */
+
+  deleteMeasureAndCodigoAndManzanaAndLote(data: any): Observable<any> {
+    const url = `${base_url}/measures/deleteMeasureAndCodigoAndManzanaAndLote`;
+    return this.http.post<any>(url, data);
+  }
+
+  //Obtener Codigos repetidos
+  getCodigosRepetidos(): Observable<any> {
+    const url = `${base_url}/measures/codigosRepetidos`;
+    return this.http.get<any>(url);
+  }
+
 
 }
