@@ -1,0 +1,91 @@
+<div class="mx-5 mt-5">
+  <h1 class="text-xl font-semibold">Exportar a Excel</h1>
+  <p class="text-sm text-gray-500 mt-1">Aplica filtros antes de descargar</p>
+</div>
+
+<div mat-dialog-content class="mt-4">
+
+  <div *ngIf="loading" class="flex justify-center py-8">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+
+    <!-- Total disponible -->
+    <div class="flex items-center gap-2 mb-5 p-3 bg-blue-50 rounded-lg">
+      <mat-icon style="color: #1976d2">people</mat-icon>
+      <span class="text-sm">
+        Total en base: <strong>{{ allClients.length }}</strong> clientes
+      </span>
+    </div>
+
+    <!-- Filtros -->
+    <div class="flex flex-col gap-3 mb-4">
+
+      <div class="flex items-center justify-between p-3 border rounded-lg">
+        <div>
+          <p class="font-medium text-sm">Solo con Email registrado</p>
+          <p class="text-xs text-gray-400">Excluye clientes sin correo electrónico</p>
+        </div>
+        <mat-checkbox
+          [(ngModel)]="soloConEmail"
+          (ngModelChange)="onToggleConEmail()"
+          color="primary"
+        ></mat-checkbox>
+      </div>
+
+      <div class="flex items-center justify-between p-3 border rounded-lg">
+        <div>
+          <p class="font-medium text-sm">Solo sin Email registrado</p>
+          <p class="text-xs text-gray-400">Solo clientes que no tienen correo electrónico</p>
+        </div>
+        <mat-checkbox
+          [(ngModel)]="soloSinEmail"
+          (ngModelChange)="onToggleSinEmail()"
+          color="warn"
+        ></mat-checkbox>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Filtrar por Manzana (opcional)</mat-label>
+        <input
+          matInput
+          [(ngModel)]="manzanaFilter"
+          placeholder="Ej. A, B, C1..."
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+    </div>
+
+    <!-- Conteo en vivo -->
+    <div
+      class="flex items-center gap-2 p-3 rounded-lg"
+      [ngClass]="filteredClients.length > 0 ? 'bg-green-50' : 'bg-red-50'"
+    >
+      <mat-icon [style.color]="filteredClients.length > 0 ? '#388e3c' : '#d32f2f'">
+        {{ filteredClients.length > 0 ? 'check_circle' : 'warning' }}
+      </mat-icon>
+      <span class="text-sm">
+        Se exportarán <strong>{{ filteredClients.length }}</strong> registros
+      </span>
+    </div>
+
+  </div>
+</div>
+
+<div mat-dialog-actions class="px-5 pb-4 gap-2">
+  <button mat-button type="button" (click)="onCancel()">
+    Cancelar
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    [disabled]="loading || filteredClients.length === 0"
+    (click)="onExport()"
+  >
+    <mat-icon>download</mat-icon>
+    Descargar ({{ filteredClients.length }})
+  </button>
+</div>

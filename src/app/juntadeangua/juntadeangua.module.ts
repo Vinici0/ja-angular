@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { MeditionsComponent } from './pages/dashboard-page/meditions/meditions.component';
 import { DialogRepeatedCodesComponent } from './modals/dialog-repeated-codes/dialog-repeated-codes.component';
+import { DialogExportExcelComponent } from './modals/dialog-export-excel/dialog-export-excel.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { DialogRepeatedCodesComponent } from './modals/dialog-repeated-codes/dia
     MeterComponent,
     UsersComponent,
     MeditionsComponent,
-    DialogRepeatedCodesComponent
+    DialogRepeatedCodesComponent,
+    DialogExportExcelComponent,
   ],
   imports: [
     CommonModule,

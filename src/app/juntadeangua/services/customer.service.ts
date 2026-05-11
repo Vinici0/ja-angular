@@ -75,4 +75,11 @@ export class CustomerService {
     const url = `${base_url}/customers/${id}`;
     return this.http.put(url, data);
   }
+
+  getClientsPrintReport(): any {
+    const url = `${base_url}/customers/customers/print-report`;
+    return this.http.get<ClienteReponse>(url).pipe(
+      map((resp) => resp.data.clients)
+    );
+  }
 }

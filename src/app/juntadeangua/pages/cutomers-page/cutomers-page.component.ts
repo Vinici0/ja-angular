@@ -6,11 +6,13 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { DialogClienteComponent } from '../../modals/dialog-cliente/dialog-cliente.component';
+import { DialogExportExcelComponent } from '../../modals/dialog-export-excel/dialog-export-excel.component';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
 import { MatSort } from '@angular/material/sort';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-cutomers-page',
@@ -25,6 +27,7 @@ export class CutomersPageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns = [
+    'index',
     'Nombre',
     'Ruc',
     'Telefono',
@@ -81,74 +84,85 @@ export class CutomersPageComponent implements OnInit {
   }
 
   downloadPDF() {
-    const doc = new jsPDF();
-
-    // Define the columns for the PDF table
-    const columns = [
-      'Nombre',
-      'Ruc/C.I',
-      'Telefono',
-      'Email',
-      'Firma',
-    ];
-
-    // Get the data from the dataSource
-    let data = this.dataSource.filteredData.slice();
-
-    if (this.dataSource.sort) {
-      data = this.dataSource.sortData(
-        this.dataSource.filteredData.slice(),
-        this.dataSource.sort
-      );
-    }
-
-    // Map the data to a format compatible with autoTable
-    const rows: any[][] = data.map((d) => [
-      //Quitar espacio en blanco del nombre
-      d.Nombre.trim(),
-      d.Ruc.trim(),
-      d.Telefono ? d.Telefono.trim() : '',
-      d.Email ? d.Email.trim() : '',
-      '', // Placeholder for the signature field
-    ]);
-
-    // Set the font size
-    doc.setFontSize(11);
-
-    // Set the title of the PDF
-    doc.text('Clientes', 11, 8);
-
-
-    // Set the subtitle of the PDF
-    doc.setFontSize(8);
-    doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
-
-    // Create the table
-    autoTable(doc, {
-      columns,
-      body: rows,
-      startY: 14,
-      theme: 'grid',
-      headStyles: {
-        fillColor: '#ffffff',
-        textColor: '#000000',
-        fontSize: 10,
-      },
-      bodyStyles: {
-        fillColor: '#ffffff',
-        textColor: '#000000',
-        fontSize: 8,
-      },
-      alternateRowStyles: {
-        fillColor: '#f5f5f5',
-      },
+    const dialogRef = this.dialog.open(DialogExportExcelComponent, {
+      disableClose: true,
+      width: '480px',
     });
 
-    // Add a line for the signature
-    // doc.setLineWidth(0.5);
+    dialogRef.afterClosed().subscribe((clients: any[]) => {
+      if (!clients || clients.length === 0) return;
 
-    // Save or open the PDF
-    doc.save('clientes.pdf');
+      const doc = new jsPDF();
+      const columns = ['Nombre', 'Cédula/RUC', 'Email', 'Manzana', 'Lote', 'Firma'];
+
+      const rows: any[][] = clients.map((d) => [
+        d.Nombre?.trim() || '',
+        d.Ruc?.trim() || '',
+        d.Email?.trim() || '',
+        d.Manzana?.trim() || '',
+        d.Lote?.trim() || '',
+        '',
+      ]);
+
+      doc.setFontSize(11);
+      doc.text('Reporte de Clientes', 11, 8);
+      doc.setFontSize(8);
+      doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
+
+      autoTable(doc, {
+        columns,
+        body: rows,
+        startY: 14,
+        theme: 'grid',
+        headStyles: { fillColor: '#ffffff', textColor: '#000000', fontSize: 10 },
+        bodyStyles: { fillColor: '#ffffff', textColor: '#000000', fontSize: 8 },
+        alternateRowStyles: { fillColor: '#f5f5f5' },
+      });
+
+      doc.save('clientes.pdf');
+    });
+  }
+
+  get pageOffset(): number {
+    return this.paginatior ? this.paginatior.pageIndex * this.paginatior.pageSize : 0;
+  }
+
+  downloadExcel() {
+    const dialogRef = this.dialog.open(DialogExportExcelComponent, {
+      disableClose: true,
+      width: '480px',
+    });
+
+    dialogRef.afterClosed().subscribe((clients: any[]) => {
+      if (!clients || clients.length === 0) return;
+
+      const wsData = [
+        ['#', 'Nombre', 'Cédula/RUC', 'Email', 'Manzana', 'Lote'],
+        ...clients.map((c, i) => [
+          i + 1,
+          c.Nombre?.trim() || '',
+          c.Ruc?.trim() || '',
+          c.Email?.trim() || '',
+          c.Manzana?.trim() || '',
+          c.Lote?.trim() || '',
+        ]),
+      ];
+
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      ws['!cols'] = [
+        { wch: 5 },
+        { wch: 40 },
+        { wch: 15 },
+        { wch: 35 },
+        { wch: 12 },
+        { wch: 12 },
+      ];
+
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Clientes');
+      const fecha = new Date().toLocaleDateString('es-EC').replace(/\//g, '-');
+      XLSX.writeFile(wb, `clientes_${fecha}.xlsx`);
+    });
   }
 
   onFormSubmit() {}
