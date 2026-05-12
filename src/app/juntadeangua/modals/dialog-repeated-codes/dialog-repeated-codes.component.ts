@@ -7,8 +7,6 @@ import {
   MatTableDataSourcePaginator,
 } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MeasureServiceTsService } from '../../services/measure.service.ts.service';
 
 @Component({
   selector: 'app-dialog-repeated-codes',
@@ -16,28 +14,24 @@ import { MeasureServiceTsService } from '../../services/measure.service.ts.servi
   styleUrls: ['./dialog-repeated-codes.component.css'],
 })
 export class DialogRepeatedCodesComponent implements OnInit {
+  displayedColumns: string[] = [
+    'Nombre', 'Codigo', 'Manzana', 'Lote',
+    'LecturaAnterior', 'LecturaActual', 'Basico',
+    'Excedente', 'Total', 'Saldo',
+  ];
   dataSource!: MatTableDataSource<any, MatTableDataSourcePaginator>;
   @ViewChild(MatPaginator) paginatior!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private dialog: MatDialog,
     public dialogView: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<DialogRepeatedCodesComponent>,
-    private measureServiceTsService: MeasureServiceTsService
+    public dialogRef: MatDialogRef<DialogRepeatedCodesComponent>
   ) {}
 
-  ngOnInit(): void {}
-
-  getCodigosRepetidos() {
-    this.measureServiceTsService.getCodigosRepetidos().subscribe((resp) => {
-      this.dataSource = new MatTableDataSource(resp.data);
-      this.dataSource.paginator = this.paginatior;
-      this.dataSource.sort = this.sort;
-    });
-  }
-
-  deleteRepeatedCode(id: any) {
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.data.measures ?? []);
+    this.dataSource.paginator = this.paginatior;
+    this.dataSource.sort = this.sort;
   }
 }

@@ -133,9 +133,8 @@ export class MeasureServiceTsService {
     return this.http.post<any>(url, data);
   }
 
-  //Obtener Codigos repetidos
-  getCodigosRepetidos(): Observable<any> {
-    const url = `${base_url}/measures/codigosRepetidos`;
+  getCodigosRepetidos(mes: number, anio: number): Observable<any> {
+    const url = `${base_url}/measures/codigosRepetidos?Mes=${mes}&Anio=${anio}`;
     return this.http.get<any>(url);
   }
 

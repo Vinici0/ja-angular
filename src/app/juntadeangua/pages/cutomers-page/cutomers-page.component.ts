@@ -118,15 +118,15 @@ export class CutomersPageComponent implements OnInit {
       const rows: any[][] = clients.map((d, i) => [
         i + 1,
         d.Nombre?.trim() || '',
-        d.Ruc?.trim() || '',
-        d.Email?.trim() || '',
         d.Manzana?.trim() || '',
         d.Lote?.trim() || '',
+        d.Ruc?.trim() || '',
+        d.Email?.trim() || '',
         '',
       ]);
 
       autoTable(doc, {
-        head: [['#', 'Nombre', 'Cédula / RUC', 'Email', 'Mz.', 'Lote', 'Firma']],
+        head: [['#', 'Apellido y Nombre', 'Mz.', 'Lote', 'Cédula / RUC', 'Correo Electrónico', 'Firma']],
         body: rows,
         startY: 23,
         margin: { left: margin, right: margin },
@@ -148,12 +148,12 @@ export class CutomersPageComponent implements OnInit {
         },
         alternateRowStyles: { fillColor: [245, 247, 255] },
         columnStyles: {
-          0: { halign: 'center', cellWidth: 7 },
-          1: { cellWidth: 55 },
-          2: { halign: 'center', cellWidth: 25 },
-          3: { cellWidth: 55 },
-          4: { halign: 'center', cellWidth: 14 },
-          5: { halign: 'center', cellWidth: 14 },
+          0: { halign: 'center', cellWidth: 10 },
+          1: { cellWidth: 57 },
+          2: { halign: 'center', cellWidth: 14 },
+          3: { halign: 'center', cellWidth: 14 },
+          4: { halign: 'center', cellWidth: 25 },
+          5: { cellWidth: 50 },
           6: { cellWidth: 24 },
         },
         didDrawPage: (data) => {
@@ -188,14 +188,15 @@ export class CutomersPageComponent implements OnInit {
       if (!clients || clients.length === 0) return;
 
       const wsData = [
-        ['#', 'Nombre', 'Cédula/RUC', 'Email', 'Manzana', 'Lote'],
+        ['#', 'Apellido y Nombre', 'Manzana', 'Lote', 'Cédula / RUC', 'Correo Electrónico', 'Firma'],
         ...clients.map((c, i) => [
           i + 1,
           c.Nombre?.trim() || '',
-          c.Ruc?.trim() || '',
-          c.Email?.trim() || '',
           c.Manzana?.trim() || '',
           c.Lote?.trim() || '',
+          c.Ruc?.trim() || '',
+          c.Email?.trim() || '',
+          '',
         ]),
       ];
 
@@ -203,10 +204,11 @@ export class CutomersPageComponent implements OnInit {
       ws['!cols'] = [
         { wch: 5 },
         { wch: 40 },
+        { wch: 12 },
+        { wch: 10 },
         { wch: 15 },
         { wch: 35 },
-        { wch: 12 },
-        { wch: 12 },
+        { wch: 20 },
       ];
 
       const wb = XLSX.utils.book_new();

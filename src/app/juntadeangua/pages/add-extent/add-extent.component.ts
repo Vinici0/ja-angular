@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { Measure, Data } from '../../interfaces/measure.interface';
 import { MeasureServiceTsService } from '../../services/measure.service.ts.service';
 import { PdfViewComponent } from '../../modals/pdf-view/pdf-view.component';
+import { DialogRepeatedCodesComponent } from '../../modals/dialog-repeated-codes/dialog-repeated-codes.component';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { ConfigService } from 'src/app/maintenance/services/config.service';
@@ -247,80 +248,33 @@ export class AddExtentComponent implements OnInit {
   loadingPdf = false;
 
   openDialog() {
-    if (this.dataSource.sort) {
-      this.loadingPdf = true;
+    if (!this.dataSource.sort) return;
 
-      const sortedData = this.dataSource.sortData(
-        this.dataSource.filteredData.slice(),
-        this.dataSource.sort
-      );
+    this.loadingPdf = true;
+    const sortedData = this.dataSource.sortData(
+      this.dataSource.filteredData.slice(),
+      this.dataSource.sort
+    );
 
-      //Preguntar si getCodigosRepetidos es mayor a 0 que pregunte si desea imprimir sabidno que hay codigos repetidos
-      // this.measureServiceTsService.getCodigosRepetidos().subscribe(
-      //   (resp) => {
-      //     if (resp.data.measure.length > 0) {
-      Swal.fire({
-        title:
-          '¿Desea imprimir todos los registros sabiendo que hay códigos repetidos?',
-        text: 'Se imprimirán todos los registros',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Si, imprimir',
-        cancelButtonText: 'Ver códigos repetidos',
-        cancelButtonColor: '#d33',
-        confirmButtonColor: '#3085d6',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.measureServiceTsService.imprimirConsumo(sortedData).subscribe(
-            (resp) => {
-              const blobUrl = window.URL.createObjectURL(resp);
-              this.pdfurl = blobUrl;
+    this.imprimirPdf(sortedData);
+  }
 
-              this.dialogView.open(PdfViewComponent, {
-                width: '750px',
-                height: '700px',
-                data: {
-                  pdfurl: this.pdfurl,
-                },
-              });
-
-              this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
-            },
-            (error) => {
-              this.loadingPdf = false; // Establece como falso en caso de error
-              // Realiza el manejo de errores aquí si es necesario
-            }
-          );
-        } else {
-          this.loadingPdf = false;
-        }
-      });
-    } else {
-      // this.measureServiceTsService.imprimirConsumo(sortedData).subscribe(
-      //   (resp) => {
-      //     const blobUrl = window.URL.createObjectURL(resp);
-      //     this.pdfurl = blobUrl;
-      //     this.dialogView.open(PdfViewComponent, {
-      //       width: '750px',
-      //       height: '700px',
-      //       data: {
-      //         pdfurl: this.pdfurl,
-      //       },
-      //     });
-      //     this.loadingPdf = false; // Establece como falso cuando se ha cargado el PDF
-      //   },
-      //   (error) => {
-      //     this.loadingPdf = false; // Establece como falso en caso de error
-      //     // Realiza el manejo de errores aquí si es necesario
-      //   }
-      // );
-    }
-    // },
-    // (error) => {
-    //   console.log(error);
-    // }
-    // );
-    // }
+  private imprimirPdf(sortedData: any[]) {
+    this.measureServiceTsService.imprimirConsumo(sortedData).subscribe(
+      (resp) => {
+        const blobUrl = window.URL.createObjectURL(resp);
+        this.pdfurl = blobUrl;
+        this.dialogView.open(PdfViewComponent, {
+          width: '750px',
+          height: '700px',
+          data: { pdfurl: this.pdfurl },
+        });
+        this.loadingPdf = false;
+      },
+      () => {
+        this.loadingPdf = false;
+      }
+    );
   }
 
   // OpenDialog registro actual selectsionado
