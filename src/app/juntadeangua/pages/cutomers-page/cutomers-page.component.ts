@@ -92,10 +92,31 @@ export class CutomersPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((clients: any[]) => {
       if (!clients || clients.length === 0) return;
 
-      const doc = new jsPDF();
-      const columns = ['Nombre', 'Cédula/RUC', 'Email', 'Manzana', 'Lote', 'Firma'];
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const pageW = doc.internal.pageSize.getWidth();
+      const pageH = doc.internal.pageSize.getHeight();
+      const margin = 8;
+      const fecha = new Date().toLocaleString('es-EC');
 
-      const rows: any[][] = clients.map((d) => [
+      // — Encabezado —
+      doc.setFillColor(30, 64, 175);
+      doc.rect(margin, 6, pageW - margin * 2, 14, 'F');
+
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('REPORTE DE CLIENTES', margin + 4, 14);
+
+      doc.setFontSize(7.5);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Total: ${clients.length} registros`, margin + 4, 18);
+
+      doc.setFontSize(7.5);
+      doc.text(`Generado: ${fecha}`, pageW - margin - 4, 14, { align: 'right' });
+
+      // — Tabla —
+      const rows: any[][] = clients.map((d, i) => [
+        i + 1,
         d.Nombre?.trim() || '',
         d.Ruc?.trim() || '',
         d.Email?.trim() || '',
@@ -104,22 +125,52 @@ export class CutomersPageComponent implements OnInit {
         '',
       ]);
 
-      doc.setFontSize(11);
-      doc.text('Reporte de Clientes', 11, 8);
-      doc.setFontSize(8);
-      doc.text(`Fecha: ${new Date().toLocaleString()}`, 11, 12);
-
       autoTable(doc, {
-        columns,
+        head: [['#', 'Nombre', 'Cédula / RUC', 'Email', 'Mz.', 'Lote', 'Firma']],
         body: rows,
-        startY: 14,
+        startY: 23,
+        margin: { left: margin, right: margin },
         theme: 'grid',
-        headStyles: { fillColor: '#ffffff', textColor: '#000000', fontSize: 10 },
-        bodyStyles: { fillColor: '#ffffff', textColor: '#000000', fontSize: 8 },
-        alternateRowStyles: { fillColor: '#f5f5f5' },
+        styles: {
+          fontSize: 6.5,
+          cellPadding: 1.8,
+          overflow: 'linebreak',
+          valign: 'middle',
+          textColor: [30, 30, 30],
+        },
+        headStyles: {
+          fillColor: [30, 64, 175],
+          textColor: 255,
+          fontSize: 7,
+          fontStyle: 'bold',
+          halign: 'center',
+          cellPadding: 2.5,
+        },
+        alternateRowStyles: { fillColor: [245, 247, 255] },
+        columnStyles: {
+          0: { halign: 'center', cellWidth: 7 },
+          1: { cellWidth: 55 },
+          2: { halign: 'center', cellWidth: 25 },
+          3: { cellWidth: 55 },
+          4: { halign: 'center', cellWidth: 14 },
+          5: { halign: 'center', cellWidth: 14 },
+          6: { cellWidth: 24 },
+        },
+        didDrawPage: (data) => {
+          const total = (doc as any).getNumberOfPages();
+          doc.setFontSize(6);
+          doc.setTextColor(150);
+          doc.setFont('helvetica', 'normal');
+          doc.text(
+            `Página ${data.pageNumber} de ${total}`,
+            pageW / 2,
+            pageH - 4,
+            { align: 'center' }
+          );
+        },
       });
 
-      doc.save('clientes.pdf');
+      doc.save(`clientes_${new Date().toLocaleDateString('es-EC').replace(/\//g, '-')}.pdf`);
     });
   }
 
