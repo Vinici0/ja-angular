@@ -1,0 +1,45 @@
+.summary-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 18px;
+  min-width: 150px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  flex: 1;
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.summary-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+  margin-top: 2px;
+}
+
+.badge-multa {
+  display: inline-block;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 12px;
+  background: #fef3c7;
+  color: #b45309;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}

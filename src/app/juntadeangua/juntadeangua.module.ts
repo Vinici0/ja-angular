@@ -40,6 +40,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MeditionsComponent } from './pages/dashboard-page/meditions/meditions.component';
 import { DialogRepeatedCodesComponent } from './modals/dialog-repeated-codes/dialog-repeated-codes.component';
 import { DialogExportExcelComponent } from './modals/dialog-export-excel/dialog-export-excel.component';
+import { DebtorsPageComponent } from './pages/debtors-page/debtors-page.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { DialogExportExcelComponent } from './modals/dialog-export-excel/dialog-
     MeditionsComponent,
     DialogRepeatedCodesComponent,
     DialogExportExcelComponent,
+    DebtorsPageComponent,
   ],
   imports: [
     CommonModule,

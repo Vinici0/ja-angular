@@ -138,5 +138,13 @@ export class MeasureServiceTsService {
     return this.http.get<any>(url);
   }
 
+  getDebtorsReport(): Observable<any[]> {
+    const url = `${base_url}/measures/getDebtorsReport`;
+    return this.http.get<any>(url).pipe(
+      map((resp) => resp?.data?.debtors ?? []),
+      catchError((err) => of([]))
+    );
+  }
+
 
 }

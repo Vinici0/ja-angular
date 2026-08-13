@@ -16,6 +16,7 @@ import { AddCustomerComponent } from './components/add-customer/add-customer.com
 import { AddMeasureComponent } from './components/add-measure/add-measure.component';
 import { EditMeasureComponent } from './components/edit-measure/edit-measure.component';
 import { CalculateTotalAmountComponent } from './components/calculate-total-amount/calculate-total-amount.component';
+import { DebtorsPageComponent } from './pages/debtors-page/debtors-page.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
       {
         path: 'pages/fine',
         component: FinePageComponent,
+      },
+      {
+        path: 'pages/deudores',
+        component: DebtorsPageComponent,
       },
       {
         path: 'pages/addfine',
