@@ -99,4 +99,14 @@ export class ConfigService {
     const url = `${base_url}/measures/updateDatosAlcantarilladoConSaldoPositivo`;
     return this.http.put<any>(url, {});
   }
+
+  getExclusionesImpresion(): Observable<any> {
+    const url = `${base_url}/config/exclusiones`;
+    return this.http.get<any>(url);
+  }
+
+  saveExclusionesImpresion(exclusiones: { Manzana: string; Lote: string; Codigo: string }[]): Observable<any> {
+    const url = `${base_url}/config/exclusiones`;
+    return this.http.post<any>(url, { exclusiones });
+  }
 }

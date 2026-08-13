@@ -52,12 +52,15 @@ export class AddExtentComponent implements OnInit {
     'LecturaActual',
     'Basico',
     // 'Pago',
-    'Excedente',
+    // 'Excedente',
     'Total',
     'Saldo',
     // 'Acumulado',
     'acciones',
+    'excluir',
   ];
+
+  exclusiones: Set<string> = new Set();
 
   columnFilters: { [key: string]: string } = {};
 
@@ -93,12 +96,49 @@ export class AddExtentComponent implements OnInit {
   selectedMonth: number = new Date().getMonth() + 1;
   selectedYear: number = new Date().getFullYear();
 
+  private exclusionKey(element: any): string {
+    return `${element.Manzana?.trim()}|${element.Lote?.trim()}|${element.Codigo?.trim()}`;
+  }
+
+  isExcluded(element: any): boolean {
+    return this.exclusiones.has(this.exclusionKey(element));
+  }
+
+  toggleExclusion(element: any): void {
+    const key = this.exclusionKey(element);
+    if (this.exclusiones.has(key)) {
+      this.exclusiones.delete(key);
+    } else {
+      this.exclusiones.add(key);
+    }
+    this.persistExclusiones();
+  }
+
+  private persistExclusiones(): void {
+    const lista = Array.from(this.exclusiones).map((key) => {
+      const [Manzana, Lote, Codigo] = key.split('|');
+      return { Manzana, Lote, Codigo };
+    });
+    this.configService.saveExclusionesImpresion(lista).subscribe();
+  }
+
+  private loadExclusiones(): void {
+    this.configService.getExclusionesImpresion().subscribe((resp: any) => {
+      if (resp?.exclusiones) {
+        this.exclusiones = new Set(
+          resp.exclusiones.map((e: any) => `${e.Manzana}|${e.Lote}|${e.Codigo}`)
+        );
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.isgeneraAndCalculo = false;
     this.formGroup.controls['year'].setValue(this.selectedYear);
     this.formGroup.controls['fechaFin'].setValue(
       this.months[this.selectedMonth - 1]
     );
+    this.loadExclusiones();
     this.getMeasures();
     // debugger;
     // this.measureServiceTsService.generaAndCalculo().subscribe(
@@ -251,10 +291,9 @@ export class AddExtentComponent implements OnInit {
     if (!this.dataSource.sort) return;
 
     this.loadingPdf = true;
-    const sortedData = this.dataSource.sortData(
-      this.dataSource.filteredData.slice(),
-      this.dataSource.sort
-    );
+    const sortedData = this.dataSource
+      .sortData(this.dataSource.filteredData.slice(), this.dataSource.sort)
+      .filter((element) => !this.isExcluded(element));
 
     this.imprimirPdf(sortedData);
   }
