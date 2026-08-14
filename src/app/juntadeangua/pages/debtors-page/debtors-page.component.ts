@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -29,13 +35,20 @@ type TipoDeuda = 'deudores' | 'agua' | 'multas' | 'ambos' | 'aldia' | 'todos';
   templateUrl: './debtors-page.component.html',
   styleUrls: ['./debtors-page.component.css'],
 })
-export class DebtorsPageComponent implements OnInit {
+export class DebtorsPageComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Debtor>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   loading = false;
   allDebtors: Debtor[] = [];
+
+  // Totales del resultado filtrado (campos, no getters, para que se
+  // rendericen bien en el build de producción de Angular).
+  totalPersonas = 0;
+  totalDeudaAgua = 0;
+  totalDeudaMultas = 0;
+  totalGeneral = 0;
 
   // Estado de los filtros
   searchText = '';
@@ -56,10 +69,19 @@ export class DebtorsPageComponent implements OnInit {
     'totalDeuda',
   ];
 
-  constructor(private measureService: MeasureServiceTsService) {}
+  constructor(
+    private measureService: MeasureServiceTsService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadDebtors();
+  }
+
+  ngAfterViewInit(): void {
+    // El paginador y el sort deben enlazarse cuando la vista ya existe.
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   loadDebtors(): void {
@@ -84,6 +106,9 @@ export class DebtorsPageComponent implements OnInit {
 
       this.applyFilters();
       this.loading = false;
+      // Fuerza el refresco de tarjetas/paginador tras la respuesta async
+      // (necesario en el build de producción de Angular).
+      this.cd.detectChanges();
     });
   }
 
@@ -144,9 +169,13 @@ export class DebtorsPageComponent implements OnInit {
     });
 
     this.dataSource.data = filtered;
-    if (this.paginator) this.dataSource.paginator = this.paginator;
-    if (this.sort) this.dataSource.sort = this.sort;
     if (this.paginator) this.paginator.firstPage();
+
+    // Recalcular totales del resultado filtrado
+    this.totalPersonas = filtered.length;
+    this.totalDeudaAgua = filtered.reduce((s, d) => s + d.deudaAgua, 0);
+    this.totalDeudaMultas = filtered.reduce((s, d) => s + d.deudaMultas, 0);
+    this.totalGeneral = filtered.reduce((s, d) => s + d.totalDeuda, 0);
   }
 
   onSearch(event: Event): void {
@@ -165,20 +194,6 @@ export class DebtorsPageComponent implements OnInit {
     return this.paginator
       ? this.paginator.pageIndex * this.paginator.pageSize
       : 0;
-  }
-
-  // ---- Totales del resultado filtrado (para las tarjetas y el pie del PDF) ----
-  get totalPersonas(): number {
-    return this.dataSource.data.length;
-  }
-  get totalDeudaAgua(): number {
-    return this.dataSource.data.reduce((s, d) => s + d.deudaAgua, 0);
-  }
-  get totalDeudaMultas(): number {
-    return this.dataSource.data.reduce((s, d) => s + d.deudaMultas, 0);
-  }
-  get totalGeneral(): number {
-    return this.dataSource.data.reduce((s, d) => s + d.totalDeuda, 0);
   }
 
   private money(n: number): string {
